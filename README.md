@@ -3,6 +3,8 @@ Statistical plotting GUI app. ***Minimal/no coding required to use.***
 
 This is an attempt to create a working GUI app that creates selected scientific plots for user's datasets and user-defined custom options. Simply need to click to select the file that needs to plot, select options such as size and colour, and a plot will be created. The process can be repeated until a satisfactory plot is created, and the PNG image can be saved as desired.
 
+Example sample.csv and sample.xlsx files are provided in the examples folder. An example of the sample_heatmap.png is also provided. A sample screenshot of the GUI is shown below:
+
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
 This GUI is coded in pure Julia. Only source scripts are uploaded at this point in time. In the near future, the Julia executable will be bundled with all its dependencies to create a Mac OS X app, possibly also adding options for Windows/Linux distributions.
@@ -21,7 +23,7 @@ A fully self-contained Mac OS easy_plotting.app for heatmap will be released soo
   4. Type `chmod u+rwx ./*`  ## This upgrades file permissions for all files in this directory to 'read+write+execute'.
   5. Type `./Initiate_without_PyJulia`  ## This step may take about 30 min. Admin password will be requested at the beginning.
   6. Type `julia`  ## Runs Julia within terminal.
-  7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script.
+  7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow the first time.
   
 Now the GUI should run smoothly. At the moment, the GUI can only be used to plot once. To plot again, kindly go back to Julia and type `include("main_code.jl")` again (or simply press the up arrow shortcut to type the last command). In future updates, multiple plots may be able to plotted at once.
 
@@ -29,7 +31,7 @@ Now the GUI should run smoothly. At the moment, the GUI can only be used to plot
 
   1. Type `julia`  ## Runs Julia within terminal.
   2. Type `include("Julia_Lib_install.jl")`  ## Installed required libraries and their dependencies. Also adds plotting environment for Python-based plotting packages.
-  3. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script.
+  3. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow the first time.
   
 ***Future work:***
   1. Build fully functional, standalone Mac OS app.
