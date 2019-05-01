@@ -5,6 +5,8 @@ This is an attempt to create a working GUI app that creates selected scientific 
 
 Example sample.csv and sample.xlsx files are provided in the examples folder. An example of the sample_heatmap.png and a sample screenshot of the GUI is also provided in the examples folder. The GUI screenshot is also shown below:
 
+![Alt text](/examples/GUI_Screenshot.png?raw=true "Heatmap Plotting")
+
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
 This GUI is coded in pure Julia. Only source scripts are uploaded at this point in time. In the near future, the Julia executable will be bundled with all its dependencies to create a Mac OS X app, possibly also adding options for Windows/Linux distributions.
