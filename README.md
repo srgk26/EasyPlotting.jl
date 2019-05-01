@@ -25,7 +25,7 @@ A fully self-contained Mac OS easy_plotting.app for heatmap will be released soo
   4. Type `chmod u+rwx ./*`  ## This upgrades file permissions for all files in this directory to 'read+write+execute'.
   5. Type `./Initiate_without_PyJulia`  ## This step may take about 30 min. Admin password may be requested at the beginning.
   6. Type `julia`  ## Runs Julia within terminal.
-  7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow the first time.
+  7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
   
 Now the GUI should run smoothly. At the moment, the GUI can only be used to plot once. To plot again, kindly go back to Julia and type `include("main_code.jl")` again (or simply press the up arrow shortcut to type the last command). In future updates, multiple plots may be able to plotted at once.
 
@@ -33,7 +33,7 @@ Now the GUI should run smoothly. At the moment, the GUI can only be used to plot
 
   1. Type `julia`  ## Runs Julia within terminal.
   2. Type `include("Julia_Lib_install.jl")`  ## Installed required libraries and their dependencies. Also adds plotting environment for Python-based plotting packages.
-  3. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow the first time.
+  3. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
   
 ***Future work:***
   1. Build fully functional, standalone Mac OS app.
