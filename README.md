@@ -13,7 +13,7 @@ This GUI is coded in pure Julia. Only source scripts are uploaded at this point 
 
 If anyone would be willing to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue.
 
-**Instructions**
+**Instructions:**
 
 A fully self-contained Mac OS easy_plotting.app for heatmap will be released soon in a future update. In the meantime, the main source code is uploaded into the src/Heatmap_scripts folder. The following is a step-by-setp guide to execute these source scripts to get the GUI running.
 
