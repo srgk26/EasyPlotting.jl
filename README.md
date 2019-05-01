@@ -19,7 +19,7 @@ A fully self-contained Mac OS easy_plotting.app for heatmap will be released soo
   2. Type `git clone https://github.com/srgk26/easy_plotting.app.git` --> press 'enter'
   3. Type `cd easy_plotting.app/src/Heatmap_scripts/`  ## This changes to the folder directory where heatmap scripts are stored. (type 'ls' to list all files within this directory)
   4. Type `chmod u+rwx ./*`  ## This upgrades file permissions for all files in this directory to 'read+write+execute'
-  5. Type `./Initiate_without_PyJulia`  ## This step may take about 30 min. Admin password will be requested at the start.
+  5. Type `./Initiate_without_PyJulia`  ## This step may take about 30 min. Admin password will be requested at the beginning.
   6. Type `julia`  ## Runs Julia within terminal
   7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script.
   
