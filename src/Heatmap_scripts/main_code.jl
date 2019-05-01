@@ -51,21 +51,21 @@ function Plot(w, inputs)
             if inputs["clustering"][] == "both" ## For row+column clustering option
                 if inputs["size1"][]::String == "" ## If no user-input for plot size
                     if inputs["colours"][] == "Default" ## If no user-input for plot colours
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(6,7)) ## Seaborn Clustermap plotting
+                        clustermap(convert(Matrix, df), figsize=(6,7)) ## Seaborn Clustermap plotting
                         Fig() ## Call Fig() function defined above
                         return true ## Returns true value, thereby stopping while loop that keeps the process running
                     else ## If plot colours is defined by user
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else ## If plot size is defined by user
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -73,21 +73,21 @@ function Plot(w, inputs)
             elseif inputs["clustering"][] == "row" ## For row clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(6,7))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -95,21 +95,21 @@ function Plot(w, inputs)
             elseif inputs["clustering"][] == "column" ## For column clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(6,7))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -117,21 +117,21 @@ function Plot(w, inputs)
             else ## For no clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(6,7))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -142,72 +142,6 @@ function Plot(w, inputs)
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(6,7))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                else
-                    if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                end
-            elseif inputs["clustering"][] == "row"
-                if inputs["size1"][]::String == ""
-                    if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(6,7))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                else
-                    if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                end
-            elseif inputs["clustering"][] == "column"
-                if inputs["size1"][]::String == ""
-                    if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(6,7))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                else
-                    if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                end
-            else
-                if inputs["size1"][]::String == ""
-                    if inputs["colours"][] == "Default"
                         clustermap(convert(Matrix, df), figsize=(6,7))
                         Fig()
                         return true
@@ -227,49 +161,24 @@ function Plot(w, inputs)
                         return true
                     end
                 end
-            end
-        elseif (inputs["file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-            df = DataFrame(readdlm(inputs["file"][]::String))
-            if inputs["clustering"][] == "both"
-                if inputs["size1"][]::String == ""
-                    if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(6,7))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                else
-                    if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
-                        Fig()
-                        return true
-                    else
-                        clustermap(convert(Matrix, df), row_cluster=true, col_cluster=true, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
-                        Fig()
-                        return true
-                    end
-                end
             elseif inputs["clustering"][] == "row"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(6,7))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=true, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=true, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -277,26 +186,51 @@ function Plot(w, inputs)
             elseif inputs["clustering"][] == "column"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(6,7))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=true, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=true, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=true, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 end
             else
+                if inputs["size1"][]::String == ""
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                else
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                end
+            end
+        elseif (inputs["file"][]::String)[end-2:end] == "txt" ## If input file is .txt
+            df = DataFrame(readdlm(inputs["file"][]::String))
+            if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
                         clustermap(convert(Matrix, df), figsize=(6,7))
@@ -314,6 +248,72 @@ function Plot(w, inputs)
                         return true
                     else
                         clustermap(convert(Matrix, df), (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                end
+            elseif inputs["clustering"][] == "row"
+                if inputs["size1"][]::String == ""
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                else
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                end
+            elseif inputs["clustering"][] == "column"
+                if inputs["size1"][]::String == ""
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                else
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                end
+            else
+                if inputs["size1"][]::String == ""
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Fig()
+                        return true
+                    end
+                else
+                    if inputs["colours"][] == "Default"
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        Fig()
+                        return true
+                    else
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
