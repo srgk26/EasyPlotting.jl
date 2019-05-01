@@ -1,7 +1,7 @@
 # easy_plotting.app
 Statistical plotting GUI app. ***Minimal/no coding required to use.*** 
 
-This is an attempt to create a working GUI app that creates selected scientific plots for user's datasets and user-defined custom options.
+This is an attempt to create a working GUI app that creates selected scientific plots for user's datasets and user-defined custom options. Simply need to click to select the file that needs to plot, select options such as size and colour, and a plot will be created. The process can be repeated until a satisfactory plot is created, and the PNG image can be saved as desired.
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
