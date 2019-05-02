@@ -405,8 +405,7 @@ function events(w, inputs)
     end
 end
 
-events(w, inputs)
-
+## This is a method of message passing inference between javascript used in Blink and Julia
 handle(w, "press") do args...
   events(w, inputs)
 end
