@@ -4,7 +4,7 @@
 ##          julia> include("main_code.jl")
 
 ## OS software packages installation and setup
-if Sys.isapple()
+@static if Sys.isapple()
     ## Check Mac OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     
