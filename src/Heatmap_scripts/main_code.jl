@@ -122,10 +122,7 @@ end
 
 ## Main function code to plot heatmap, using user-defined input options
 function Plot(w, inputs)
-    if inputs["enter_button"][] == 0 ## Setting while loop criteria that allows process running continuously until true is returned
-        return false
-    elseif inputs["enter_button"][] > 0 ## Initiates processes when "enter_button" is pressed
-        if (inputs["file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
+    if (inputs["file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
             df = DataFrame(XLSX.readtable((inputs["file"][]::String), (inputs["sheet"][]::String))...) ## Convert dataset to dataframe
             if inputs["clustering"][] == "both" ## For row+column clustering option
                 if inputs["size1"][]::String == "" ## If no user-input for plot size
@@ -398,7 +395,7 @@ function Plot(w, inputs)
                     end
                 end
             end
-        end
+        end 
     end
 end
 
