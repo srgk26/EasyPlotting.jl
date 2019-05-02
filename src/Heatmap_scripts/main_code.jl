@@ -1,3 +1,69 @@
+## Check Mac OS system if required software dependencies are installed.
+## Install OS packages if not already installed.
+
+## Install brew if not already installed
+if in("brew", readdir("/usr/local/bin")) == false
+    run(`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`)
+end
+
+## Install python3 if not already installed
+if in("python3", readdir("/usr/local/bin")) == false
+    run(`brew install python3`)
+end
+
+## Install seaborn python3 package if not already installed
+if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+    run(`pip3 install seaborn`)
+end
+
+## Install julia if not already installed
+if in("julia", readdir("/usr/local/bin")) == false
+    run(`brew cask install julia`)
+end
+
+## Check Julia libraries if the following required libraries and dependencies are installed.
+## Install Julia packages if not already installed.
+
+using Pkg ## Loading the pkg manager of julia
+
+if haskey(Pkg.installed(), "BinDeps") == false
+    Pkg.add("BinDeps")
+end
+
+if haskey(Pkg.installed(), "Blink") == false
+    Pkg.add("Blink")
+end
+
+if haskey(Pkg.installed(), "Interact") == false
+    Pkg.add("Interact")
+end
+
+if haskey(Pkg.installed(), "DelimitedFiles") == false
+    Pkg.add("DelimitedFiles")
+end
+
+if haskey(Pkg.installed(), "CSV") == false
+    Pkg.add("CSV")
+end
+
+if haskey(Pkg.installed(), "XLSX") == false
+    Pkg.add("XLSX")
+end
+
+if haskey(Pkg.installed(), "DataFrames") == false
+    Pkg.add("DataFrames")
+end
+
+if haskey(Pkg.installed(), "Seaborn") == false
+    Pkg.add("Seaborn")
+end
+
+if haskey(Pkg.installed(), "Conda") == false
+    Pkg.add("Conda")
+end
+
+
+
 ## This script should be executed from within the Julia REPL.
 ## For some reason, blink window doesn't function properly if executed from command line $ julia ./easy_plotting.jl
 ## Instead, $ julia
