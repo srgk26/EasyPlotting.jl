@@ -9,13 +9,13 @@ Example sample.csv and sample.xlsx files are provided in the examples folder. An
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
-This GUI is coded in pure Julia. Only source scripts are uploaded at this point in time. In the near future, the Julia executable will be bundled with all its dependencies to create a Mac OS X app, possibly also adding options for Windows/Linux distributions.
+This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, and app bundles and executables are uploaded in the app folder. Currently, only Mac OS apps are provided (though welcome to use the Julia main_code.jl source code and execute from within the Julia REPL). In the near future, applications and executables will be supported for Windows/Linux distributions as well.
 
-If anyone would be willing to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue.
+If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, pls open an issue as well.
 
 **Instructions:**
 
-A fully self-contained Mac OS easy_plotting.app for heatmap will be released soon in a future update. In the meantime, the main source code is uploaded into the src/Heatmap_scripts folder. The following is a step-by-setp guide to execute these source scripts to get the GUI running.
+The following is a step-by-setp guide to execute the source scripts to get the GUI running from within the Julia REPL.
 
 *Steps 1: If you don't have any of Python3, Julia or seaborn(Python3) installed, please follow these steps (At the moment, much of these steps only apply to Mac OS X systems as the installation procedures vary for Windows/Linux OS. After Python3/Julia/seaborn installations by other means, the Julia main_code would still be compatible with your system though, regardless of OS - follow steps 2):*
 
