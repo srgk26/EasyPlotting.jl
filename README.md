@@ -13,6 +13,8 @@ This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, 
 
 If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, pls open an issue as well.
 
+Credits for developers of the Julia language and libraries. Special credits to `@Dustin Irwin` for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl.
+
 **Instructions:**
 
 The following is a step-by-setp guide to execute the source scripts to get the GUI running from within the Julia REPL.
@@ -23,7 +25,7 @@ The following is a step-by-setp guide to execute the source scripts to get the G
   2. Type `git clone https://github.com/srgk26/easy_plotting.app.git` --> press 'enter'
   3. Type `cd easy_plotting.app/src/Heatmap_scripts/`  ## This changes to the folder directory where heatmap scripts are stored. (type 'ls' to list all files within this directory)
   4. Type `chmod u+rwx ./*`  ## This upgrades file permissions for all files in this directory to 'read+write+execute'.
-  5. Type `./Initiate_without_PyJulia`  ## This step may take about 30 min. Admin password may be requested at the beginning.
+  5. Type `./Initiate_without_PyJulia_MacOS`  ## This step may take about 30 min. Admin password may be requested at the beginning.
   6. Type `julia`  ## Runs Julia within terminal.
   7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
   
@@ -32,10 +34,8 @@ Now the GUI should run smoothly. At the moment, the GUI can only be used to plot
 *Steps 2: If you have all of Python3, Julia and seaborn(Python3) installed, please follow these steps:*
 
   1. Type `julia`  ## Runs Julia within terminal.
-  2. Type `include("Julia_Lib_install.jl")`  ## Installed required libraries and their dependencies. Also adds plotting environment for Python-based plotting packages.
-  3. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
+  2. Type `include("main_code.jl")`  ## Installs software dependencies if need to. Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
   
 ***Future work:***
-  1. Build fully functional, standalone Mac OS app.
+  1. Build apps for Windows and Linux (local and HPC).
   2. Add other plotting functionalities and types.
-  3. Update script to allow for re-plotting without having to re-execute from command line.
