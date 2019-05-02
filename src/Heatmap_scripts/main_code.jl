@@ -79,7 +79,9 @@ end
 
 ## Adding pyqt matplotlib backend for compatibility with seaborn plots
 using Conda
-Conda.add("pyqt")
+if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends") == false
+    Conda.add("pyqt")
+end
 
 ## Main code for heatmap plotting GUI
 using Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
