@@ -1,24 +1,32 @@
-## Check Mac OS system if required software dependencies are installed.
-## Install OS packages if not already installed.
+## This script should be executed from within the Julia REPL.
+## For some reason, blink window doesn't function properly if executed from command line $ julia ./easy_plotting.jl
+## Instead, $ julia
+##          julia> include("main_code.jl")
 
-## Install brew if not already installed
-if in("brew", readdir("/usr/local/bin")) == false
-    run(`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`)
-end
+## OS software packages installation and setup
+if Sys.isapple()
+    ## Check Mac OS system if required software dependencies are installed.
+    ## Install OS packages if not already installed.
+    
+    ## Install brew if not already installed
+    if in("brew", readdir("/usr/local/bin")) == false
+        run(`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`)
+    end
 
-## Install python3 if not already installed
-if in("python3", readdir("/usr/local/bin")) == false
-    run(`brew install python3`)
-end
+    ## Install python3 if not already installed
+    if in("python3", readdir("/usr/local/bin")) == false
+        run(`brew install python3`)
+    end
 
-## Install seaborn python3 package if not already installed
-if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
-    run(`pip3 install seaborn`)
-end
+    ## Install seaborn python3 package if not already installed
+    if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+        run(`pip3 install seaborn`)
+    end
 
-## Install julia if not already installed
-if in("julia", readdir("/usr/local/bin")) == false
-    run(`brew cask install julia`)
+    ## Install julia if not already installed
+    if in("julia", readdir("/usr/local/bin")) == false
+        run(`brew cask install julia`)
+    end
 end
 
 ## Check Julia libraries if the following required libraries and dependencies are installed.
@@ -26,6 +34,7 @@ end
 
 using Pkg ## Loading the pkg manager of julia
 
+## Install the following Julia packages if not already installed
 if haskey(Pkg.installed(), "BinDeps") == false
     Pkg.add("BinDeps")
 end
@@ -62,15 +71,19 @@ if haskey(Pkg.installed(), "Conda") == false
     Pkg.add("Conda")
 end
 
+## Installing Electron browser (and renaming to Julia.app)
+using Blink
+if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
+    Blink.AtomShell.install()
+end
 
+## Adding pyqt matplotlib backend for compatibility with seaborn plots
+using Conda
+Conda.add("pyqt")
 
-## This script should be executed from within the Julia REPL.
-## For some reason, blink window doesn't function properly if executed from command line $ julia ./easy_plotting.jl
-## Instead, $ julia
-##          julia> include("easy_plotting.jl")
-
-using Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
-w = Window() ## Opening Blink window
+## Main code for heatmap plotting GUI
+using Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
+const w = Window() ## Opening Blink window
 
 ## Defining input widgets for data selection
 function page_inputs()
@@ -80,10 +93,10 @@ function page_inputs()
     size1 = textbox("Default: x-axis = 6")
     size2 = textbox("Default: y-axis = 7")
     colours = dropdown(["Default", "Blues", "Reds", "Purples", "Greens", "mako", "BuGn_r", "cubehelix", "BrBG", "RdBu_r", "coolwarm"])
-    enter_button = button("Plot")
+    enter_button = html"""<button onclick='Blink.msg("press", "foo")'>Plot</button>"""  ## Using HTML format since action-on-click works with this
     Widget(["file"=>file, "sheet"=>sheet, "clustering"=>clustering, "size1"=>size1, "size2"=>size2, "colours"=>colours, "enter_button"=>enter_button])
 end
-inputs = page_inputs()
+const inputs = page_inputs()
 
 ## Designing page layout
 page = node(:div,
@@ -397,3 +410,7 @@ function events(w, inputs)
 end
 
 events(w, inputs)
+
+handle(w, "press") do args...
+  events(w, inputs)
+end
