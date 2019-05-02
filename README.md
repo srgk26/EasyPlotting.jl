@@ -13,7 +13,7 @@ This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, 
 
 If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, pls open an issue as well.
 
-Credits for developers of the Julia language and libraries. Special credits to `@Dustin Irwin` for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl.
+Credits for developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin` for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl.
 
 **Instructions:**
 
