@@ -34,6 +34,7 @@ end
 ## Install the following Julia packages required if not already installed.
 
 using Pkg ## Loading the pkg manager of julia
+
 if haskey(Pkg.installed(), "BinDeps") == false
     Pkg.add("BinDeps")
 end
