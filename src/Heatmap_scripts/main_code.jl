@@ -70,16 +70,15 @@ if haskey(Pkg.installed(), "Conda") == false
     Pkg.add("Conda")
 end
 
+using Blink, Conda
 ## Julia installations that only apply to Mac OS X/Linux file systems
 @static if Sys.isapple()
     ## Installing Electron browser (and renaming to Julia.app)
-    using Blink
     if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
         Blink.AtomShell.install()
     end
 
     ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-    using Conda
     if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
         Conda.add("pyqt")
     end
@@ -87,13 +86,11 @@ end
 
 @static if Sys.islinux()
     ## Installing Electron browser (and renaming to Julia.app)
-    using Blink
     if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
         Blink.AtomShell.install()
     end
 
     ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-    using Conda
     if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
         Conda.add("pyqt")
     end
