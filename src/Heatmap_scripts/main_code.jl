@@ -33,7 +33,7 @@ end
 ## Check Julia libraries if the following required libraries and dependencies are installed.
 ## Install the following Julia packages required if not already installed.
 
-using Pkg ## Loading the pkg manager of julia
+using Pkg ## Loading the package manager of julia
 
 if haskey(Pkg.installed(), "BinDeps") == false
     Pkg.add("BinDeps")
