@@ -10,7 +10,8 @@
     
     ## Install brew if not already installed
     if in("brew", readdir("/usr/local/bin")) == false
-        run(```/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"```)
+        run(`chmod u+x ./brew_install.sh`)
+        run(`./brew_install.sh`)
     end
 
     ## Install python3 if not already installed
