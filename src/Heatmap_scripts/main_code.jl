@@ -10,8 +10,8 @@
     
     ## Install brew if not already installed
     if in("brew", readdir("/usr/local/bin")) == false
-        run(`chmod u+x ./brew_install.sh`)
-        run(`./brew_install.sh`)
+        run(`chmod u+x ./brew_install_MacOS.sh`)
+        run(`./brew_install_MacOS.sh`)
     end
 
     ## Install python3 if not already installed
