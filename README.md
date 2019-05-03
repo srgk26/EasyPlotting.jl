@@ -35,7 +35,7 @@ Now the GUI should run smoothly. Multiple plots can now be plotted at the same t
 
 *Steps 2: If you have all of Python3, Julia and seaborn(Python3) installed, please follow these steps:*
 
-  1. Type `julia`  ## Runs Julia within terminal.
+  1. Type `julia` in the terminal prompt.  ## Runs Julia within terminal.
   2. Type `include("main_code.jl")`  ## Installs software dependencies if need to. Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
   
 ***Future work:***
