@@ -436,5 +436,6 @@ Base.@ccallable function julia_main(ARGS::Vector{String})::Cint
     using Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
 
     main_code()
+    readline() ## Apparently needed to keep Julia process alive
     return 0
 end
