@@ -9,9 +9,9 @@ Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
-This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, and executables are uploaded in the App/<version>/MacOS_exec folder. Currently, only Mac OS executable binaries are provided (though welcome to use the Julia main_code.jl source code and execute from within the Julia REPL). In the near future, fully-functional, standalone applications and executables will be supported for Mac/Windows/Linux distributions.
+This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, and executables will be uploaded in the App/v0.1/MacOS_exec/ folder very soon. Currently, only Mac OS executable binaries will be provided (though welcome to use the Julia main_code.jl source code and execute from within the Julia REPL). In the near future, fully-functional, standalone applications and executables will be supported for Mac/Windows/Linux distributions.
 
-If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, pls open an issue as well.
+If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, please open an issue as well.
 
 **Credits**
 
