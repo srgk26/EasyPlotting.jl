@@ -4,7 +4,7 @@
 ## Defining function to be called in Base.@ccallable
 function main_code()
     ## Main code for heatmap plotting GUI
-    const w = Window() ## Opening Blink window
+    w = Window() ## Opening Blink window
 
     ## Defining input widgets for data selection
     function page_inputs()
@@ -17,7 +17,7 @@ function main_code()
         enter_button = html"""<button onclick='Blink.msg("press", "foo")'>Plot</button>"""  ## Using HTML format since action-on-click works with this
         Widget(["file"=>file, "sheet"=>sheet, "clustering"=>clustering, "size1"=>size1, "size2"=>size2, "colours"=>colours, "enter_button"=>enter_button])
     end
-    const inputs = page_inputs()
+    inputs = page_inputs()
 
     ## Designing page layout
     page = node(:div,
