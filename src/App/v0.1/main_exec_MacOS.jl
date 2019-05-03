@@ -1,5 +1,5 @@
 ## Build binary executables using PackageCompiler.jl package
-## Command line command: $ julia juliac.jl -vae main_exec.jl -d ~/MacOS_exec/
+## Command line command: $ exec julia /path/to/.../juliac.jl -vae /path/to/...main_exec.jl -d /path/to/.../MacOS_exec/
 
 ## Defining function to be called in Base.@ccallable
 function main_code()
