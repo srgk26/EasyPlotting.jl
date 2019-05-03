@@ -71,7 +71,7 @@ if haskey(Pkg.installed(), "Conda") == false
     Pkg.add("Conda")
 end
 
-if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && haskey(Pkg.installed(), "Interact") && haskey(Pkg.installed(), "DelimitedFiles") && haskey(Pkg.installed(), "CSV") && haskey(Pkg.installed(), "XLSX") && haskey(Pkg.installed(), "DataFrames") && haskey(Pkg.installed(), "Seaborn") && haskey(Pkg.installed(), "Conda")
+if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && haskey(Pkg.installed(), "Interact") && haskey(Pkg.installed(), "DelimitedFiles") && haskey(Pkg.installed(), "CSV") && haskey(Pkg.installed(), "XLSX") && haskey(Pkg.installed(), "DataFrames") && haskey(Pkg.installed(), "Seaborn") && haskey(Pkg.installed(), "Conda") == true
     using Blink, Conda
     ## Julia installations that only apply to Mac OS X/Linux file systems
     @static if Sys.isapple()
