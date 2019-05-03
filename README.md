@@ -9,11 +9,11 @@ Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
-This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, and executables are uploaded in the App/<version>/MacOS_exec folder. Currently, only Mac OS executable binaries are provided (though welcome to use the Julia main_code.jl source code and execute from within the Julia REPL). In the near future, applications and executables will be supported for Mac/Windows/Linux distributions.
+This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, and executables are uploaded in the App/<version>/MacOS_exec folder. Currently, only Mac OS executable binaries are provided (though welcome to use the Julia main_code.jl source code and execute from within the Julia REPL). In the near future, fully-functional, standalone applications and executables will be supported for Mac/Windows/Linux distributions.
 
 If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, pls open an issue as well.
 
-Credits for developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl.
+Credits for developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl. Also to `@NHDaly`@https://github.com/NHDaly/ApplicationBuilder.jl for his cool ApplicationBuilder.jl package, very useful for bundling applications, executables and their dependencies.
 
 **Instructions:**
 
@@ -29,7 +29,7 @@ The following is a step-by-step guide to execute the source scripts to get the G
   6. Type `julia`  ## Runs Julia within terminal.
   7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
   
-Now the GUI should run smoothly. At the moment, the GUI can only be used to plot once. To plot again, kindly go back to Julia and type `include("main_code.jl")` again (or simply press the up arrow shortcut to type the last command). In future updates, multiple plots may be able to plotted at once.
+Now the GUI should run smoothly. Multiple plots can now be plotted at the same time. Just change options as you prefer and click the 'Plot' button when done.
 
 *Steps 2: If you have all of Python3, Julia and seaborn(Python3) installed, please follow these steps:*
 
