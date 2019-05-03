@@ -9,7 +9,7 @@ Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
-This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, and app bundles and executables are uploaded in the app folder. Currently, only Mac OS apps are provided (though welcome to use the Julia main_code.jl source code and execute from within the Julia REPL). In the near future, applications and executables will be supported for Windows/Linux distributions as well.
+This GUI is coded in pure Julia. Source scripts are uploaded in the src folder, and executables are uploaded in the App/<version>/MacOS_exec folder. Currently, only Mac OS executable binaries are provided (though welcome to use the Julia main_code.jl source code and execute from within the Julia REPL). In the near future, applications and executables will be supported for Mac/Windows/Linux distributions.
 
 If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, pls open an issue as well.
 
@@ -37,5 +37,5 @@ Now the GUI should run smoothly. At the moment, the GUI can only be used to plot
   2. Type `include("main_code.jl")`  ## Installs software dependencies if need to. Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
   
 ***Future work:***
-  1. Build apps for Windows and Linux (local and HPC).
+  1. Build fully functional, standalone apps for Mac, Windows and Linux(local and HPC).
   2. Add other plotting functionalities and types.
