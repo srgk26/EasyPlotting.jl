@@ -329,7 +329,7 @@ function events(w, inputs)
 end
 
 ## This is a method of message passing inference between javascript used in Blink and Julia
-handle(w, "press") do args...
+Blink.handle(w, "press") do args...
   events(w, inputs)
 end
 
