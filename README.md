@@ -17,7 +17,7 @@ Credits for developers of the Julia language and libraries. Special thanks to `@
 
 **Instructions:**
 
-The following is a step-by-setp guide to execute the source scripts to get the GUI running from within the Julia REPL.
+The following is a step-by-step guide to execute the source scripts to get the GUI running from within the Julia REPL.
 
 *Steps 1: If you don't have any of Python3, Julia or seaborn(Python3) installed, please follow these steps (At the moment, much of these steps only apply to Mac OS X systems as the installation procedures vary for Windows/Linux OS. After Python3/Julia/seaborn installations by other means, the Julia main_code would still be compatible with your system though, regardless of OS - follow steps 2):*
 
