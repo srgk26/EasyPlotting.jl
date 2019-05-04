@@ -15,12 +15,6 @@ If anyone would like to contribute, please feel free to submit a pull request. I
 
 ***
 
-**Credits:**
-
-Credits to the developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl. Also to `@NHDaly`@https://github.com/NHDaly/ApplicationBuilder.jl for his cool ApplicationBuilder.jl package, very useful for bundling applications, executables and their dependencies.
-
-***
-
 **Instructions:**
 
 The following is a step-by-step guide to execute the source scripts to get the GUI running from within the Julia REPL.
@@ -32,12 +26,18 @@ The following is a step-by-step guide to execute the source scripts to get the G
   ```
   cd(homedir()); run(`git clone https://github.com/srgk26/easy_plotting.app.git`); run(`chmod -R u+rwx easy_plotting.app/src/Heatmap_scripts/`)
   ```
-  5. Run easy_plotting GUI by copying and pasting on the Julia prompt:
+  5. Run easy_plotting GUI by copying and pasting on the Julia prompt (This may take some time to start, and may also throw an IOError. Pls re-run the command, it will work):
   ```
   include(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/main_code.jl"))
   ```
  
 That's it! Feel free to use and enjoy the app whenever needed.
+
+***
+
+**Credits:**
+
+Credits to the developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl. Also to `@NHDaly`@https://github.com/NHDaly/ApplicationBuilder.jl for his cool ApplicationBuilder.jl package, very useful for bundling applications, executables and their dependencies.
 
 ***
 
