@@ -13,9 +13,13 @@ This GUI is coded in pure Julia. Source scripts are uploaded in the src folder. 
 
 If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, please open an issue as well.
 
+***
+
 **Credits:**
 
 Credits to the developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl. Also to `@NHDaly`@https://github.com/NHDaly/ApplicationBuilder.jl for his cool ApplicationBuilder.jl package, very useful for bundling applications, executables and their dependencies.
+
+***
 
 **Instructions:**
 
@@ -33,10 +37,12 @@ The following is a step-by-step guide to execute the source scripts to get the G
   include(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/main_code.jl"))
   ```
  
- That's it! Feel free to use and enjoy the app whenever needed.
+That's it! Feel free to use and enjoy the app whenever needed.
 
+***
 
-*** Deprecated
+*** Deprecated instructions***
+
 *Steps 1: If you don't have any of Python3, Julia or seaborn(Python3) installed, please follow these steps (At the moment, much of these steps only apply to Mac OS X systems as the installation procedures vary for Windows/Linux OS. After Python3/Julia/seaborn installations by other means, the Julia main_code would still be compatible with your system though, regardless of OS - follow steps 2):*
 
   1. Press Cmd+spacebar to open spotlight --> type 'Terminal' --> open Terminal
@@ -53,8 +59,9 @@ Now the GUI should run smoothly. Multiple plots can now be plotted at the same t
 
   1. Type `julia` in the terminal prompt.  ## Runs Julia within terminal.
   2. Type `include("main_code.jl")`  ## Installs software dependencies if need to. Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
-  ***
-  
+
+***
+
 ***Future work:***
   1. Build fully functional, standalone apps for Mac, Windows and Linux distributions.
   2. Add other plotting functionalities and types.
