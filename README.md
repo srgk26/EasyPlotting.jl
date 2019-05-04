@@ -41,27 +41,6 @@ Credits to the developers of the Julia language and libraries. Special thanks to
 
 ***
 
-*** Deprecated instructions***
-
-*Steps 1: If you don't have any of Python3, Julia or seaborn(Python3) installed, please follow these steps (At the moment, much of these steps only apply to Mac OS X systems as the installation procedures vary for Windows/Linux OS. After Python3/Julia/seaborn installations by other means, the Julia main_code would still be compatible with your system though, regardless of OS - follow steps 2):*
-
-  1. Press Cmd+spacebar to open spotlight --> type 'Terminal' --> open Terminal
-  2. Type `git clone https://github.com/srgk26/easy_plotting.app.git` --> press 'enter'
-  3. Type `cd easy_plotting.app/src/Heatmap_scripts/`  ## This changes to the folder directory where heatmap scripts are stored. (type 'ls' to list all files within this directory)
-  4. Type `chmod u+rwx ./*`  ## This upgrades file permissions for all files in this directory to 'read+write+execute'.
-  5. Type `./Initiate_without_PyJulia_MacOS`  ## This step may take about 30 min. Admin password may be requested at the beginning.
-  6. Type `julia`  ## Runs Julia within terminal.
-  7. Type `include("main_code.jl")`  ## Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
-  
-Now the GUI should run smoothly. Multiple plots can now be plotted at the same time. Just change options as you prefer and click the 'Plot' button when done.
-
-*Steps 2: If you have all of Python3, Julia and seaborn(Python3) installed, please follow these steps:*
-
-  1. Type `julia` in the terminal prompt.  ## Runs Julia within terminal.
-  2. Type `include("main_code.jl")`  ## Installs software dependencies if need to. Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
-
-***
-
 ***Future work:***
   1. Build fully functional, standalone apps for Mac, Windows and Linux distributions.
   2. Add other plotting functionalities and types.
