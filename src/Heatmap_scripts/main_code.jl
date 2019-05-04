@@ -3,7 +3,7 @@
 ## Instead, $ julia
 ##          julia> include("main_code.jl")
 
-## Software packages installation and setup for Mac OS X
+## Software packages installation and setup for Mac/Linux/Windows
 @static if Sys.isapple()
     ## Check Mac OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
