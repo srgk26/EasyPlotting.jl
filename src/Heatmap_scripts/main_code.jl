@@ -118,7 +118,7 @@ end
 if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && haskey(Pkg.installed(), "Interact") && haskey(Pkg.installed(), "DelimitedFiles") && haskey(Pkg.installed(), "CSV") && haskey(Pkg.installed(), "XLSX") && haskey(Pkg.installed(), "DataFrames") && haskey(Pkg.installed(), "Seaborn") && haskey(Pkg.installed(), "Conda") == true
     using Blink, Conda
     
-    ## Additional required Julia installations
+    ## Install additional required Julia installations if not already installed
     @static if Sys.isapple()
         ## Installing Electron browser (and renaming to Julia.app)
         if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
