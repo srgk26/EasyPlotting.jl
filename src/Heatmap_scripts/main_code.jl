@@ -10,12 +10,13 @@
     
     ## Install brew if not already installed
     if in("brew", readdir("/usr/local/bin")) == false
+        cd(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/"))
         run(`chmod u+x ./brew_install_MacOS.sh`)
         run(`./brew_install_MacOS.sh`)
     end
 
     ## Install python3 if not already installed
-    if in("python3", readdir("/usr/local/bin")) == false
+    if in("python3.7", readdir("/usr/local/bin")) == false
         run(`brew install python3`)
     end
 
@@ -27,6 +28,33 @@
     ## Install julia if not already installed
     if in("julia", readdir("/usr/local/bin")) == false
         run(`brew cask install julia`)
+    end
+@static elseif Sys.islinux()
+    ## Check Mac OS system if required software dependencies are installed.
+    ## Install OS packages if not already installed.
+    
+    ## Install brew if not already installed
+    if in("brew", readdir("/usr/local/bin")) == false
+        cd(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/"))
+        run(`chmod u+x ./brew_install_Linux.sh`)
+        run(`./brew_install_Linux.sh`)
+    end
+
+    ## Install python3 if not already installed
+    if in("python3.7", readdir("/usr/local/bin")) == false
+        run(`brew install python3`)
+    end
+
+    ## Install seaborn python3 package if not already installed
+    if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+        run(`pip3 install seaborn`)
+    end
+
+    ## Install julia if not already installed
+    if in("julia", readdir("/usr/local/bin")) == false
+        if in("pkg", readdir("/usr/bin")) == true
+            run(`pkg install julia`)
+        end
     end
 end
 
@@ -85,9 +113,7 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
         if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
-    end
-
-    @static if Sys.islinux()
+    @static elseif Sys.islinux()
         ## Installing Electron browser (and renaming to Julia.app)
         if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
             Blink.AtomShell.install()
