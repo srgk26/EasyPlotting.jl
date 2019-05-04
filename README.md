@@ -30,7 +30,7 @@ The following is a step-by-step guide to execute the source scripts to get the G
   3. Open Julia REPL by opening the Julia app
   4. Copy and paste to copy this Github repository <*if not already copied*>:
   ```
-  cd(homedir()); run(`git clone https://github.com/srgk26/easy_plotting.app.git`); run(`cd easy_plotting.app/src/Heatmap_scripts/`); run(`chmod u+rwx ./*`)
+  cd(homedir()); run(`git clone https://github.com/srgk26/easy_plotting.app.git`); run(`chmod -R u+rwx easy_plotting.app/src/Heatmap_scripts/`)
   ```
   5. Run easy_plotting GUI by copying and pasting on the Julia REPL:
   ```
