@@ -35,6 +35,8 @@ The following is a step-by-step guide to execute the source scripts to get the G
  
  That's it! Feel free to use and enjoy the app whenever needed.
 
+
+*** Deprecated
 *Steps 1: If you don't have any of Python3, Julia or seaborn(Python3) installed, please follow these steps (At the moment, much of these steps only apply to Mac OS X systems as the installation procedures vary for Windows/Linux OS. After Python3/Julia/seaborn installations by other means, the Julia main_code would still be compatible with your system though, regardless of OS - follow steps 2):*
 
   1. Press Cmd+spacebar to open spotlight --> type 'Terminal' --> open Terminal
@@ -51,6 +53,7 @@ Now the GUI should run smoothly. Multiple plots can now be plotted at the same t
 
   1. Type `julia` in the terminal prompt.  ## Runs Julia within terminal.
   2. Type `include("main_code.jl")`  ## Installs software dependencies if need to. Adds and executes the 'main_code.jl' script. Might be slow or throw an 'IOError' the first time. Pls repeat the command again if this happens, it will work the second time.
+  ***
   
 ***Future work:***
   1. Build fully functional, standalone apps for Mac, Windows and Linux distributions.
