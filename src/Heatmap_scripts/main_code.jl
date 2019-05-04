@@ -72,6 +72,23 @@
         end
     end
 @static elseif Sys.iswindows()
+    ## Check Windows OS system if required software dependencies are installed.
+    ## Install OS packages if not already installed.
+
+    ## Install python3 if not already installed
+    if in("python3.7", readdir("/usr/local/bin")) == false
+        run(`choco install python3 --confirm`)
+    end
+
+    ## Install seaborn python3 package if not already installed
+    if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+        run(`pip3 install seaborn`)
+    end
+
+    ## Install julia if not already installed
+    if in("julia", readdir("/usr/local/bin")) == false
+        run(`choco install julia --confirm`)
+    end
 end
 
 ## Check Julia libraries if the following required libraries and dependencies are installed.
@@ -140,6 +157,15 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             Conda.add("pyqt")
         end
     @static elseif Sys.iswindows()
+        ## Installing Electron browser (and renaming to Julia.app)
+        if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
+            Blink.AtomShell.install()
+        end
+
+        ## Adding pyqt matplotlib backend for compatibility with seaborn plots
+        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
+            Conda.add("pyqt")
+        end
     end
 
     ## Main code for heatmap plotting GUI
