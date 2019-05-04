@@ -15,7 +15,7 @@
         run(`./brew_install_MacOS.sh`)
     end
 
-    ## Install python3 if not already installed
+    ## Install python3.7 if not already installed
     if in("python3.7", readdir("/usr/local/bin")) == false
         run(`brew install python3`)
     end
@@ -40,7 +40,7 @@
         run(`./brew_install_Linux.sh`)
     end
 
-    ## Install python3 if not already installed
+    ## Install python3.7 if not already installed
     if in("python3.7", readdir("/usr/local/bin")) == false
         run(`brew install python3`)
     end
@@ -75,7 +75,7 @@
     ## Check Windows OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
 
-    ## Install python3 if not already installed
+    ## Install python3.7 if not already installed
     if in("python37", readdir("c:")) == false
         run(`choco install python3 --confirm`)
     end
