@@ -1,5 +1,5 @@
 ## This script should be executed from within the Julia REPL.
-## For some reason, blink window doesn't function properly if executed from command line $ julia ./easy_plotting.jl
+## For some reason, blink window doesn't function properly if executed from command line $ exec julia ./easy_plotting.jl
 ## Instead, $ julia
 ##          julia> include("main_code.jl")
 
