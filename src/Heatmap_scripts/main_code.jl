@@ -76,7 +76,7 @@
     ## Install OS packages if not already installed.
 
     ## Install python3 if not already installed
-    if in("python3.7", readdir("/usr/local/bin")) == false
+    if in("python3.7", readdir("C:\")) == false
         run(`choco install python3 --confirm`)
     end
 
@@ -86,7 +86,7 @@
     end
 
     ## Install julia if not already installed
-    if in("julia", readdir("/usr/local/bin")) == false
+    if in("julia", readdir("C:\")) == false
         run(`choco install julia --confirm`)
     end
 end
