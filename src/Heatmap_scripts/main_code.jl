@@ -29,7 +29,9 @@
     if in("julia", readdir("/usr/local/bin")) == false
         run(`brew cask install julia`)
     end
-@static elseif Sys.islinux()
+end
+
+@static if Sys.islinux()
     ## Check Linux OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     
@@ -71,7 +73,9 @@
             run(`pacman -S julia`)
         end
     end
-@static elseif Sys.iswindows()
+end
+
+@static if Sys.iswindows()
     ## Check Windows OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
 
@@ -146,7 +150,9 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
         if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
-    @static elseif Sys.islinux()
+    end
+    
+    @static if Sys.islinux()
         ## Installing Electron browser (and renaming to Julia.app)
         if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
             Blink.AtomShell.install()
@@ -156,7 +162,9 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
         if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
-    @static elseif Sys.iswindows()
+    end
+    
+    @static if Sys.iswindows()
         ## Installing Electron browser (and renaming to Julia.app)
         if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
             Blink.AtomShell.install()
