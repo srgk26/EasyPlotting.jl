@@ -76,17 +76,17 @@
     ## Install OS packages if not already installed.
 
     ## Install python3 if not already installed
-    if in("python3.7", readdir("C:\")) == false
+    if in("python37", readdir("c:")) == false
         run(`choco install python3 --confirm`)
     end
 
     ## Install seaborn python3 package if not already installed
-    if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+    if in("seaborn", readdir(raw"c:\python37\lib\site-packages")) == false
         run(`pip3 install seaborn`)
     end
 
     ## Install julia if not already installed
-    if in("julia", readdir("C:\")) == false
+    if in("julia", readdir("c:")) == false
         run(`choco install julia --confirm`)
     end
 end
@@ -163,7 +163,7 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
         end
 
         ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
+        if in("backend_qt5.py", readdir(raw"c:\python37\lib\site-packages\matplotlib\backends")) == false
             Conda.add("pyqt")
         end
     end
