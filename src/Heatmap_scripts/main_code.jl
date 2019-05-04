@@ -52,8 +52,23 @@
 
     ## Install julia if not already installed
     if in("julia", readdir("/usr/local/bin")) == false
-        if in("pkg", readdir("/usr/bin")) == true
+        if in("apt", readdir("/usr/bin")) == true
+            run(`sudo apt-get update`)
+            run(`sudo apt-get dist-upgrade`)
+            run(`sudo apt-get autoremove`)
+            run(`sudo apt-get autoclean`)
+            run(`sudo apt --fix-broken install`)
+            run(`sudo apt-get install julia`)
+        elseif in("dnf", readdir("/usr/bin")) == true
+            run(`sudo dnf copr enable nalimilan/julia`)
+            run(`sudo yum install julia`)
+        elseif in("dnf", readdir("/usr/bin")) == false && in("yum", readdir("/usr/bin")) == true
+            run(`sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/nalimilan/julia/repo/epel-7/nalimilan-julia-epel-7.repo`)
+            run(`sudo yum install julia`)
+        elseif in("pkg", readdir("/usr/bin")) == true
             run(`pkg install julia`)
+        elseif in("pacman", readdir("/usr/bin")) == true
+            run(`pacman -S julia`)
         end
     end
 end
