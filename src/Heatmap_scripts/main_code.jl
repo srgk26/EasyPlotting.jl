@@ -8,7 +8,7 @@
     ## Check Mac OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     
-    ## Install brew if not already installed
+    ## Install homebrew if not already installed
     if in("brew", readdir("/usr/local/bin")) == false
         cd(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/"))
         run(`chmod u+x ./brew_install_MacOS.sh`)
@@ -30,10 +30,10 @@
         run(`brew cask install julia`)
     end
 @static elseif Sys.islinux()
-    ## Check Mac OS system if required software dependencies are installed.
+    ## Check Linux OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     
-    ## Install brew if not already installed
+    ## Install linuxbrew if not already installed
     if in("brew", readdir("/usr/local/bin")) == false
         cd(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/"))
         run(`chmod u+x ./brew_install_Linux.sh`)
@@ -71,6 +71,7 @@
             run(`pacman -S julia`)
         end
     end
+@static elseif Sys.iswindows()
 end
 
 ## Check Julia libraries if the following required libraries and dependencies are installed.
@@ -117,7 +118,7 @@ end
 if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && haskey(Pkg.installed(), "Interact") && haskey(Pkg.installed(), "DelimitedFiles") && haskey(Pkg.installed(), "CSV") && haskey(Pkg.installed(), "XLSX") && haskey(Pkg.installed(), "DataFrames") && haskey(Pkg.installed(), "Seaborn") && haskey(Pkg.installed(), "Conda") == true
     using Blink, Conda
     
-    ## Julia installations that only apply to Mac OS X/Linux file systems
+    ## Additional required Julia installations
     @static if Sys.isapple()
         ## Installing Electron browser (and renaming to Julia.app)
         if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
@@ -138,6 +139,7 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
         if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
+    @static elseif Sys.iswindows()
     end
 
     ## Main code for heatmap plotting GUI
