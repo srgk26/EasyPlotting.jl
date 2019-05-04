@@ -24,7 +24,10 @@ The following is a step-by-step guide to execute the source scripts to get the G
   1. Download and run Julia v1.1.0 from: https://julialang.org/downloads/ <*if not already downloaded*>
   2. <*For Windows only*> Download and run 'Chocolatey package manager' from: https://chocolatey.org <*if not already downloaded*>
   3. Open Julia REPL by opening the Julia app
-  4. Copy and paste ``cd(homedir()); run(`git clone https://github.com/srgk26/easy_plotting.app.git`); run(`cd easy_plotting.app/src/Heatmap_scripts/`); run(`chmod u+rwx ./*`)`` to copy this Github repository <*if not already copied*>
+  4. Copy and paste to copy this Github repository <*if not already copied*>:
+  ```
+  cd(homedir()); run(`git clone https://github.com/srgk26/easy_plotting.app.git`); run(`cd easy_plotting.app/src/Heatmap_scripts/`); run(`chmod u+rwx ./*`)
+  ```
   5. Run easy_plotting GUI by copying and pasting `include(joinpath(homedir(), "src/Heatmap_scripts/main_code.jl"))` on the Julia REPL.
  
  That's it! Feel free to use and enjoy the app whenever needed.
