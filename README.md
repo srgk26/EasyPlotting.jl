@@ -5,7 +5,7 @@ This is an attempt to create a working GUI app that creates selected scientific 
 
 Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample.csv and sample.xlsx files are provided in the examples folder. An example of the sample_heatmap.png and a sample screenshot of the GUI is also provided in the examples folder. The GUI screenshot is also shown below:
 
-![Alt text](/examples/GUI_Screenshot.png?raw=true "Heatmap Plotting")
+![Alt text](/examples/App_Screenshot.png?raw=true "Heatmap Plotting")
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
