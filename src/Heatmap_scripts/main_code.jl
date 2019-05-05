@@ -72,6 +72,7 @@ end
             run(`sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/nalimilan/julia/repo/epel-7/nalimilan-julia-epel-7.repo`)
             run(`sudo yum install julia`)
         elseif in("pkg", readdir("/usr/bin")) == true
+            run(`pkg upgrade`)
             run(`pkg install julia`)
         elseif in("pacman", readdir("/usr/bin")) == true
             run(`pacman -S julia`)
