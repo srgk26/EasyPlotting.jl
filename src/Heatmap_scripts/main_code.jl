@@ -87,7 +87,7 @@ end
     if in("python3", readdir("c:")) == false && in("python37", readdir("c:")) == false
         run(`choco install python3 --confirm`)
     elseif in("python3", readdir("c:")) == true && in("python37", readdir("c:")) == false
-        run(`choco reinstall python3 --confirm`)
+        run(`choco upgrade python3 --confirm`)
     end
 
     ## Install seaborn python3 package if not already installed
