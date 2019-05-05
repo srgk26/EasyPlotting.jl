@@ -161,7 +161,7 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
         end
 
         ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
+        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
     end
@@ -173,7 +173,7 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
         end
 
         ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
+        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
     end
