@@ -16,9 +16,9 @@
     end
 
     ## Install python3.7 if not already installed
-    if in("python3", readdir("/usr/local/bin")) == false && in("python3.7", readdir("/usr/local/bin")) == false
+    if in("python3", readdir("/usr/local/bin")) == false
         run(`brew install python3`)
-    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false
+    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
         run(`brew reinstall python3`)
     end
 
@@ -47,9 +47,9 @@ end
     end
 
     ## Install python3.7 if not already installed
-    if in("python3", readdir("/usr/local/bin")) == false && in("python3.7", readdir("/usr/local/bin")) == false
+    if in("python3", readdir("/usr/local/bin")) == false
         run(`brew install python3`)
-    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false
+    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
         run(`brew reinstall python3`)
     end
 
