@@ -24,6 +24,8 @@
 
     ## Install seaborn python3 package if not already installed
     if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+        run(`python3 -m pip3 install -U pip3`)
+        run(`python3 -m pip3 install -U matplotlib`)
         run(`pip3 install seaborn`)
     end
 
@@ -53,6 +55,8 @@ end
 
     ## Install seaborn python3 package if not already installed
     if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+        run(`python3 -m pip3 install -U pip3`)
+        run(`python3 -m pip3 install -U matplotlib`)
         run(`pip3 install seaborn`)
     end
 
@@ -94,6 +98,8 @@ end
 
     ## Install seaborn python3 package if not already installed
     if in("seaborn", readdir(raw"c:\python37\lib\site-packages")) == false
+        run(`python3 -m pip3 install -U pip3`)
+        run(`python3 -m pip3 install -U matplotlib`)
         run(`pip3 install seaborn`)
     end
 
@@ -240,11 +246,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else ## If plot size is defined by user
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -262,11 +268,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -284,11 +290,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -306,11 +312,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -331,11 +337,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -353,11 +359,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -375,11 +381,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -397,11 +403,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -422,11 +428,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -444,11 +450,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -466,11 +472,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -488,11 +494,11 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float64, inputs["size1"][]), parse(Float64, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
