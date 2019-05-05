@@ -16,8 +16,10 @@
     end
 
     ## Install python3.7 if not already installed
-    if in("python3.7", readdir("/usr/local/bin")) == false
+    if in("python3", readdir("/usr/local/bin")) == false && in("python3.7", readdir("/usr/local/bin")) == false
         run(`brew install python3`)
+    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false
+        run(`brew reinstall python3`)
     end
 
     ## Install seaborn python3 package if not already installed
@@ -43,8 +45,10 @@ end
     end
 
     ## Install python3.7 if not already installed
-    if in("python3.7", readdir("/usr/local/bin")) == false
+    if in("python3", readdir("/usr/local/bin")) == false && in("python3.7", readdir("/usr/local/bin")) == false
         run(`brew install python3`)
+    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false
+        run(`brew reinstall python3`)
     end
 
     ## Install seaborn python3 package if not already installed
@@ -80,8 +84,10 @@ end
     ## Install OS packages if not already installed.
 
     ## Install python3.7 if not already installed
-    if in("python37", readdir("c:")) == false
+    if in("python3", readdir("c:")) == false && in("python37", readdir("c:")) == false
         run(`choco install python3 --confirm`)
+    elseif in("python3", readdir("c:")) == true && in("python37", readdir("c:")) == false
+        run(`choco reinstall python3 --confirm`)
     end
 
     ## Install seaborn python3 package if not already installed
