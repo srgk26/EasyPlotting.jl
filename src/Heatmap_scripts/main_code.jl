@@ -63,6 +63,7 @@ end
             run(`sudo apt-get dist-upgrade`)
             run(`sudo apt-get install julia`)
         elseif in("dnf", readdir("/usr/bin")) == true
+            run(`sudo dnf update`)
             run(`sudo yum update`)
             run(`sudo dnf copr enable nalimilan/julia`)
             run(`sudo yum install julia`)
