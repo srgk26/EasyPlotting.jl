@@ -61,9 +61,6 @@ end
         if in("apt", readdir("/usr/bin")) == true
             run(`sudo apt-get update`)
             run(`sudo apt-get dist-upgrade`)
-            run(`sudo apt-get autoremove`)
-            run(`sudo apt-get autoclean`)
-            run(`sudo apt --fix-broken install`)
             run(`sudo apt-get install julia`)
         elseif in("dnf", readdir("/usr/bin")) == true
             run(`sudo yum update`)
