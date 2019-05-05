@@ -75,6 +75,7 @@ end
             run(`pkg upgrade`)
             run(`pkg install julia`)
         elseif in("pacman", readdir("/usr/bin")) == true
+            run(`pacman -Syu`)
             run(`pacman -S julia`)
         end
     end
