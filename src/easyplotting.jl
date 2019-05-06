@@ -1,7 +1,5 @@
-module easyplotting
+module easyplotting ## Define easyplotting module
 
-module easyheatmap
-include(joinpath("easyplotting.jl"[1:end-15], "easyheatmap.jl)")
-end
+include(joinpath("easyplotting.jl"[1:end-15], "easyheatmap.jl)") ## Include easyheatmap.jl script for function easyheatmap()
 
 end #module
