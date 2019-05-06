@@ -183,7 +183,7 @@ function Fig()
 end
 
 ## Main function code to plot heatmap, using user-defined input options
-function Plot(w, inputs)
+function Plot()
     if (inputs["file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
         df = DataFrame(XLSX.readtable((inputs["file"][]::String), (inputs["sheet"][]::String))...) ## Convert dataset to dataframe
         if inputs["clustering"][] == "both" ## For row+column clustering option
@@ -461,13 +461,13 @@ function Plot(w, inputs)
 end
 
 ## Defining function that keeps the function Plot(w, input) running until true boolean value is returned
-function events(w, inputs)
+function events()
     @async while true ## Syncing all processes above
-        Plot(w, inputs) == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
+        Plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
     end
 end
 
 ## This is a method of message passing inference between javascript used in Blink and Julia
 handle(w, "press") do args...  ## When enter_button is pressed, the following arguments are executed
-  events(w, inputs)  ## When enter_button is pressed, events(w, inputs) is executed.
+  events()  ## When enter_button is pressed, events(w, inputs) is executed.
 end
