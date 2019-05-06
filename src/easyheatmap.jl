@@ -107,37 +107,20 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     ## Install additional required Julia installations if not already installed
-    @static if Sys.isapple()
-        ## Installing Electron browser (and renaming to Julia.app)
-        if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
-            Blink.AtomShell.install()
-        end
-
-        ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
-            Conda.add("pyqt")
-        end
+    
+    ## Installing Electron browser (and renaming to Julia.app)
+    if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
+        Blink.AtomShell.install()
     end
-
-    @static if Sys.islinux()
-        ## Installing Electron browser (and renaming to Julia.app)
-        if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
-            Blink.AtomShell.install()
-        end
-
-        ## Adding pyqt matplotlib backend for compatibility with seaborn plots
+    
+    ## Adding pyqt matplotlib backend for compatibility with seaborn plots
+    @static if Sys.isapple() || Sys.islinux()
         if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
     end
 
     @static if Sys.iswindows()
-        ## Installing Electron browser (and renaming to Julia.app)
-        if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
-            Blink.AtomShell.install()
-        end
-
-        ## Adding pyqt matplotlib backend for compatibility with seaborn plots
         if in("backend_qt5.py", readdir(raw"c:\python37\lib\site-packages\matplotlib\backends")) == false
             Conda.add("pyqt")
         end
