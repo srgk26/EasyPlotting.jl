@@ -83,19 +83,19 @@ function easyheatmap() ## Defining function to be called by user
         ## Install OS packages if not already installed.
 
         ## Install python3.7 if not already installed
-        if in("python3", readdir("c:")) == false && in("python37", readdir("c:")) == false
+        if success(`which python3`) == false
             run(`choco install python3 --confirm`)
-        elseif in("python3", readdir("c:")) == true && in("python37", readdir("c:")) == false
+        elseif success(`which python3`) == true && success(`which python37`) == false
             run(`choco upgrade python3 --confirm`)
         end
 
         ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir(raw"c:\python37\lib\site-packages")) == false
+        if in("seaborn", readdir(joinpath(chomp(read(`which python37`, String))[1:end-8], "lib/site-packages/"))) == false
             run(`pip3 install seaborn`)
         end
 
         ## Install julia if not already installed
-        if in("julia", readdir("c:")) == false
+        if success(`which julia`) == false
             run(`choco install julia --confirm`)
         end
     end
@@ -108,15 +108,13 @@ function easyheatmap() ## Defining function to be called by user
     
     ## Adding pyqt matplotlib backend for compatibility with seaborn plots
     @static if Sys.isapple() || Sys.islinux()
-        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
-            Conda.add("pyqt")
-        elseif in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
+        if in("backend_qt5.py", readdir(joinpath(chomp(read(`which python3`, String))[1:end-11], "lib/python3.7/site-packages/matplotlib/backends"))) == false
             Conda.add("pyqt")
         end
     end
 
     @static if Sys.iswindows()
-        if in("backend_qt5.py", readdir(raw"c:\python37\lib\site-packages\matplotlib\backends")) == false
+        if in("backend_qt5.py", readdir(joinpath(chomp(read(`which python37`, String))[1:end-8], "lib/site-packages/matplotlib/backends"))) == false
             Conda.add("pyqt")
         end
     end
