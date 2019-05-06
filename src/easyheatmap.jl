@@ -6,28 +6,26 @@ function easyheatmap() ## Defining function to be called by user
         ## Install OS packages if not already installed.
 
         ## Install homebrew if not already installed
-        if in("brew", readdir("/usr/local/bin")) == false
+        if success(`which brew`) == false
             cd(pathof(easyplotting)[1:end-15])
             run(`chmod u+x ./brew_install_MacOS.sh`)
             run(`./brew_install_MacOS.sh`)
         end
 
         ## Install python3.7 if not already installed
-        if in("python3", readdir("/usr/local/bin")) == false
+        if success(`which python3`) == false
             run(`brew install python3`)
-        elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
+        elseif success(`which python3`) == true && success(`which python3.7`) == false
             run(`brew reinstall python3`)
         end
 
         ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
-            run(`pip3 install seaborn`)
-        elseif in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
+        if in("seaborn", readdir(joinpath(chomp(read(`which python3`, String))[1:end-11], "lib/python3.7/site-packages/"))) == false
             run(`pip3 install seaborn`)
         end
 
         ## Install julia if not already installed
-        if in("julia", readdir("/usr/local/bin")) == false
+        if success(`which julia`) == false
             run(`brew cask install julia`)
         end
     end
