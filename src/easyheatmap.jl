@@ -107,7 +107,6 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     #### Install additional required Julia installations if not already installed
-    
     ## Installing Electron browser (and renaming to Julia.app)
     if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
         Blink.AtomShell.install()
