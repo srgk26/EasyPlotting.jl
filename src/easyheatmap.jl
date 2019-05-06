@@ -120,7 +120,7 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     #### Main code for heatmap plotting GUI
-    w = Window() ## Opening Blink window
+    w = Blink.Window() ## Opening Blink window
 
     ## Defining input widgets for data selection
     function page_inputs()
