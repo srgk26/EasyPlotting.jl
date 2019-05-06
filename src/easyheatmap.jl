@@ -71,7 +71,7 @@ function easyheatmap() ## Defining function to be called by user
             elseif success(`which pkg`) == true
                 run(`pkg upgrade`)
                 run(`pkg install julia`)
-            elseif success(`which pacman`)) == true
+            elseif success(`which pacman`) == true
                 run(`pacman -Syu`)
                 run(`pacman -S julia`)
             end
