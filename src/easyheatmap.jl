@@ -1,4 +1,4 @@
-import Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ## Importing required libraries
+using Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ## Importing required libraries
 function easyheatmap() ## Defining function to be called by user
     ## Software packages installation and setup for Mac/Linux/Windows
     @static if Sys.isapple()
@@ -120,7 +120,7 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     #### Main code for heatmap plotting GUI
-    w = Blink.Window() ## Opening Blink window
+    w = Window() ## Opening Blink window
 
     ## Defining input widgets for data selection
     function page_inputs()
