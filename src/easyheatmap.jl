@@ -5,7 +5,7 @@
     
     ## Install homebrew if not already installed
     if in("brew", readdir("/usr/local/bin")) == false
-        cd(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/"))
+        cd(pathof(easyplotting)[1:end-15])
         run(`chmod u+x ./brew_install_MacOS.sh`)
         run(`./brew_install_MacOS.sh`)
     end
@@ -36,7 +36,7 @@ end
     
     ## Install linuxbrew if not already installed
     if in("brew", readdir("/usr/local/bin")) == false
-        cd(joinpath(homedir(), "easy_plotting.app/src/Heatmap_scripts/"))
+        cd(pathof(easyplotting)[1:end-15])
         run(`chmod u+x ./brew_install_Linux.sh`)
         run(`./brew_install_Linux.sh`)
     end
