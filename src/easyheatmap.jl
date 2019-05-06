@@ -20,7 +20,9 @@ function easyheatmap() ## Defining function to be called by user
         end
 
         ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
+        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+            run(`pip3 install seaborn`)
+        elseif in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
             run(`pip3 install seaborn`)
         end
 
@@ -49,7 +51,9 @@ function easyheatmap() ## Defining function to be called by user
         end
 
         ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
+        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
+            run(`pip3 install seaborn`)
+        elseif in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
             run(`pip3 install seaborn`)
         end
 
@@ -91,8 +95,6 @@ function easyheatmap() ## Defining function to be called by user
 
         ## Install seaborn python3 package if not already installed
         if in("seaborn", readdir(raw"c:\python37\lib\site-packages")) == false
-            run(`python3 -m pip3 install -U pip3`)
-            run(`python3 -m pip3 install -U matplotlib`)
             run(`pip3 install seaborn`)
         end
 
@@ -110,7 +112,9 @@ function easyheatmap() ## Defining function to be called by user
     
     ## Adding pyqt matplotlib backend for compatibility with seaborn plots
     @static if Sys.isapple() || Sys.islinux()
-        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
+        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false
+            Conda.add("pyqt")
+        elseif in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
             Conda.add("pyqt")
         end
     end
