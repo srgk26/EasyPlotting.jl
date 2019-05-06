@@ -21,8 +21,6 @@ function easyheatmap() ## Defining function to be called by user
 
         ## Install seaborn python3 package if not already installed
         if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
-            run(`python3 -m pip3 install -U pip3`)
-            run(`python3 -m pip3 install -U matplotlib`)
             run(`pip3 install seaborn`)
         end
 
@@ -52,8 +50,6 @@ function easyheatmap() ## Defining function to be called by user
 
         ## Install seaborn python3 package if not already installed
         if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
-            run(`python3 -m pip3 install -U pip3`)
-            run(`python3 -m pip3 install -U matplotlib`)
             run(`pip3 install seaborn`)
         end
 
