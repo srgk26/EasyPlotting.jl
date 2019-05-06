@@ -1,3 +1,5 @@
+import Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ## Importing required libraries
+function easyheatmap() ## Defining function to be called by user
     ## Software packages installation and setup for Mac/Linux/Windows
     @static if Sys.isapple()
         ## Check Mac OS system if required software dependencies are installed.
@@ -104,8 +106,6 @@
         end
     end
 
-    import Blink, Conda
-
     ## Install additional required Julia installations if not already installed
     @static if Sys.isapple()
         ## Installing Electron browser (and renaming to Julia.app)
@@ -144,8 +144,6 @@
     end
 
     ## Main code for heatmap plotting GUI
-import Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
-function easyheatmap()
     w = Window() ## Opening Blink window
 
     ## Defining input widgets for data selection
