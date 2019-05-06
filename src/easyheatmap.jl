@@ -468,6 +468,8 @@ function events()
 end
 
 ## This is a method of message passing inference between javascript used in Blink and Julia
-handle(w, "press") do args...  ## When enter_button is pressed, the following arguments are executed
-  events()  ## When enter_button is pressed, events(w, inputs) is executed.
+function easyheatmap()
+    handle(w, "press") do args...  ## When enter_button is pressed, the following arguments are executed
+      events()  ## When enter_button is pressed, events(w, inputs) is executed.
+    end
 end
