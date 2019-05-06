@@ -104,7 +104,7 @@ end
     end
 end
 
-using Blink, Conda
+import Blink, Conda
 
 ## Install additional required Julia installations if not already installed
 @static if Sys.isapple()
@@ -144,7 +144,7 @@ end
 end
 
 ## Main code for heatmap plotting GUI
-using Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
+import Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
 const w = Window() ## Opening Blink window
 
 ## Defining input widgets for data selection
