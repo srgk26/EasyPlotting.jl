@@ -1,8 +1,3 @@
-## This script should be executed from within the Julia REPL.
-## For some reason, blink window doesn't function properly if executed from command line $ exec julia ./easy_plotting.jl
-## Instead, $ julia
-##          julia> include("main_code.jl")
-
 ## Software packages installation and setup for Mac/Linux/Windows
 @static if Sys.isapple()
     ## Check Mac OS system if required software dependencies are installed.
