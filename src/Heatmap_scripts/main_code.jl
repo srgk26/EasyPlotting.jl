@@ -236,21 +236,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             if inputs["clustering"][] == "both" ## For row+column clustering option
                 if inputs["size1"][]::String == "" ## If no user-input for plot size
                     if inputs["colours"][] == "Default" ## If no user-input for plot colours
-                        clustermap(convert(Matrix, df), figsize=(6,7)) ## Seaborn Clustermap plotting
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7)) ## Seaborn Clustermap plotting
                         Fig() ## Call Fig() function defined above
                         return true ## Returns true value, thereby stopping while loop that keeps the process running
                     else ## If plot colours is defined by user
-                        clustermap(convert(Matrix, df), figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else ## If plot size is defined by user
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -258,21 +258,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             elseif inputs["clustering"][] == "row" ## For row clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -280,21 +280,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             elseif inputs["clustering"][] == "column" ## For column clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -302,21 +302,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             else ## For no clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -327,21 +327,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -349,21 +349,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             elseif inputs["clustering"][] == "row"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -371,21 +371,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             elseif inputs["clustering"][] == "column"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -393,21 +393,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             else
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -418,21 +418,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -440,21 +440,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             elseif inputs["clustering"][] == "row"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -462,21 +462,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             elseif inputs["clustering"][] == "column"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -484,21 +484,21 @@ if haskey(Pkg.installed(), "BinDeps") && haskey(Pkg.installed(), "Blink") && has
             else
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
