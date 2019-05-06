@@ -2,7 +2,7 @@ import Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ##
 function easyheatmap() ## Defining function to be called by user
     ## Software packages installation and setup for Mac/Linux/Windows
     @static if Sys.isapple()
-        ## Check Mac OS system if required software dependencies are installed.
+        #### Check Mac OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
 
         ## Install homebrew if not already installed
@@ -33,7 +33,7 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     @static if Sys.islinux()
-        ## Check Linux OS system if required software dependencies are installed.
+        #### Check Linux OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
 
         ## Install linuxbrew if not already installed
@@ -83,7 +83,7 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     @static if Sys.iswindows()
-        ## Check Windows OS system if required software dependencies are installed.
+        #### Check Windows OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
 
         ## Install python3.7 if not already installed
@@ -106,7 +106,7 @@ function easyheatmap() ## Defining function to be called by user
         end
     end
 
-    ## Install additional required Julia installations if not already installed
+    #### Install additional required Julia installations if not already installed
     
     ## Installing Electron browser (and renaming to Julia.app)
     if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
@@ -126,7 +126,7 @@ function easyheatmap() ## Defining function to be called by user
         end
     end
 
-    ## Main code for heatmap plotting GUI
+    #### Main code for heatmap plotting GUI
     w = Window() ## Opening Blink window
 
     ## Defining input widgets for data selection
@@ -442,14 +442,14 @@ function easyheatmap() ## Defining function to be called by user
         end
     end
 
-    ## Defining function that keeps the function Plot(w, input) running until true boolean value is returned
+    #### Defining function that keeps the function Plot(w, input) running until true boolean value is returned
     function events()
         @async while true ## Syncing all processes above
             Plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
         end
     end
 
-    ## This is a method of message passing inference between javascript used in Blink and Julia
+    #### This is a method of message passing inference between javascript used in Blink and Julia
     handle(w, "press") do args...  ## When enter_button is pressed, the following arguments are executed
       events()  ## When enter_button is pressed, events(w, inputs) is executed.
     end
