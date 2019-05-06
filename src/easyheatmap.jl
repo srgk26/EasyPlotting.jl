@@ -1,149 +1,149 @@
-## Software packages installation and setup for Mac/Linux/Windows
-@static if Sys.isapple()
-    ## Check Mac OS system if required software dependencies are installed.
-    ## Install OS packages if not already installed.
-    
-    ## Install homebrew if not already installed
-    if in("brew", readdir("/usr/local/bin")) == false
-        cd(pathof(easyplotting)[1:end-15])
-        run(`chmod u+x ./brew_install_MacOS.sh`)
-        run(`./brew_install_MacOS.sh`)
-    end
+    ## Software packages installation and setup for Mac/Linux/Windows
+    @static if Sys.isapple()
+        ## Check Mac OS system if required software dependencies are installed.
+        ## Install OS packages if not already installed.
 
-    ## Install python3.7 if not already installed
-    if in("python3", readdir("/usr/local/bin")) == false
-        run(`brew install python3`)
-    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
-        run(`brew reinstall python3`)
-    end
+        ## Install homebrew if not already installed
+        if in("brew", readdir("/usr/local/bin")) == false
+            cd(pathof(easyplotting)[1:end-15])
+            run(`chmod u+x ./brew_install_MacOS.sh`)
+            run(`./brew_install_MacOS.sh`)
+        end
 
-    ## Install seaborn python3 package if not already installed
-    if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
-        run(`python3 -m pip3 install -U pip3`)
-        run(`python3 -m pip3 install -U matplotlib`)
-        run(`pip3 install seaborn`)
-    end
+        ## Install python3.7 if not already installed
+        if in("python3", readdir("/usr/local/bin")) == false
+            run(`brew install python3`)
+        elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
+            run(`brew reinstall python3`)
+        end
 
-    ## Install julia if not already installed
-    if in("julia", readdir("/usr/local/bin")) == false
-        run(`brew cask install julia`)
-    end
-end
+        ## Install seaborn python3 package if not already installed
+        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
+            run(`python3 -m pip3 install -U pip3`)
+            run(`python3 -m pip3 install -U matplotlib`)
+            run(`pip3 install seaborn`)
+        end
 
-@static if Sys.islinux()
-    ## Check Linux OS system if required software dependencies are installed.
-    ## Install OS packages if not already installed.
-    
-    ## Install linuxbrew if not already installed
-    if in("brew", readdir("/usr/local/bin")) == false
-        cd(pathof(easyplotting)[1:end-15])
-        run(`chmod u+x ./brew_install_Linux.sh`)
-        run(`./brew_install_Linux.sh`)
-    end
-
-    ## Install python3.7 if not already installed
-    if in("python3", readdir("/usr/local/bin")) == false
-        run(`brew install python3`)
-    elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
-        run(`brew reinstall python3`)
-    end
-
-    ## Install seaborn python3 package if not already installed
-    if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
-        run(`python3 -m pip3 install -U pip3`)
-        run(`python3 -m pip3 install -U matplotlib`)
-        run(`pip3 install seaborn`)
-    end
-
-    ## Install julia if not already installed
-    if in("julia", readdir("/usr/local/bin")) == false
-        if in("apt", readdir("/usr/bin")) == true
-            run(`sudo apt-get update`)
-            run(`sudo apt-get dist-upgrade`)
-            run(`sudo apt-get install julia`)
-        elseif in("dnf", readdir("/usr/bin")) == true
-            run(`sudo dnf update`)
-            run(`sudo yum update`)
-            run(`sudo dnf copr enable nalimilan/julia`)
-            run(`sudo yum install julia`)
-        elseif in("dnf", readdir("/usr/bin")) == false && in("yum", readdir("/usr/bin")) == true
-            run(`sudo yum update`)
-            run(`sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/nalimilan/julia/repo/epel-7/nalimilan-julia-epel-7.repo`)
-            run(`sudo yum install julia`)
-        elseif in("pkg", readdir("/usr/bin")) == true
-            run(`pkg upgrade`)
-            run(`pkg install julia`)
-        elseif in("pacman", readdir("/usr/bin")) == true
-            run(`pacman -Syu`)
-            run(`pacman -S julia`)
+        ## Install julia if not already installed
+        if in("julia", readdir("/usr/local/bin")) == false
+            run(`brew cask install julia`)
         end
     end
-end
 
-@static if Sys.iswindows()
-    ## Check Windows OS system if required software dependencies are installed.
-    ## Install OS packages if not already installed.
+    @static if Sys.islinux()
+        ## Check Linux OS system if required software dependencies are installed.
+        ## Install OS packages if not already installed.
 
-    ## Install python3.7 if not already installed
-    if in("python3", readdir("c:")) == false && in("python37", readdir("c:")) == false
-        run(`choco install python3 --confirm`)
-    elseif in("python3", readdir("c:")) == true && in("python37", readdir("c:")) == false
-        run(`choco upgrade python3 --confirm`)
+        ## Install linuxbrew if not already installed
+        if in("brew", readdir("/usr/local/bin")) == false
+            cd(pathof(easyplotting)[1:end-15])
+            run(`chmod u+x ./brew_install_Linux.sh`)
+            run(`./brew_install_Linux.sh`)
+        end
+
+        ## Install python3.7 if not already installed
+        if in("python3", readdir("/usr/local/bin")) == false
+            run(`brew install python3`)
+        elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
+            run(`brew reinstall python3`)
+        end
+
+        ## Install seaborn python3 package if not already installed
+        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false || in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
+            run(`python3 -m pip3 install -U pip3`)
+            run(`python3 -m pip3 install -U matplotlib`)
+            run(`pip3 install seaborn`)
+        end
+
+        ## Install julia if not already installed
+        if in("julia", readdir("/usr/local/bin")) == false
+            if in("apt", readdir("/usr/bin")) == true
+                run(`sudo apt-get update`)
+                run(`sudo apt-get dist-upgrade`)
+                run(`sudo apt-get install julia`)
+            elseif in("dnf", readdir("/usr/bin")) == true
+                run(`sudo dnf update`)
+                run(`sudo yum update`)
+                run(`sudo dnf copr enable nalimilan/julia`)
+                run(`sudo yum install julia`)
+            elseif in("dnf", readdir("/usr/bin")) == false && in("yum", readdir("/usr/bin")) == true
+                run(`sudo yum update`)
+                run(`sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/nalimilan/julia/repo/epel-7/nalimilan-julia-epel-7.repo`)
+                run(`sudo yum install julia`)
+            elseif in("pkg", readdir("/usr/bin")) == true
+                run(`pkg upgrade`)
+                run(`pkg install julia`)
+            elseif in("pacman", readdir("/usr/bin")) == true
+                run(`pacman -Syu`)
+                run(`pacman -S julia`)
+            end
+        end
     end
 
-    ## Install seaborn python3 package if not already installed
-    if in("seaborn", readdir(raw"c:\python37\lib\site-packages")) == false
-        run(`python3 -m pip3 install -U pip3`)
-        run(`python3 -m pip3 install -U matplotlib`)
-        run(`pip3 install seaborn`)
+    @static if Sys.iswindows()
+        ## Check Windows OS system if required software dependencies are installed.
+        ## Install OS packages if not already installed.
+
+        ## Install python3.7 if not already installed
+        if in("python3", readdir("c:")) == false && in("python37", readdir("c:")) == false
+            run(`choco install python3 --confirm`)
+        elseif in("python3", readdir("c:")) == true && in("python37", readdir("c:")) == false
+            run(`choco upgrade python3 --confirm`)
+        end
+
+        ## Install seaborn python3 package if not already installed
+        if in("seaborn", readdir(raw"c:\python37\lib\site-packages")) == false
+            run(`python3 -m pip3 install -U pip3`)
+            run(`python3 -m pip3 install -U matplotlib`)
+            run(`pip3 install seaborn`)
+        end
+
+        ## Install julia if not already installed
+        if in("julia", readdir("c:")) == false
+            run(`choco install julia --confirm`)
+        end
     end
 
-    ## Install julia if not already installed
-    if in("julia", readdir("c:")) == false
-        run(`choco install julia --confirm`)
-    end
-end
+    import Blink, Conda
 
-import Blink, Conda
+    ## Install additional required Julia installations if not already installed
+    @static if Sys.isapple()
+        ## Installing Electron browser (and renaming to Julia.app)
+        if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
+            Blink.AtomShell.install()
+        end
 
-## Install additional required Julia installations if not already installed
-@static if Sys.isapple()
-    ## Installing Electron browser (and renaming to Julia.app)
-    if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
-        Blink.AtomShell.install()
-    end
-
-    ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-    if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
-        Conda.add("pyqt")
-    end
-end
-
-@static if Sys.islinux()
-    ## Installing Electron browser (and renaming to Julia.app)
-    if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
-        Blink.AtomShell.install()
+        ## Adding pyqt matplotlib backend for compatibility with seaborn plots
+        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
+            Conda.add("pyqt")
+        end
     end
 
-    ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-    if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
-        Conda.add("pyqt")
-    end
-end
-    
-@static if Sys.iswindows()
-    ## Installing Electron browser (and renaming to Julia.app)
-    if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
-        Blink.AtomShell.install()
+    @static if Sys.islinux()
+        ## Installing Electron browser (and renaming to Julia.app)
+        if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
+            Blink.AtomShell.install()
+        end
+
+        ## Adding pyqt matplotlib backend for compatibility with seaborn plots
+        if in("backend_qt5.py", readdir("/usr/local/lib/python3.7/site-packages/matplotlib/backends")) == false || in("backend_qt5.py", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/matplotlib/backends")) == false
+            Conda.add("pyqt")
+        end
     end
 
-    ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-    if in("backend_qt5.py", readdir(raw"c:\python37\lib\site-packages\matplotlib\backends")) == false
-        Conda.add("pyqt")
-    end
-end
+    @static if Sys.iswindows()
+        ## Installing Electron browser (and renaming to Julia.app)
+        if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
+            Blink.AtomShell.install()
+        end
 
-## Main code for heatmap plotting GUI
+        ## Adding pyqt matplotlib backend for compatibility with seaborn plots
+        if in("backend_qt5.py", readdir(raw"c:\python37\lib\site-packages\matplotlib\backends")) == false
+            Conda.add("pyqt")
+        end
+    end
+
+    ## Main code for heatmap plotting GUI
 import Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn
 function easyheatmap()
     w = Window() ## Opening Blink window
