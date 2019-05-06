@@ -35,45 +35,43 @@ function easyheatmap() ## Defining function to be called by user
         ## Install OS packages if not already installed.
 
         ## Install linuxbrew if not already installed
-        if in("brew", readdir("/usr/local/bin")) == false
+        if success(`which brew`) == false
             cd(pathof(easyplotting)[1:end-15])
             run(`chmod u+x ./brew_install_Linux.sh`)
             run(`./brew_install_Linux.sh`)
         end
 
         ## Install python3.7 if not already installed
-        if in("python3", readdir("/usr/local/bin")) == false
+        if success(`which python3`) == false
             run(`brew install python3`)
-        elseif in("python3", readdir("/usr/local/bin")) == true && in("python3.7", readdir("/usr/local/bin")) == false && in("3.7", readdir("/Library/Frameworks/Python.framework/Versions")) == false
+        elseif success(`which python3`) == true && success(`which python3.7`) == false
             run(`brew reinstall python3`)
         end
 
         ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir("/usr/local/lib/python3.7/site-packages/")) == false
-            run(`pip3 install seaborn`)
-        elseif in("seaborn", readdir("/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages")) == false
+        if in("seaborn", readdir(joinpath(chomp(read(`which python3`, String))[1:end-11], "lib/python3.7/site-packages/"))) == false
             run(`pip3 install seaborn`)
         end
 
         ## Install julia if not already installed
-        if in("julia", readdir("/usr/local/bin")) == false
-            if in("apt", readdir("/usr/bin")) == true
+        if success(`which julia`) == false
+            if success(`which apt`) == true
                 run(`sudo apt-get update`)
                 run(`sudo apt-get dist-upgrade`)
                 run(`sudo apt-get install julia`)
-            elseif in("dnf", readdir("/usr/bin")) == true
+            elseif success(`which dnf`) == true
                 run(`sudo dnf update`)
                 run(`sudo yum update`)
                 run(`sudo dnf copr enable nalimilan/julia`)
                 run(`sudo yum install julia`)
-            elseif in("dnf", readdir("/usr/bin")) == false && in("yum", readdir("/usr/bin")) == true
+            elseif success(`which dnf`) == false && success(`which yum`) == true
                 run(`sudo yum update`)
                 run(`sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/nalimilan/julia/repo/epel-7/nalimilan-julia-epel-7.repo`)
                 run(`sudo yum install julia`)
-            elseif in("pkg", readdir("/usr/bin")) == true
+            elseif success(`which pkg`) == true
                 run(`pkg upgrade`)
                 run(`pkg install julia`)
-            elseif in("pacman", readdir("/usr/bin")) == true
+            elseif success(`which pacman`)) == true
                 run(`pacman -Syu`)
                 run(`pacman -S julia`)
             end
