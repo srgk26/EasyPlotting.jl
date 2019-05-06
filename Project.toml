@@ -1,0 +1,15 @@
+name = "easyplotting"
+uuid = "0fc5cdf6-7036-11e9-0227-9db9f3330fcc"
+authors = ["S R Gokul Krishnan <srgk26ster@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
+Blink = "ad839575-38b3-5650-b840-f874b8c74a25"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+Interact = "c601a237-2ae4-5e1e-952c-7a85b0c7eef1"
+Seaborn = "d2ef9438-c967-53ab-8060-373fdd9e13eb"
+XLSX = "fdbf4ff8-1666-58a4-91e7-1b58723a45e0"
