@@ -1,4 +1,4 @@
-using Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ## Importing required libraries
+import Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ## Importing required libraries
 function easyheatmap() ## Defining function to be called by user
     ## Software packages installation and setup for Mac/Linux/Windows
     @static if Sys.isapple()
