@@ -77,7 +77,7 @@ function easyheatmap() ## Defining function to be called by user
             end
         end
     end
-    #=
+    
     @static if Sys.iswindows()
         #### Check Windows OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
@@ -126,7 +126,7 @@ function easyheatmap() ## Defining function to be called by user
         if in("backend_qt5.py", readdir(joinpath(readdir(pwd()[1:end-11]), "Python37/lib/site-packages/matplotlib/backends"))) == false
             Conda.add("pyqt")
         end
-    end=#
+    end
 
     #### Main code for heatmap plotting GUI
     w = Window() ## Opening Blink window
