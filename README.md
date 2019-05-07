@@ -32,7 +32,7 @@ The following is a step-by-step guide to execute the source scripts to get the G
   
   <br/>
   
-### If the easyplotting package has already been previously installed:
+### If this easyplotting package has already been previously installed:
   
   5. **<*if there are new updates*>** Copy and paste on the Julia prompt to update this package to include newly updated functionalities:
   
