@@ -1,6 +1,5 @@
 $InstallDir='C:\ProgramData\chocoportable' ## Change install directory for non-admin users
 $env:ChocolateyInstall="$InstallDir"
-Set-ExecutionPolicy Bypass
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 choco install puppet-agent.portable -y
 choco install ruby.portable -y
