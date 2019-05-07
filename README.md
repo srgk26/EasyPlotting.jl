@@ -31,6 +31,7 @@ The following is a step-by-step guide to execute the source scripts to get the G
   ```
   
 *If the easyplotting package has already been previously installed:*
+  
   5. Copy and paste on the Julia prompt to update this package to include newly updated functionalities:
   [Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>]
   ```
