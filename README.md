@@ -20,10 +20,10 @@ If anyone would like to contribute, please feel free to submit a pull request. I
 The following is a step-by-step guide to execute the source scripts to get the GUI running from within the Julia REPL.
 
 ### If this is the first time using Julia and this package, pls also follow the following steps:
-  1. Download and run Julia v1.1.0 from: https://julialang.org/downloads/ <*if not already downloaded*>
-  2. <*For Windows only*> Download and run 'Chocolatey package manager' from: https://chocolatey.org <*if not already downloaded*>
+  1. Download and run Julia v1.1.0 from: https://julialang.org/downloads/ **<*if not already downloaded*>**
+  2. **<*For Windows only*>** Download and run 'Chocolatey package manager' from: https://chocolatey.org **<*if not already downloaded*>**
   3. Open Julia REPL by opening the Julia app
-  4. Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install. <*if not already added*>:
+  4. Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install. **<*if not already added*>**:
   
   **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
@@ -34,7 +34,7 @@ The following is a step-by-step guide to execute the source scripts to get the G
   
 ### If the easyplotting package has already been previously installed:
   
-  5. Copy and paste on the Julia prompt to update this package to include newly updated functionalities:
+  5. Copy and paste on the Julia prompt to update this package to include newly updated functionalities **<if there are new updates>**:
   
   **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
