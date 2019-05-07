@@ -15,3 +15,6 @@ if success(`powershell.exe where.exe choco`) == false
     end
 end
 
+if success(`powershell.exe where.exe /R C: julia`) == false
+    run(`powershell.exe choco install julia --confirm`)
+end
