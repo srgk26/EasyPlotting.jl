@@ -85,11 +85,14 @@ function easyheatmap() ## Defining function to be called by user
         ## Install chocolatey if not already installed
         if in("chocoportable", readdir("C:/ProgramData")) == false && in("chocoportable", readdir("C:/")) == false
             cd(pathof(easyplotting)[1:end-15])
-            run(`chmod u+x ./brew_install_Linux.sh`)
+            run(`chmod u+x ./choco_install_Windows_admin`)
             if success(`choco_install_Windows_admin`) == true
                 run(`choco_install_Windows_admin`)
             else
+                run(`chmod u+x ./choco_install_Windows_non_admin`)
                 run(`choco_install_Windows_non_admin`)
+            end
+        end
 
         ## Install python3.7 if not already installed
         if in("Python36", readdir("C:/")) == false && in("Python37", readdir("C:/")) == false && in("Python36", readdir(pwd()[1:end-11])) == false && in("Python37", readdir(pwd()[1:end-11])) == false
