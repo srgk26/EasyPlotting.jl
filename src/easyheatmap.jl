@@ -342,7 +342,7 @@ function easyheatmap() ## Defining function to be called by user
                 end
             end
         elseif (inputs["file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-            df = DataFrame(readdlm(inputs["file"][]::String))
+            df = DataFrame(readdlm(inputs["file"][]::String, '\t'))
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
