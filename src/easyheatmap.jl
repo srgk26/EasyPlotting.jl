@@ -99,7 +99,7 @@ function easyheatmap() ## Defining function to be called by user
         end
 
         ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir(joinpath(readdir(pwd()[1:end-11]), "Python37/lib/site-packages/"))) == false
+        if in("seaborn", readdir(joinpath(pwd()[1:end-11], "Python37/lib/site-packages/"))) == false
             run(`pip3 install seaborn`)
         end
 
@@ -123,7 +123,7 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     @static if Sys.iswindows()
-        if in("backend_qt5.py", readdir(joinpath(readdir(pwd()[1:end-11]), "Python37/lib/site-packages/matplotlib/backends"))) == false
+        if in("backend_qt5.py", readdir(joinpath(pwd()[1:end-11], "Python37/lib/site-packages/matplotlib/backends"))) == false
             Conda.add("pyqt")
         end
     end
