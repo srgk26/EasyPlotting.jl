@@ -137,26 +137,26 @@ function easyheatmap() ## Defining function to be called by user
     ## Defining input widgets for data selection
     function page_inputs()
         file = Interact.filepicker(accept=[".csv", ".txt", ".xlsx"]) ## Restricting file input types
-        sheet = textbox("sheet name")
-        clustering = dropdown(["row", "column", "both", "none"])
-        size1 = textbox("Default: x-axis = 6")
-        size2 = textbox("Default: y-axis = 7")
-        colours = dropdown(["Default", "Blues", "Reds", "Purples", "Greens", "mako", "BuGn_r", "cubehelix", "BrBG", "RdBu_r", "coolwarm"])
+        sheet = Interact.textbox("sheet name")
+        clustering = Interact.dropdown(["row", "column", "both", "none"])
+        size1 = Interact.textbox("Default: x-axis = 6")
+        size2 = Interact.textbox("Default: y-axis = 7")
+        colours = Interact.dropdown(["Default", "Blues", "Reds", "Purples", "Greens", "mako", "BuGn_r", "cubehelix", "BrBG", "RdBu_r", "coolwarm"])
         enter_button = html"""<button onclick='Blink.msg("press", "foo")'>Plot</button>"""  ## Using HTML format since action-on-click works with this
-        Widget(["file"=>file, "sheet"=>sheet, "clustering"=>clustering, "size1"=>size1, "size2"=>size2, "colours"=>colours, "enter_button"=>enter_button])
+        Interact.Widget(["file"=>file, "sheet"=>sheet, "clustering"=>clustering, "size1"=>size1, "size2"=>size2, "colours"=>colours, "enter_button"=>enter_button])
     end
     inputs = page_inputs()
 
     ## Designing page layout
-    page = node(:div,
-                node(:p, "Upload data file below - only .txt/.csv/.xlsx file extensions accepted:", style=Dict(:color=>"blue", :size=>"80", :padding=>"5px")),
-                node(:div, inputs["file"]),
-                node(:div),
-                node(:p, hbox(pad(0.5em, "If .xlsx file, pls also enter sheet name (case & space sensitive):"), pad(0.25em, inputs["sheet"])), style=Dict(:color=>"red", :size=>"40", :padding=>"5px")),
-                node(:p, hbox(pad(0.5em, "Choose options for dendrogram clustering:"), pad(0.25em, inputs["clustering"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
-                node(:p, hbox(pad(0.5em, "(Optional) Enter plot size (numbers only):"), pad(0.25em, inputs["size1"]), pad(0.25em, inputs["size2"])), style=Dict(:color=>"green", :size=>"40", :padding=>"5px")),
-                node(:p, hbox(pad(0.5em, "(Optional) Select fill colour palette for heatmap:"), pad(0.25em, inputs["colours"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
-                node(:p, inputs["enter_button"]))
+    page = Interact.node(:div,
+                Interact.node(:p, "Upload data file below - only .txt/.csv/.xlsx file extensions accepted:", style=Dict(:color=>"blue", :size=>"80", :padding=>"5px")),
+                Interact.node(:div, inputs["file"]),
+                Interact.node(:div),
+                Interact.node(:p, hbox(pad(0.5em, "If .xlsx file, pls also enter sheet name (case & space sensitive):"), pad(0.25em, inputs["sheet"])), style=Dict(:color=>"red", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, hbox(pad(0.5em, "Choose options for dendrogram clustering:"), pad(0.25em, inputs["clustering"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, hbox(pad(0.5em, "(Optional) Enter plot size (numbers only):"), pad(0.25em, inputs["size1"]), pad(0.25em, inputs["size2"])), style=Dict(:color=>"green", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, hbox(pad(0.5em, "(Optional) Select fill colour palette for heatmap:"), pad(0.25em, inputs["colours"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, inputs["enter_button"]))
 
     Blink.body!(w, page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Heatmap") ## Adding title to Blink window 'w'
