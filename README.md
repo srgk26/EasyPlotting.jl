@@ -23,7 +23,7 @@ The following is a step-by-step guide to execute the source scripts to get the G
   1. Download and run Julia v1.1.0 from: https://julialang.org/downloads/ **<*if not already downloaded*>**
   2. **<*For Windows only*>** Download and run 'Chocolatey package manager' from: https://chocolatey.org **<*if not already downloaded*>**
   3. Open Julia REPL by opening the Julia app
-  4. Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. **<*if not already installed*>** This process may take upto 20 min for all the dependencies to install.:
+  4. **<*if not already installed*>** Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install.:
   
   **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
