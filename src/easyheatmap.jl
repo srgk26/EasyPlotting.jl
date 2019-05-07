@@ -107,7 +107,7 @@ function easyheatmap() ## Defining function to be called by user
         if in("Julia-1.1.0", readdir("C:/")) == false && in("Julia-1.1.0", readdir(pwd()[1:end-11])) == false
             run(`choco install julia --confirm`)
         end
-    end=#
+    end
 
     #### Install additional required Julia installations if not already installed
     ## Installing Electron browser (and renaming to Julia.app)
@@ -126,7 +126,7 @@ function easyheatmap() ## Defining function to be called by user
         if in("backend_qt5.py", readdir(joinpath(readdir(pwd()[1:end-11]), "Python37/lib/site-packages/matplotlib/backends"))) == false
             Conda.add("pyqt")
         end
-    end
+    end=#
 
     #### Main code for heatmap plotting GUI
     w = Window() ## Opening Blink window
