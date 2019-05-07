@@ -51,7 +51,7 @@ That's it! Feel free to use and enjoy the app whenever needed.
 
 ***
 
-##Deprecated instructions:
+## Deprecated instructions:
 
 The following is a step-by-step guide to execute the source scripts to get the GUI running from within the Julia REPL.
 
@@ -71,12 +71,12 @@ That's it! Feel free to use and enjoy the app whenever needed.
 
 ***
 
-##Credits:
+## Credits:
 
 Credits to the developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl. Also to `@NHDaly`@https://github.com/NHDaly/ApplicationBuilder.jl for his cool ApplicationBuilder.jl package, very useful for bundling applications, executables and their dependencies.
 
 ***
 
-##Future work:
+## Future work:
   1. Build fully functional, standalone apps for Mac, Windows and Linux distributions.
   2. Add other plotting functionalities and types.
