@@ -15,30 +15,30 @@ If anyone would like to contribute, please feel free to submit a pull request. I
 
 ***
 
-**Instructions:**
+##Instructions:
 
 The following is a step-by-step guide to execute the source scripts to get the GUI running from within the Julia REPL.
 
-*If this is the first time using Julia and this package, pls also follow the following steps:*
+*###If this is the first time using Julia and this package, pls also follow the following steps:*
   1. Download and run Julia v1.1.0 from: https://julialang.org/downloads/ <*if not already downloaded*>
   2. <*For Windows only*> Download and run 'Chocolatey package manager' from: https://chocolatey.org <*if not already downloaded*>
   3. Open Julia REPL by opening the Julia app
   4. Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install. <*if not already added*>:
   
-  [Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>]
+  **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
   add https://github.com/srgk26/easy_plotting.app.git
   ```
   
-*If the easyplotting package has already been previously installed:*
+###*If the easyplotting package has already been previously installed:*
   
   5. Copy and paste on the Julia prompt to update this package to include newly updated functionalities:
-  [Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>]
+  **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
   update easyplotting; gc
   ```
   6. Run easy_plotting GUI by copying and pasting on the Julia prompt:
-   [If need to, press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>]
+  **If need to, press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>**
   ```
   using easyplotting; easyplotting.easyheatmap()
   ```
@@ -47,7 +47,7 @@ That's it! Feel free to use and enjoy the app whenever needed.
 
 ***
 
-**Deprecated instructions:**
+##Deprecated instructions:
 
 The following is a step-by-step guide to execute the source scripts to get the GUI running from within the Julia REPL.
 
@@ -67,12 +67,12 @@ That's it! Feel free to use and enjoy the app whenever needed.
 
 ***
 
-**Credits:**
+##Credits:
 
 Credits to the developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink , which helped greatly for the main structure of my main_code.jl. Also to `@NHDaly`@https://github.com/NHDaly/ApplicationBuilder.jl for his cool ApplicationBuilder.jl package, very useful for bundling applications, executables and their dependencies.
 
 ***
 
-***Future work:***
+##Future work:
   1. Build fully functional, standalone apps for Mac, Windows and Linux distributions.
   2. Add other plotting functionalities and types.
