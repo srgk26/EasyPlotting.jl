@@ -83,19 +83,19 @@ function easyheatmap() ## Defining function to be called by user
         ## Install OS packages if not already installed.
 
         ## Install python3.7 if not already installed
-        if success(`which python3`) == false
+        if in("Python36", readdir("C:/")) == false && in("Python37", readdir("C:/")) == false && in("Python36", readdir(pwd()[1:end-11])) == false && in("Python37", readdir(pwd()[1:end-11])) == false
             run(`choco install python3 --confirm`)
-        elseif success(`which python3`) == true && success(`which python37`) == false
+        elseif in("Python36", readdir("C:/")) == true && in("Python37", readdir("C:/")) == false || in("Python36", readdir(pwd()[1:end-11])) == true && in("Python37", readdir(pwd()[1:end-11])) == false
             run(`choco upgrade python3 --confirm`)
         end
 
         ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir(joinpath(chomp(read(`which python37`, String))[1:end-12], "lib/site-packages/"))) == false
+        if in("seaborn", readdir(joinpath(readdir(pwd()[1:end-11]), "Python37/lib/site-packages/"))) == false
             run(`pip3 install seaborn`)
         end
 
         ## Install julia if not already installed
-        if success(`which julia`) == false
+        if in("Julia-1.1.0", readdir("C:/")) == false && in("Julia-1.1.0", readdir(pwd()[1:end-11])) == false
             run(`choco install julia --confirm`)
         end
     end
@@ -114,7 +114,7 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     @static if Sys.iswindows()
-        if in("backend_qt5.py", readdir(joinpath(chomp(read(`which python37`, String))[1:end-12], "lib/site-packages/matplotlib/backends"))) == false
+        if in("backend_qt5.py", readdir(joinpath(readdir(pwd()[1:end-11]), "Python37/lib/site-packages/matplotlib/backends"))) == false
             Conda.add("pyqt")
         end
     end
