@@ -21,9 +21,8 @@ The following is a step-by-step guide to install this package and get the GUI ru
 
 ### If this is the first time using Julia and this package, pls also follow the following steps:
   1. **<*if not already downloaded*>** Download and run Julia v1.1.0 from: https://julialang.org/downloads/
-  2. **<*For Windows only*>** **<*if not already downloaded*>** Download and run 'Chocolatey package manager' from: https://chocolatey.org
-  3. Open Julia REPL by opening the Julia app
-  4. **<*if not already installed*>** Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install.:
+  2. Open Julia REPL by opening the Julia app
+  3. **<*if not already installed*>** Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install.:
   
   **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
@@ -34,13 +33,13 @@ The following is a step-by-step guide to install this package and get the GUI ru
   
 ### If this easyplotting package has already been previously installed:
   
-  5. **<*if there are new updates*>** Copy and paste on the Julia prompt to update this package to include newly updated functionalities:
+  4. **<*if there are new updates*>** Copy and paste on the Julia prompt to update this package to include newly updated functionalities:
   
   **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
   update easyplotting; gc
   ```
-  6. Run easy_plotting GUI (only heatmap for now) by copying and pasting on the Julia prompt:
+  5. Run easy_plotting GUI (only heatmap for now) by copying and pasting on the Julia prompt:
   
   **If need to, press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>**
   ```
