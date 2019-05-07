@@ -17,7 +17,7 @@ If anyone would like to contribute, please feel free to submit a pull request. I
 
 ## Instructions:
 
-The following is a step-by-step guide to execute the source scripts to get the GUI running from within the Julia REPL.
+The following is a step-by-step guide to install this package and get the GUI running from within the Julia REPL.
 
 ### If this is the first time using Julia and this package, pls also follow the following steps:
   1. **<*if not already downloaded*>** Download and run Julia v1.1.0 from: https://julialang.org/downloads/
@@ -40,7 +40,7 @@ The following is a step-by-step guide to execute the source scripts to get the G
   ```
   update easyplotting; gc
   ```
-  6. Run easy_plotting GUI by copying and pasting on the Julia prompt:
+  6. Run easy_plotting GUI (only heatmap for now) by copying and pasting on the Julia prompt:
   
   **If need to, press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>**
   ```
