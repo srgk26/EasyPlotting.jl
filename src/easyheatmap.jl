@@ -77,7 +77,7 @@ function easyheatmap() ## Defining function to be called by user
             end
         end
     end
-
+    #=
     @static if Sys.iswindows()
         #### Check Windows OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
@@ -107,7 +107,7 @@ function easyheatmap() ## Defining function to be called by user
         if in("Julia-1.1.0", readdir("C:/")) == false && in("Julia-1.1.0", readdir(pwd()[1:end-11])) == false
             run(`choco install julia --confirm`)
         end
-    end
+    end=#
 
     #### Install additional required Julia installations if not already installed
     ## Installing Electron browser (and renaming to Julia.app)
