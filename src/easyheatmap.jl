@@ -132,11 +132,11 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     #### Main code for heatmap plotting GUI
-    w = Window() ## Opening Blink window
+    w = Blink.Window() ## Opening Blink window
 
     ## Defining input widgets for data selection
     function page_inputs()
-        file = filepicker(accept=[".csv", ".txt", ".xlsx"]) ## Restricting file input types
+        file = Interact.filepicker(accept=[".csv", ".txt", ".xlsx"]) ## Restricting file input types
         sheet = textbox("sheet name")
         clustering = dropdown(["row", "column", "both", "none"])
         size1 = textbox("Default: x-axis = 6")
@@ -158,7 +158,7 @@ function easyheatmap() ## Defining function to be called by user
                 node(:p, hbox(pad(0.5em, "(Optional) Select fill colour palette for heatmap:"), pad(0.25em, inputs["colours"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
                 node(:p, inputs["enter_button"]))
 
-    body!(w, page) ## Adding page layout options to Blink window 'w'
+    Blink.body!(w, page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Heatmap") ## Adding title to Blink window 'w'
 
     ## Defining function -- plotting instructions -- to be called from within Plot(w, inputs) function
@@ -455,7 +455,7 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     #### This is a method of message passing inference between javascript used in Blink and Julia
-    handle(w, "press") do args...  ## When enter_button is pressed, the following arguments are executed
+    Blink.handle(w, "press") do args...  ## When enter_button is pressed, the following arguments are executed
       events()  ## When enter_button is pressed, events(w, inputs) is executed.
     end
 end
