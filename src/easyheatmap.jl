@@ -7,7 +7,6 @@ function easyheatmap() ## Defining function to be called by user
 
         ## Install homebrew if not already installed
         if success(`which brew`) == false
-            cd(pathof(easyplotting)[1:end-15])
             run(`chmod u+x ./brew_install_MacOS.sh`)
             run(`./brew_install_MacOS.sh`)
         end
@@ -37,7 +36,6 @@ function easyheatmap() ## Defining function to be called by user
 
         ## Install linuxbrew if not already installed
         if success(`which brew`) == false
-            cd(pathof(easyplotting)[1:end-15])
             run(`chmod u+x ./brew_install_Linux.sh`)
             run(`./brew_install_Linux.sh`)
         end
@@ -84,33 +82,51 @@ function easyheatmap() ## Defining function to be called by user
         #### Check Windows OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
         
-        ## Install chocolatey if not already installed
-        if in("chocoportable", readdir("C:/ProgramData")) == false && in("chocoportable", readdir("C:/")) == false
-            cd(pathof(easyplotting)[1:end-15])
-            run(`chmod u+x ./choco_install_Windows_admin`)
-            if success(`choco_install_Windows_admin`) == true
-                run(`choco_install_Windows_admin`)
-            else
-                run(`chmod u+x ./choco_install_Windows_non_admin`)
-                run(`choco_install_Windows_non_admin`)
+        If chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
+	        run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process`)
+        end
+
+        function input(prompt::String="")
+            print(prompt)
+                return chomp(readline())
+        end
+        admin = input("Are you an admin? [Y]es or [N]o: ")
+
+        if success(`powershell.exe where.exe choco`) == false
+            if admin == "Y" || "y"
+                run(`powershell.exe choco_install_admin.ps1`)
+            elseif admin == "N" || "n"
+                run(`powershell.exe choco_install_nonadmin.ps1`)
             end
+            run(`powershell.exe refreshenv`)
         end
 
-        ## Install python3.7 if not already installed
-        if in("Python36", readdir("C:/")) == false && in("Python37", readdir("C:/")) == false && in("Python36", readdir(pwd()[1:end-11])) == false && in("Python37", readdir(pwd()[1:end-11])) == false
-            run(`choco install python3 --confirm`)
-        elseif in("Python36", readdir("C:/")) == true && in("Python37", readdir("C:/")) == false || in("Python36", readdir(pwd()[1:end-11])) == true && in("Python37", readdir(pwd()[1:end-11])) == false
-            run(`choco upgrade python3 --confirm`)
+        if success(`powershell.exe where.exe python`) == false
+            if admin == "Y" || "y"
+                run(`powershell.exe choco install python3 --confirm`)
+            elseif admin == "N" || "n"
+                run(`powershell.exe python3_install_nonadmin.ps1`)
+            end
+            run(`powershell.exe refreshenv`)
         end
 
-        ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir(joinpath(pwd()[1:end-11], "Python37/lib/site-packages/"))) == false
+        if success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] == "3" && chomp(read(`powershell.exe where.exe python`, String))[end-11] !== "7"
+            if admin == "Y" || "y"
+                run(`powershell.exe choco upgrade python3 --confirm`)
+            elseif admin == "N" || "n"
+                run(`powershell.exe python3_install_nonadmin.ps1`)
+            end
+            run(`powershell.exe refreshenv`)
+        end
+
+    if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
+            run(`pip3 install --upgrade pip`)
             run(`pip3 install seaborn`)
         end
 
-        ## Install julia if not already installed
-        if in("Julia-1.1.0", readdir("C:/")) == false && in("Julia-1.1.0", readdir(pwd()[1:end-11])) == false
-            run(`choco install julia --confirm`)
+
+        if success(`powershell.exe where.exe julia`) == false
+            run(`powershell.exe choco install julia --confirm`)
         end
     end
 
