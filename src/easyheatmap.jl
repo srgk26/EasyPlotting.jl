@@ -83,7 +83,7 @@ function easyheatmap() ## Defining function to be called by user
         ## Install OS packages if not already installed.
         
         If chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
-	        run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process`)
+	        run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
         end
 
         function input(prompt::String="")
