@@ -84,13 +84,67 @@ function easyheatmap() ## Defining function to be called by user
         
         If chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
 	        run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
+			run(`powershell.exe refreshenv`)
         end
 
         function input(prompt::String="")
             print(prompt)
-                return chomp(readline())
+            return chomp(readline())
         end
         admin = input("Are you an admin? [Y]es or [N]o: ")
+	
+		if admin == "Y" || "y"
+			if success(`powershell.exe where.exe choco`) == false
+				run(`powershell.exe choco_install_admin.ps1`)
+				run(`powershell.exe refreshenv`)
+			end
+		
+			if success(`powershell.exe where.exe python`) == false
+				run(`powershell.exe choco install python3 --confirm`)
+			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] !== "3"
+				run(`powershell.exe choco install python3 --confirm`)
+			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] == "3" && chomp(read(`powershell.exe where.exe python`, String))[end-11] !== "7"
+				run(`powershell.exe choco upgrade python3 --confirm`)
+			end
+		
+			if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
+            	run(`pip3 install --upgrade pip`)
+            	run(`pip3 install seaborn`)
+        	end
+		
+			if success(`powershell.exe where.exe julia`) == false
+            	run(`powershell.exe choco install julia --confirm`)
+        	end
+		elseif admin == "N" || "n"
+			if success(`powershell.exe where.exe choco`) == false
+				run(`powershell.exe choco_install_nonadmin.ps1`)
+				run(`powershell.exe refreshenv`)
+			end
+		
+			if success(`powershell.exe where.exe python`) == false
+			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] !== "3"
+			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] == "3" && chomp(read(`powershell.exe where.exe python`, String))[end-11] !== "7"
+			end
+		
+			if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
+            	run(`pip3 install --upgrade pip`)
+            	run(`pip3 install seaborn`)
+        	end
+		
+			if success(`powershell.exe where.exe julia`) == false
+            	run(`powershell.exe choco install julia --confirm`)
+        	end
+		end
+	
+
+								
+
+		
+		
+		
+	
+		
+		
 
         if success(`powershell.exe where.exe choco`) == false
             if admin == "Y" || "y"
@@ -128,6 +182,8 @@ function easyheatmap() ## Defining function to be called by user
         if success(`powershell.exe where.exe julia`) == false
             run(`powershell.exe choco install julia --confirm`)
         end
+	
+	run(`powershell.exe refreshenv`)
     end
 
     #### Install additional required Julia installations if not already installed
