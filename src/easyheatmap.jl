@@ -108,7 +108,7 @@ function easyheatmap() ## Defining function to be called by user
                 run(`powershell.exe choco upgrade python3 --confirm`)
             end
 
-            if in("seaborn", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages")) == false
+            if in("seaborn", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages"))) == false
                 run(`pip3 install --upgrade pip`)
                 run(`pip3 install seaborn`)
             end
