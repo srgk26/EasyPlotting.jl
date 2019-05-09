@@ -128,12 +128,11 @@ function easyheatmap() ## Defining function to be called by user
                 run(`pip3 install --upgrade pip`)
                 run(`pip3 install seaborn`)
             end
-
-        run(`powershell.exe refreshenv`)
         else
             println("Invalid input. Please re-run the command and enter only 'Y' or 'N'.")
             error("Invalid input sequence for user input.")
         end
+        run(`powershell.exe refreshenv`)
     end
 
     #### Install additional required Julia installations if not already installed
