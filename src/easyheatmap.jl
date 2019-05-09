@@ -93,7 +93,7 @@ function easyheatmap() ## Defining function to be called by user
         end
         admin = input("Are you an admin? [Y]es or [N]o: ")
 	
-		if admin == "Y" || "y"
+		if admin == "Y" || "y" y
 			if success(`powershell.exe where.exe choco`) == false
 				run(`powershell.exe choco_install_admin.ps1`)
 				run(`powershell.exe refreshenv`)
