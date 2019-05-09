@@ -118,9 +118,9 @@ function easyheatmap() ## Defining function to be called by user
             end
         ## Software installations for non-admin users
         elseif admin == "N" || "n"
-            if in("Python3", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
+            if in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
-            elseif in("Python3", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
+            elseif in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
             end
 
