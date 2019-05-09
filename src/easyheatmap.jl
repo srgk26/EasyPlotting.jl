@@ -81,10 +81,10 @@ function easyheatmap() ## Defining function to be called by user
     @static if Sys.iswindows()
         #### Check Windows OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
-        
+
         If chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
-	        run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
-			run(`powershell.exe refreshenv`)
+            run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
+            run(`powershell.exe refreshenv`)
         end
 
         function input(prompt::String="")
@@ -92,54 +92,48 @@ function easyheatmap() ## Defining function to be called by user
             return chomp(readline())
         end
         admin = input("Are you an admin? [Y]es or [N]o: ")
-	
-		if admin == "Y" || "y"
-			if success(`powershell.exe where.exe choco`) == false
-				run(`powershell.exe choco_install_admin.ps1`)
-				run(`powershell.exe refreshenv`)
-			end
-		
-			if success(`powershell.exe where.exe python`) == false
-				run(`powershell.exe choco install python3 --confirm`)
-			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] !== "3"
-				run(`powershell.exe choco install python3 --confirm`)
-			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] == "3" && chomp(read(`powershell.exe where.exe python`, String))[end-11] !== "7"
-				run(`powershell.exe choco upgrade python3 --confirm`)
-			end
-		
-			if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
-            	run(`pip3 install --upgrade pip`)
-            	run(`pip3 install seaborn`)
-        	end
-		
-			if success(`powershell.exe where.exe julia`) == false
-            	run(`powershell.exe choco install julia --confirm`)
-        	end
-		elseif admin == "N" || "n"
-			if success(`powershell.exe where.exe choco`) == false
-				run(`powershell.exe choco_install_nonadmin.ps1`)
-				run(`powershell.exe refreshenv`)
-			end
-		
-			if success(`powershell.exe where.exe python`) == false
-				run(`powershell.exe python3_install_nonadmin.ps1`)
-			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] !== "3"
-				run(`powershell.exe python3_install_nonadmin.ps1`)
-			elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] == "3" && chomp(read(`powershell.exe where.exe python`, String))[end-11] !== "7"
-				run(`powershell.exe python3_install_nonadmin.ps1`)
-			end
-		
-			if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
-            	run(`pip3 install --upgrade pip`)
-            	run(`pip3 install seaborn`)
-        	end
-		
-			if success(`powershell.exe where.exe julia`) == false
-            	run(`powershell.exe julia_install_nonadmin.ps1 `)
-        	end
-		end
-	
-		run(`powershell.exe refreshenv`)
+
+        ## Software installations for admin users
+        if admin == "Y" || "y"
+            if success(`powershell.exe where.exe choco`) == false
+                run(`powershell.exe choco_install_admin.ps1`)
+                run(`powershell.exe refreshenv`)
+            end
+
+            if success(`powershell.exe where.exe python`) == false
+                run(`powershell.exe choco install python3 --confirm`)
+            elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] !== "3"
+                run(`powershell.exe choco install python3 --confirm`)
+            elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] == "3" && chomp(read(`powershell.exe where.exe python`, String))[end-11] !== "7"
+                run(`powershell.exe choco upgrade python3 --confirm`)
+            end
+
+            if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
+                run(`pip3 install --upgrade pip`)
+                run(`pip3 install seaborn`)
+            end
+
+            if success(`powershell.exe where.exe julia`) == false
+                run(`powershell.exe choco install julia --confirm`)
+            end
+        ## Software installations for non-admin users
+        elseif admin == "N" || "n"
+            if in("Python3", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
+            elseif in("Python3", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
+            end
+
+            if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
+                run(`pip3 install --upgrade pip`)
+                run(`pip3 install seaborn`)
+            end
+
+        run(`powershell.exe refreshenv`)
+        else
+            println("Invalid input. Please re-run the command and enter only 'Y' or 'N'.")
+            error("Invalid input sequence for user input.")
+        end  
     end
 
     #### Install additional required Julia installations if not already installed
