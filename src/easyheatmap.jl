@@ -90,9 +90,9 @@ function easyheatmap() ## Defining function to be called by user
         function Input(prompt::String)
             print(prompt)
             return chomp(readline())
-        end
+            end#=
         admin = Input("Are you an admin? [Y]es or [N]o: ")
-#=
+
         ## Software installations for admin users
         if admin == "Y" || "y"
             if success(`powershell.exe where.exe choco`) == false
