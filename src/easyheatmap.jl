@@ -86,7 +86,7 @@ function easyheatmap() ## Defining function to be called by user
             run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
             run(`powershell.exe refreshenv`)
         end
-#=
+
         function Input(prompt::String)
             print(prompt)
             return chomp(readline())
@@ -94,7 +94,7 @@ function easyheatmap() ## Defining function to be called by user
         admin = Input("Are you an admin? [Y]es or [N]o: ")
 
         ## Software installations for admin users
-        if admin == "Y" || "y"
+        if admin == "Y" || admin == "y"
             if success(`powershell.exe where.exe choco`) == false
                 run(`powershell.exe choco_install_admin.ps1`)
                 run(`powershell.exe refreshenv`)
@@ -117,7 +117,7 @@ function easyheatmap() ## Defining function to be called by user
                 run(`powershell.exe choco install julia --confirm`)
             end
         ## Software installations for non-admin users
-        elseif admin == "N" || "n"
+        elseif admin == "N" || admin == "n"
             if in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
             elseif in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
@@ -133,7 +133,7 @@ function easyheatmap() ## Defining function to be called by user
         else
             println("Invalid input. Please re-run the command and enter only 'Y' or 'N'.")
             error("Invalid input sequence for user input.")
-        end=#
+        end
     end
 
     #### Install additional required Julia installations if not already installed
