@@ -90,7 +90,7 @@ function easyheatmap() ## Defining function to be called by user
         function Input(prompt::String)
             print(prompt)
             return chomp(readline())
-            end#=
+        end
         admin = Input("Are you an admin? [Y]es or [N]o: ")
 
         ## Software installations for admin users
@@ -133,7 +133,7 @@ function easyheatmap() ## Defining function to be called by user
         else
             println("Invalid input. Please re-run the command and enter only 'Y' or 'N'.")
             error("Invalid input sequence for user input.")
-        end  =#
+        end
     end
 
     #### Install additional required Julia installations if not already installed
