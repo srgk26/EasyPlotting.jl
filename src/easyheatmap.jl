@@ -87,7 +87,7 @@ function easyheatmap() ## Defining function to be called by user
             run(`powershell.exe refreshenv`)
         end
 
-        function input(prompt::String="")
+        function input(prompt::String="")::String
             print(prompt)
             return chomp(readline())
         end
