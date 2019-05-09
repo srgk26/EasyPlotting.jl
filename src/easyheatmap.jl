@@ -137,6 +137,7 @@ function easyheatmap() ## Defining function to be called by user
                 run(`pip3 install seaborn`)
             end
         else
+            ## Throw error exception in the event the user presses any other key
             println("Invalid input. Please re-run the command and enter only 'Y' or 'N'.")
             error("Invalid input sequence for user input.")
         end
