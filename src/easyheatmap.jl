@@ -24,7 +24,7 @@ function easyheatmap() ## Defining function to be called by user
             run(`pip3 install seaborn`)
         end
 
-        ## Install julia if not already installed
+        ## Install julia in PATH if not already installed
         if success(`which julia`) == false
             run(`brew cask install julia`)
         end
@@ -53,7 +53,7 @@ function easyheatmap() ## Defining function to be called by user
             run(`pip3 install seaborn`)
         end
 
-        ## Install julia if not already installed
+        ## Install julia in PATH if not already installed
         if success(`which julia`) == false
             if success(`which apt`) == true
                 run(`sudo apt-get update`)
@@ -82,11 +82,13 @@ function easyheatmap() ## Defining function to be called by user
         #### Check Windows OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
 
+        ## Bypassing script execution restrictions with Windows powershell 
         if chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
             run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
             run(`powershell.exe refreshenv`)
         end
 
+        ## Asking if user is an admin user
         function Input(prompt::String)
             print(prompt)
             return chomp(readline())
@@ -95,11 +97,12 @@ function easyheatmap() ## Defining function to be called by user
 
         ## Software installations for admin users
         if admin == "Y" || admin == "y"
+            ## Install chocolatey if not already installed
             if success(`powershell.exe where.exe choco`) == false
-                run(`powershell.exe choco_install_admin.ps1`)
-                run(`powershell.exe refreshenv`)
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; choco_install_admin.ps1`)
             end
 
+            ## Install python3.7 if not already installed
             if success(`powershell.exe where.exe python`) == false
                 run(`powershell.exe choco install python3 --confirm`)
             elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] !== "3"
@@ -108,22 +111,27 @@ function easyheatmap() ## Defining function to be called by user
                 run(`powershell.exe choco upgrade python3 --confirm`)
             end
 
+            ## Install seaborn python3 package if not already installed
             if in("seaborn", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages"))) == false
                 run(`pip3 install --upgrade pip`)
                 run(`pip3 install seaborn`)
             end
 
+            ## Install julia in PATH if not already installed
             if success(`powershell.exe where.exe julia`) == false
                 run(`powershell.exe choco install julia --confirm`)
             end
         ## Software installations for non-admin users
         elseif admin == "N" || admin == "n"
+            ## For non-admin users, only critical software applications installed as non-critical additional software installations are suboptimal
+            ## Install python3.7 if not already installed
             if in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
             elseif in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
             end
 
+            ## Install seaborn python3 package if not already installed
             if in("seaborn", readdir(joinpath(homedir(), "AppData/Local/Programs/Python/Python37/lib/site-packages"))) == false
                 run(`pip3 install --upgrade pip`)
                 run(`pip3 install seaborn`)
@@ -132,7 +140,6 @@ function easyheatmap() ## Defining function to be called by user
             println("Invalid input. Please re-run the command and enter only 'Y' or 'N'.")
             error("Invalid input sequence for user input.")
         end
-        run(`powershell.exe refreshenv`)
     end
 
     #### Install additional required Julia installations if not already installed
@@ -181,10 +188,10 @@ function easyheatmap() ## Defining function to be called by user
                 Interact.node(:p, "Upload data file below - only .txt/.csv/.xlsx file extensions accepted:", style=Dict(:color=>"blue", :size=>"80", :padding=>"5px")),
                 Interact.node(:div, inputs["file"]),
                 Interact.node(:div),
-                Interact.node(:p, hbox(pad(0.5em, "If .xlsx file, pls also enter sheet name (case & space sensitive):"), pad(0.25em, inputs["sheet"])), style=Dict(:color=>"red", :size=>"40", :padding=>"5px")),
-                Interact.node(:p, hbox(pad(0.5em, "Choose options for dendrogram clustering:"), pad(0.25em, inputs["clustering"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
-                Interact.node(:p, hbox(pad(0.5em, "(Optional) Enter plot size (numbers only):"), pad(0.25em, inputs["size1"]), pad(0.25em, inputs["size2"])), style=Dict(:color=>"green", :size=>"40", :padding=>"5px")),
-                Interact.node(:p, hbox(pad(0.5em, "(Optional) Select fill colour palette for heatmap:"), pad(0.25em, inputs["colours"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, hbox(pad(0.5, "If .xlsx file, pls also enter sheet name (case & space sensitive):"), pad(0.25, inputs["sheet"])), style=Dict(:color=>"red", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, hbox(pad(0.5, "Choose options for dendrogram clustering:"), pad(0.25, inputs["clustering"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, hbox(pad(0.5, "(Optional) Enter plot size (numbers only):"), pad(0.25, inputs["size1"]), pad(0.25, inputs["size2"])), style=Dict(:color=>"green", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, hbox(pad(0.5, "(Optional) Select fill colour palette for heatmap:"), pad(0.25, inputs["colours"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
                 Interact.node(:p, inputs["enter_button"]))
 
     Blink.body!(w, page) ## Adding page layout options to Blink window 'w'
