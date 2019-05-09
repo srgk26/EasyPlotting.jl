@@ -189,10 +189,10 @@ function easyheatmap() ## Defining function to be called by user
                 Interact.node(:p, "Upload data file below - only .txt/.csv/.xlsx file extensions accepted:", style=Dict(:color=>"blue", :size=>"80", :padding=>"5px")),
                 Interact.node(:div, inputs["file"]),
                 Interact.node(:div),
-                Interact.node(:p, hbox(pad(0.5, "If .xlsx file, pls also enter sheet name (case & space sensitive):"), pad(0.25, inputs["sheet"])), style=Dict(:color=>"red", :size=>"40", :padding=>"5px")),
-                Interact.node(:p, hbox(pad(0.5, "Choose options for dendrogram clustering:"), pad(0.25, inputs["clustering"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
-                Interact.node(:p, hbox(pad(0.5, "(Optional) Enter plot size (numbers only):"), pad(0.25, inputs["size1"]), pad(0.25, inputs["size2"])), style=Dict(:color=>"green", :size=>"40", :padding=>"5px")),
-                Interact.node(:p, hbox(pad(0.5, "(Optional) Select fill colour palette for heatmap:"), pad(0.25, inputs["colours"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, inputs["sheet"])), style=Dict(:color=>"red", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Choose options for dendrogram clustering:"), Interact.pad(0.25, inputs["clustering"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, inputs["size1"]), Interact.pad(0.25, inputs["size2"])), style=Dict(:color=>"green", :size=>"40", :padding=>"5px")),
+                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for heatmap:"), Interact.pad(0.25, inputs["colours"])), style=Dict(:color=>"blue", :size=>"40", :padding=>"5px")),
                 Interact.node(:p, inputs["enter_button"]))
 
     Blink.body!(w, page) ## Adding page layout options to Blink window 'w'
