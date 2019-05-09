@@ -86,11 +86,11 @@ function easyheatmap() ## Defining function to be called by user
             run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
             run(`powershell.exe refreshenv`)
         end
-
+#=
         function Input(prompt::String)
             print(prompt)
             return chomp(readline())
-        end#=
+        end
         admin = Input("Are you an admin? [Y]es or [N]o: ")
 
         ## Software installations for admin users
