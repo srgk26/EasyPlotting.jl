@@ -87,11 +87,11 @@ function easyheatmap() ## Defining function to be called by user
             run(`powershell.exe refreshenv`)
         end
 
-        function input(prompt::String="")::String
+        function Input(prompt::String="")::String
             print(prompt)
             return chomp(readline())
         end
-        admin = input("Are you an admin? [Y]es or [N]o: ")
+        admin = Base.eval(Input("Are you an admin? [Y]es or [N]o: "))
 
         ## Software installations for admin users
         if admin == "Y" || "y"
