@@ -150,8 +150,14 @@ function easyheatmap() ## Defining function to be called by user
     end
 
     @static if Sys.iswindows()
-        if in("backend_qt5.py", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages/matplotlib/backends"))) == false
-            Conda.add("pyqt")
+        if success(`powershell.exe where.exe python`) == true
+            if in("backend_qt5.py", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages/matplotlib/backends"))) == false
+                Conda.add("pyqt")
+            end
+        else
+            if in("backend_qt5.py", readdir(joinpath(homedir(), "AppData/Local/Programs/Python/Python37/lib/site-packages"))) == false
+                Conda.add("pyqt")
+            end
         end
     end
 
