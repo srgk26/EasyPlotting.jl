@@ -124,7 +124,7 @@ function easyheatmap() ## Defining function to be called by user
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
             end
 
-            if in("seaborn", joinpath(readdir(`powershell.exe where.exe python`)[1:end-10], "lib/site-packages")) == false
+            if in("seaborn", readdir(joinpath(homedir(), "AppData/Local/Programs/Python/Python37/lib/site-packages"))) == false
                 run(`pip3 install --upgrade pip`)
                 run(`pip3 install seaborn`)
             end
