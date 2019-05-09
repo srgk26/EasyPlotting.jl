@@ -82,7 +82,7 @@ function easyheatmap() ## Defining function to be called by user
         #### Check Windows OS system if required software dependencies are installed.
         ## Install OS packages if not already installed.
 
-        If chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
+        if chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
             run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
             run(`powershell.exe refreshenv`)
         end
