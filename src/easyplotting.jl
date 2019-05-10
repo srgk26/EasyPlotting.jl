@@ -103,7 +103,7 @@ end
         print(prompt)
         return chomp(readline())
     end
-    #admin = Input("Are you an admin? [Y]es or [N]o: ")
+    admin = Base.eval(Input("Are you an admin? [Y]es or [N]o: "))
 
     ## Software installations for admin users
     if admin == "Y" || admin == "y"
