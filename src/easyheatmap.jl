@@ -316,14 +316,14 @@ function easyheatmap() ## Defining function to be called by user
         end
     end
 
-    #### Defining function that keeps the function Plot(w, input) running until true boolean value is returned
+    ## Defining function that keeps the function Plot(w, input) running until true boolean value is returned
     function events()
         @async while true ## Syncing all processes above
             Plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
         end
     end
 
-    #### This is a method of message passing inference between javascript used in Blink and Julia
+    ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "press") do args...  ## When enter_button is pressed, the following arguments are executed
       events()  ## When enter_button is pressed, events(w, inputs) is executed.
     end
