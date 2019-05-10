@@ -19,17 +19,72 @@ If anyone would like to contribute, please feel free to submit a pull request. I
 
 The following is a step-by-step guide to install this package and get the GUI running from within the Julia REPL.
 
+### Procedure 1: If you have already executed procedure 2 and got the GUI running, simply follow these steps for reuse:
+  Open Julia REPL by opening the Julia app and copy and paste on the Julia prompt:
+  ```
+  using easyplotting; easyplotting.easyheatmap()
+  ```
+  
+  *Note: There will be regular updates to this package to include more functionalities. When an update is released, please also copy and paste this code on the Julia prompt and restart the Julia app to incorporate the changes:*
+  ```
+  update easyplotting; gc
+  ```
+ <br/>
+ 
+ ### Procedure 2: If this is the first time using Julia and this package, pls follow the following steps:
+  1. Download and run Julia v1.1.0 from: https://julialang.org/downloads/
+  2. Open Julia REPL by opening the Julia app
+  3. Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 10 min for all the dependencies to install:
+ 
+  **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
+  ```
+  add https://github.com/srgk26/easy_plotting.app.git
+  ```
+  4. Copy and paste on the Julia prompt to import this easyplotting package to the Julia environment. This process may take a couple of minutes to precompile the easyplotting code:
+  
+  **Press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>**
+  ```
+  using easyplotting
+  ```
+  
+  5. Copy and paste on the Julia prompt to install additional necessary software packages according to your OS. This process may take upto 10 minutes to install necessary software packages:
+  ```
+  easyplotting.init()
+  ```
+  6. Copy and paste on the Julia prompt to run the heatmap GUI app:
+  *Note: For Windows non-admin users, there may be a pop-up window prompting for admin login for full access. Kindly ignore the prompt, the app will run without admin login.*
+  *Note: During your first use, his may take some time to start, and may also throw an IOError. Pls re-run the command, it will work the second time.*
+  ```
+  easyplotting.easyheatmap()
+  ```
+  
+
+  
+
 ### If this is the first time using Julia and this package, pls also follow the following steps:
   1. **<*if not already downloaded*>** Download and run Julia v1.1.0 from: https://julialang.org/downloads/
   2. Open Julia REPL by opening the Julia app
-  3. **<*if not already installed*>** Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install.:
+  3. **<*if not already installed*>** Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 20 min for all the dependencies to install:
   
   **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
   add https://github.com/srgk26/easy_plotting.app.git
   ```
+  4. Copy and paste on the Julia prompt to import this easyplotting package to the Julia environment:
   
-  <br/>
+  **If need to, press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>**
+  ```
+  using easyplotting
+  ```
+  
+  5. Copy and paste on the Julia prompt to import this easyplotting package to the Julia environment:
+  
+  **If need to, press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>**
+  ```
+  using easyplotting
+  ```
+  
+
   
 ### If this easyplotting package has already been previously installed:
   
