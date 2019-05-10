@@ -176,7 +176,7 @@ function init()
                 end
             catch
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./python3_install_nonadmin.ps1`)
-            end=#
+            end
 
             ## Install seaborn python3 package if not already installed
             try
@@ -185,9 +185,9 @@ function init()
                     run(`pip3 install seaborn`)
                 end
             catch
-                run(`pip install --upgrade pip`)
-                run(`pip install seaborn`)
-            end
+                run(`pip3 install --upgrade pip`)
+                run(`pip3 install seaborn`)
+            end=#
             
             ## Adding pyqt matplotlib backend for compatibility with seaborn plots
             try
