@@ -5,8 +5,8 @@ function extrainstall()
     @static if Sys.isapple()
         ## Install homebrew if not already installed
         if success(`which brew`) == false
-            run(`chmod u+x ./brew_install_MacOS.sh`)
-            run(`./brew_install_MacOS.sh`)
+            run(`chmod u+x ./extrainstall/brew_install_MacOS.sh`)
+            run(`./extrainstall/brew_install_MacOS.sh`)
         end
 
         ## Install python3.7 if not already installed
@@ -47,8 +47,8 @@ function extrainstall()
     @static if Sys.islinux()
         ## Install linuxbrew if not already installed
         if success(`which brew`) == false
-            run(`chmod u+x ./brew_install_Linux.sh`)
-            run(`./brew_install_Linux.sh`)
+            run(`chmod u+x ./extrainstall/brew_install_Linux.sh`)
+            run(`./extrainstall/brew_install_Linux.sh`)
         end
 
         ## Install python3.7 if not already installed
@@ -126,7 +126,7 @@ function extrainstall()
         if admin == "Y" || admin == "y"
             ## Install chocolatey if not already installed
             if success(`powershell.exe where.exe choco`) == false
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./choco_install_admin.ps1`)
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./extrainstall/choco_install_admin.ps1`)
             end
 
             ## Install python3.7 if not already installed
