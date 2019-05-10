@@ -1,173 +1,4 @@
-import Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ## Importing required libraries
 function easyheatmap() ## Defining function to be called by user
-    ## Software packages installation and setup for Mac/Linux/Windows
-    @static if Sys.isapple()
-        #### Check Mac OS system if required software dependencies are installed.
-        ## Install OS packages if not already installed.
-
-        ## Install homebrew if not already installed
-        if success(`which brew`) == false
-            run(`chmod u+x ./brew_install_MacOS.sh`)
-            run(`./brew_install_MacOS.sh`)
-        end
-
-        ## Install python3.7 if not already installed
-        if success(`which python3`) == false
-            run(`brew install python3`)
-        elseif success(`which python3`) == true && success(`which python3.7`) == false
-            run(`brew reinstall python3`)
-        end
-
-        ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir(joinpath(chomp(read(`which python3`, String))[1:end-11], "lib/python3.7/site-packages/"))) == false
-            run(`pip3 install --upgrade pip`)
-            run(`pip3 install seaborn`)
-        end
-
-        ## Install julia in PATH if not already installed
-        if success(`which julia`) == false
-            run(`brew cask install julia`)
-        end
-    end
-
-    @static if Sys.islinux()
-        #### Check Linux OS system if required software dependencies are installed.
-        ## Install OS packages if not already installed.
-
-        ## Install linuxbrew if not already installed
-        if success(`which brew`) == false
-            run(`chmod u+x ./brew_install_Linux.sh`)
-            run(`./brew_install_Linux.sh`)
-        end
-
-        ## Install python3.7 if not already installed
-        if success(`which python3`) == false
-            run(`brew install python3`)
-        elseif success(`which python3`) == true && success(`which python3.7`) == false
-            run(`brew reinstall python3`)
-        end
-
-        ## Install seaborn python3 package if not already installed
-        if in("seaborn", readdir(joinpath(chomp(read(`which python3`, String))[1:end-11], "lib/python3.7/site-packages/"))) == false
-            run(`pip3 install --upgrade pip`)
-            run(`pip3 install seaborn`)
-        end
-
-        ## Install julia in PATH if not already installed
-        if success(`which julia`) == false
-            if success(`which apt`) == true
-                run(`sudo apt-get update`)
-                run(`sudo apt-get dist-upgrade`)
-                run(`sudo apt-get install julia`)
-            elseif success(`which dnf`) == true
-                run(`sudo dnf update`)
-                run(`sudo yum update`)
-                run(`sudo dnf copr enable nalimilan/julia`)
-                run(`sudo yum install julia`)
-            elseif success(`which dnf`) == false && success(`which yum`) == true
-                run(`sudo yum update`)
-                run(`sudo yum-config-manager --add-repo https://copr.fedorainfracloud.org/coprs/nalimilan/julia/repo/epel-7/nalimilan-julia-epel-7.repo`)
-                run(`sudo yum install julia`)
-            elseif success(`which pkg`) == true
-                run(`pkg upgrade`)
-                run(`pkg install julia`)
-            elseif success(`which pacman`) == true
-                run(`pacman -Syu`)
-                run(`pacman -S julia`)
-            end
-        end
-    end
-    
-    @static if Sys.iswindows()
-        #### Check Windows OS system if required software dependencies are installed.
-        ## Install OS packages if not already installed.
-
-        ## Bypassing script execution restrictions with Windows powershell 
-        if chomp(read(`powershell.exe Get-ExecutionPolicy`, String)) == "restricted"
-            run(`powershell.exe Set-ExecutionPolicy -Scope CurrentUser Bypass`)
-            run(`powershell.exe refreshenv`)
-        end
-
-        ## Asking if user is an admin user
-        function Input(prompt::String)
-            print(prompt)
-            return chomp(readline())
-        end
-        admin = Input("Are you an admin? [Y]es or [N]o: ")
-
-        ## Software installations for admin users
-        if admin == "Y" || admin == "y"
-            ## Install chocolatey if not already installed
-            if success(`powershell.exe where.exe choco`) == false
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; choco_install_admin.ps1`)
-            end
-
-            ## Install python3.7 if not already installed
-            if success(`powershell.exe where.exe python`) == false
-                run(`powershell.exe choco install python3 --confirm`)
-            elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] !== "3"
-                run(`powershell.exe choco install python3 --confirm`)
-            elseif success(`powershell.exe where.exe python3`) == true && chomp(read(`powershell.exe where.exe python`, String))[end-12] == "3" && chomp(read(`powershell.exe where.exe python`, String))[end-11] !== "7"
-                run(`powershell.exe choco upgrade python3 --confirm`)
-            end
-
-            ## Install seaborn python3 package if not already installed
-            if in("seaborn", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages"))) == false
-                run(`pip3 install --upgrade pip`)
-                run(`pip3 install seaborn`)
-            end
-
-            ## Install julia in PATH if not already installed
-            if success(`powershell.exe where.exe julia`) == false
-                run(`powershell.exe choco install julia --confirm`)
-            end
-        ## Software installations for non-admin users
-        elseif admin == "N" || admin == "n"
-            ## For non-admin users, only critical software applications installed as non-critical additional software installations are suboptimal
-            ## Install python3.7 if not already installed
-            if in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
-            elseif in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; python3_install_nonadmin.ps1`)
-            end
-
-            ## Install seaborn python3 package if not already installed
-            if in("seaborn", readdir(joinpath(homedir(), "AppData/Local/Programs/Python/Python37/lib/site-packages"))) == false
-                run(`pip3 install --upgrade pip`)
-                run(`pip3 install seaborn`)
-            end
-        else
-            ## Throw error exception in the event the user presses any other key
-            println("Invalid input. Please re-run the command and enter only 'Y' or 'N'.")
-            error("Invalid input sequence for user input.")
-        end
-    end
-
-    #### Install additional required Julia installations if not already installed
-    ## Installing Electron browser (and renaming to Julia.app)
-    if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
-        Blink.AtomShell.install()
-    end
-    
-    ## Adding pyqt matplotlib backend for compatibility with seaborn plots
-    @static if Sys.isapple() || Sys.islinux()
-        if in("backend_qt5.py", readdir(joinpath(chomp(read(`which python3`, String))[1:end-11], "lib/python3.7/site-packages/matplotlib/backends"))) == false
-            Conda.add("pyqt")
-        end
-    end
-
-    @static if Sys.iswindows()
-        if success(`powershell.exe where.exe python`) == true
-            if in("backend_qt5.py", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages/matplotlib/backends"))) == false
-                Conda.add("pyqt")
-            end
-        else
-            if in("backend_qt5.py", readdir(joinpath(homedir(), "AppData/Local/Programs/Python/Python37/lib/site-packages"))) == false
-                Conda.add("pyqt")
-            end
-        end
-    end
-
     #### Main code for heatmap plotting GUI
     w = Blink.Window() ## Opening Blink window
 
@@ -213,21 +44,21 @@ function easyheatmap() ## Defining function to be called by user
             if inputs["clustering"][] == "both" ## For row+column clustering option
                 if inputs["size1"][]::String == "" ## If no user-input for plot size
                     if inputs["colours"][] == "Default" ## If no user-input for plot colours
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7)) ## Seaborn Clustermap plotting
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7)) ## Seaborn Clustermap plotting
                         Fig() ## Call Fig() function defined above
                         return true ## Returns true value, thereby stopping while loop that keeps the process running
                     else ## If plot colours is defined by user
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else ## If plot size is defined by user
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -235,21 +66,21 @@ function easyheatmap() ## Defining function to be called by user
             elseif inputs["clustering"][] == "row" ## For row clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -257,21 +88,21 @@ function easyheatmap() ## Defining function to be called by user
             elseif inputs["clustering"][] == "column" ## For column clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -279,21 +110,21 @@ function easyheatmap() ## Defining function to be called by user
             else ## For no clustering option
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -304,21 +135,21 @@ function easyheatmap() ## Defining function to be called by user
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -326,21 +157,21 @@ function easyheatmap() ## Defining function to be called by user
             elseif inputs["clustering"][] == "row"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -348,21 +179,21 @@ function easyheatmap() ## Defining function to be called by user
             elseif inputs["clustering"][] == "column"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -370,21 +201,21 @@ function easyheatmap() ## Defining function to be called by user
             else
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -395,21 +226,21 @@ function easyheatmap() ## Defining function to be called by user
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -417,21 +248,21 @@ function easyheatmap() ## Defining function to be called by user
             elseif inputs["clustering"][] == "row"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -439,21 +270,21 @@ function easyheatmap() ## Defining function to be called by user
             elseif inputs["clustering"][] == "column"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
@@ -461,21 +292,21 @@ function easyheatmap() ## Defining function to be called by user
             else
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
                 else
                     if inputs["colours"][] == "Default"
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])))
                         Fig()
                         return true
                     else
-                        clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
+                        Seaborn.clustermap(convert(Matrix, df[2:end,2:end]), xticklabels=collect(df[1,2:end]), yticklabels=collect(df[2:end,1]), row_cluster=false, col_cluster=false, (parse(Float, inputs["size1"][]), parse(Float, inputs["size2"][])), cmap=(inputs["colours"][]::String))
                         Fig()
                         return true
                     end
