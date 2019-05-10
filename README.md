@@ -36,13 +36,13 @@ The following is a step-by-step guide to install this package and get the GUI ru
  ### Procedure 2: If this is your first time using Julia and this package, pls follow the following steps:
   1. Download and run Julia v1.1.0 from: https://julialang.org/downloads/
   2. Open Julia REPL by opening the Julia app
-  3. Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take upto 10 min for all the dependencies to install:
+  3. Copy and paste on the Julia prompt to install the easyplotting package and all its dependencies. This process may take several minutes for all the dependencies to install:
  
   **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
   add https://github.com/srgk26/easy_plotting.app.git
   ```
-  4. Copy and paste on the Julia prompt to import this easyplotting package to the Julia environment. This process may take a couple of minutes to precompile the easyplotting code:
+  4. Copy and paste on the Julia prompt to import this easyplotting package to the Julia environment. This process may take several minutes to precompile the easyplotting code:
   
   **Press 'backspace' before pasting the code below to return to default julia mode --> prompt will change to the green julia>**
   ```
