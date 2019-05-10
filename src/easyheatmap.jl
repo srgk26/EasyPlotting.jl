@@ -40,7 +40,7 @@ function easyheatmap() ## Defining function to be called by user
     ## Main function code to plot heatmap, using user-defined input options
     function Plot()
         if (inputs["file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-            df = DataFrame(XLSX.readtable((inputs["file"][]::String), (inputs["sheet"][]::String))...) ## Convert dataset to dataframe
+            df = DataFrames.DataFrame(XLSX.readtable((inputs["file"][]::String), (inputs["sheet"][]::String))...) ## Convert dataset to dataframe
             if inputs["clustering"][] == "both" ## For row+column clustering option
                 if inputs["size1"][]::String == "" ## If no user-input for plot size
                     if inputs["colours"][] == "Default" ## If no user-input for plot colours
@@ -131,7 +131,7 @@ function easyheatmap() ## Defining function to be called by user
                 end
             end
         elseif (inputs["file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-            df = DataFrame(CSV.read(inputs["file"][]::String))
+            df = DataFrames.DataFrame(CSV.read(inputs["file"][]::String))
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
@@ -222,7 +222,7 @@ function easyheatmap() ## Defining function to be called by user
                 end
             end
         elseif (inputs["file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-            df = DataFrame(readdlm(inputs["file"][]::String, '\t'))
+            df = DataFrames.DataFrame(DelimitedFiles.readdlm(inputs["file"][]::String, '\t'))
             if inputs["clustering"][] == "both"
                 if inputs["size1"][]::String == ""
                     if inputs["colours"][] == "Default"
