@@ -54,7 +54,7 @@ The following is a step-by-step guide to install this package and get the GUI ru
   
   *Note1: For Windows non-admin users, there may be a pop-up window prompting for admin login for full access. Kindly ignore the prompt, the app will run without admin login.*
   
-  *Note2: During your first use, this may take some time to start, and may also throw an IOError. Pls re-run the command, it will work the second time.*
+  *Note2: During your first use, this may take some time to start, and may also throw an IOError. If it gives an IOError, pls re-run the command, it will work the second time.*
   ```
   easyplotting.easyheatmap()
   ```
