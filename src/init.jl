@@ -1,6 +1,6 @@
 #### Software packages installations and setup for Mac/Linux/Windows(admin & non-admin) OS
 function init()
-    #### Check Mac OS system if required software dependencies are installed.
+    ### Check Mac OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     @static if Sys.isapple()
         ## Install homebrew if not already installed
@@ -33,7 +33,7 @@ function init()
         end
     end
 
-    #### Check Linux OS system if required software dependencies are installed.
+    ### Check Linux OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     @static if Sys.islinux()
         ## Install linuxbrew if not already installed
@@ -85,7 +85,7 @@ function init()
         end
     end
 
-    #### Check Windows OS system if required software dependencies are installed.
+    ### Check Windows OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     @static if Sys.iswindows()
         ## Bypassing script execution restrictions with Windows powershell 
@@ -159,7 +159,7 @@ function init()
         end
     end
 
-    #### Installing Electron browser (and renaming to Julia.app)
+    ## Installing Electron browser (and renaming to Julia.app)
     if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
         Blink.AtomShell.install()
     end
