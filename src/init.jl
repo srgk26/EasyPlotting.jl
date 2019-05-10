@@ -1,6 +1,6 @@
 #### Software packages installations and setup for Mac/Linux/Windows(admin & non-admin) OS
 function init()
-    println("Test that cd works!")
+    #println("Test that cd works!")
     
     #cd(pathof(easyplotting)[1:end-15]) ## Confirming change of dir to easyplotting src folder for executing other src scripts as necessary
     
