@@ -48,12 +48,7 @@ The following is a step-by-step guide to install this package and get the GUI ru
   ```
   using easyplotting
   ```
-  
-  5. Copy and paste on the Julia prompt to install additional necessary software packages according to your OS. This process may take upto 10 minutes to install necessary software packages:
-  ```
-  easyplotting.init()
-  ```
-  6. Copy and paste on the Julia prompt to run the heatmap GUI app:
+  5. Finally, copy and paste on the Julia prompt to run the heatmap GUI app:
   
   *Note: For Windows non-admin users, there may be a pop-up window prompting for admin login for full access. Kindly ignore the prompt, the app will run without admin login.*
   
@@ -63,6 +58,13 @@ The following is a step-by-step guide to install this package and get the GUI ru
   ```
  
 That's it! Feel free to use and enjoy the app whenever needed.
+
+# Optional:
+
+There is also another function that allows you to install Brew/Choco package managers, Python3, Seaborn, Matplotlib's qt5 backend, and Julia into the root environment. These additional installations are not required to run this easyplotting GUI app, but it may be of use for your other work. Simply copy and paste on the Julia prompt to install these software packages according to your OS. This process may take upto 10 minutes to install (requires admin rights):
+```
+easyplotting.extrainstall()
+```
 
 ***
 
