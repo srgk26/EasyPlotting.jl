@@ -61,7 +61,7 @@ That's it! Feel free to use and enjoy the app whenever needed.
 
 ### Optional:
 
-There is also another function that allows you to install Brew/Choco package managers, Python3, Seaborn, Matplotlib's qt5 backend, and Julia into the root environment. These additional installations are not required to run this easyplotting GUI app, but it may be of use for your other work. Simply copy and paste on the Julia prompt to install these software packages according to your OS. This process may take upto 10 minutes to install (requires admin rights):
+There is also another function that allows you to install Brew/Choco package managers, Python3, Python3's Seaborn package, and Julia into the root environment. These additional installations are not required to run this easyplotting GUI app, but it may be of use for your other work. Simply copy and paste on the Julia prompt to install these software packages according to your OS. This process may take upto 10 minutes to install (requires admin rights):
 ```
 easyplotting.extrainstall()
 ```
