@@ -129,7 +129,7 @@ function init()
         if admin == "Y" || admin == "y"
             ## Install chocolatey if not already installed
             if success(`powershell.exe where.exe choco`) == false
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./choco_install_admin.ps1`)
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./choco_install_admin.ps1`)
             end
 
             ## Install python3.7 if not already installed
