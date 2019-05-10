@@ -1,6 +1,7 @@
 #### Software packages installations and setup for Mac/Linux/Windows OS
 function extrainstall()
-    @show pwd()
+    cd(joinpath(pathof(easyplotting)[1:end-15], "extrainstall/"))
+    #@show pwd()
     pwd()
     ## Asking if user is an admin user
     function Input(prompt::String)
@@ -112,9 +113,9 @@ function extrainstall()
 
             ## Install chocolatey if not already installed
             if success(`powershell.exe where.exe choco`) == false
-                pwd()
+                #pwd()
                 @show pwd()
-                cd(joinpath(pathof(easyplotting)[1:end-15], "extrainstall/"))
+                #cd(joinpath(pathof(easyplotting)[1:end-15], "extrainstall/"))
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./choco_install_admin.ps1`)
             end
 
