@@ -26,6 +26,7 @@ The following is a step-by-step guide to install this package and get the GUI ru
   ```
   
   *Note: There will be regular updates to this package to include more functionalities. When an update is released, please also copy and paste this code on the Julia prompt and restart the Julia app to incorporate the changes:*
+  **Type ']' before pasting the code below to access the package mode --> prompt will change to the blue (v1.1) pkg>**
   ```
   update easyplotting; gc
   ```
