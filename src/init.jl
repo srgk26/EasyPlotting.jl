@@ -185,8 +185,8 @@ function init()
                     run(`pip3 install seaborn`)
                 end
             catch
-                run(`pip3 install --upgrade pip`)
-                run(`pip3 install seaborn`)
+                run(`pip install --upgrade pip`)
+                run(`pip install seaborn`)
             end
             
             ## Adding pyqt matplotlib backend for compatibility with seaborn plots
