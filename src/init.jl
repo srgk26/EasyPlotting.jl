@@ -172,10 +172,10 @@ function init()
             ## Install python3.7 if not already installed
             try
                 if in("python.3.7.3", readdir(joinpath(homedir(), "AppData/Local/PackageManagement/NuGet/Packages"))) == false
-                    run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./python3_install_nonadmin.ps1`)
+                    run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./python3_install_nonadmin.ps1`)
                 end
             catch
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./python3_install_nonadmin.ps1`)
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./python3_install_nonadmin.ps1`)
             end
 
             ## Install seaborn python3 package if not already installed
