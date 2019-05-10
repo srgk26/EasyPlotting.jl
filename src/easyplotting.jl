@@ -1,8 +1,9 @@
 module easyplotting ## Define easyplotting module
 
+import Blink, Interact, DelimitedFiles, CSV, XLSX, DataFrames, Seaborn, Conda ## Importing required libraries
 cd(pathof(easyplotting)[1:end-15]) ## Changing to easyplotting src folder for executing other src scripts as necessary
 
-## Software packages installations and setup for Mac/Linux/Windows(admin & non-admin) OS
+#### Software packages installations and setup for Mac/Linux/Windows(admin & non-admin) OS
 
 #### Check Mac OS system if required software dependencies are installed.
 ## Install OS packages if not already installed.
@@ -163,7 +164,7 @@ end
     end
 end
 
-## Installing Electron browser (and renaming to Julia.app)
+#### Installing Electron browser (and renaming to Julia.app)
 if in("Julia.app", readdir(joinpath(pathof(Blink)[1:end-12], "deps"))) == false
     Blink.AtomShell.install()
 end
