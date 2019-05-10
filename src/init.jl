@@ -120,13 +120,13 @@ function init()
             print(prompt)
             return chomp(readline())
         end
-        admin = Base.eval(Input("Are you an admin? [Y]es or [N]o: "))
+        admin = Input("Are you an admin? [Y]es or [N]o: ")
 
         ## Software installations for admin users
         if admin == "Y" || admin == "y"
             ## Install chocolatey if not already installed
             if success(`powershell.exe where.exe choco`) == false
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./choco_install_admin.ps1`)
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./choco_install_admin.ps1`)
             end
 
             ## Install python3.7 if not already installed
@@ -169,12 +169,12 @@ function init()
             ## Install python3.7 if not already installed
             try
                 if in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
-                    run(`powershell.exe ./python3_install_nonadmin.ps1`)
+                    run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./python3_install_nonadmin.ps1`)
                 elseif in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
-                    run(`powershell.exe ./python3_install_nonadmin.ps1`)
+                    run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./python3_install_nonadmin.ps1`)
                 end
             catch
-                run(`powershell.exe ./python3_install_nonadmin.ps1`)
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./python3_install_nonadmin.ps1`)
             end
 
             ## Install seaborn python3 package if not already installed
