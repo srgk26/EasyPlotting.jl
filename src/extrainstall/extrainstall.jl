@@ -108,6 +108,7 @@ function extrainstall()
 
             ## Install chocolatey if not already installed
             if success(`powershell.exe where.exe choco`) == false
+                pwd()
                 @show pwd()
                 run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./extrainstall/choco_install_admin.ps1`)
             end
