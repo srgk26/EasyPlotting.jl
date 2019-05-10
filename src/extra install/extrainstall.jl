@@ -1,4 +1,4 @@
-#### Software packages installations and setup for Mac/Linux/Windows(admin & non-admin) OS
+#### Software packages installations and setup for Mac/Linux/Windows OS
 function extrainstall()
     ## Asking if user is an admin user
     function Input(prompt::String)
