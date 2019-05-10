@@ -144,13 +144,17 @@ function init()
 
             ## Install seaborn python3 package if not already installed
             try
-                if in("seaborn", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages"))) == false
+                try
+                    if in("seaborn", readdir(joinpath(chomp(read(`powershell.exe where.exe python`, String))[1:end-10], "lib/site-packages"))) == false
+                        run(`pip3 install --upgrade pip`)
+                        run(`pip3 install seaborn`)
+                    end
+                catch
                     run(`pip3 install --upgrade pip`)
                     run(`pip3 install seaborn`)
                 end
             catch
-                run(`pip3 install --upgrade pip`)
-                run(`pip3 install seaborn`)
+                run(`pip install seaborn`)
             end
 
             ## Adding pyqt matplotlib backend for compatibility with seaborn plots
