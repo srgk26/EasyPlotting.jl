@@ -1,5 +1,8 @@
 #### Software packages installations and setup for Mac/Linux/Windows(admin & non-admin) OS
 function init()
+    
+    cd(pathof(easyplotting)[1:end-15]) ## Confirming change of dir to easyplotting src folder for executing other src scripts as necessary
+    
     ### Check Mac OS system if required software dependencies are installed.
     ## Install OS packages if not already installed.
     @static if Sys.isapple()
@@ -168,9 +171,7 @@ function init()
         elseif admin == "N" || admin == "n"
             ## Install python3.7 if not already installed
             try
-                if in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == false
-                    run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./python3_install_nonadmin.ps1`)
-                elseif in("Python", readdir(joinpath(homedir(), "AppData/Local/Programs"))) == true && in("Python37", readdir(joinpath(homedir(), "AppData/Local/Programs/Python"))) == false
+                if in("python3.7.3", readdir(joinpath(homedir(), "AppData/Local/PackageManagement/NuGet/Packages"))) == false
                     run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./python3_install_nonadmin.ps1`)
                 end
             catch
