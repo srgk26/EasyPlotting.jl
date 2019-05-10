@@ -108,7 +108,8 @@ function extrainstall()
 
             ## Install chocolatey if not already installed
             if success(`powershell.exe where.exe choco`) == false
-                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; iex ./extrainstall/choco_install_admin.ps1`)
+                @show pwd()
+                run(`powershell.exe Set-ExecutionPolicy Bypass -Scope Process; ./extrainstall/choco_install_admin.ps1`)
             end
 
             ## Install python3.7 if not already installed
