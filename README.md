@@ -15,6 +15,17 @@ If anyone would like to contribute, please feel free to submit a pull request. I
 
 ***
 
+## Format of data
+
+This is just a quick heads up on the format your input dataset should be, to produce the desired heatmap figure:
+
+  1. Your dataset must be labelled, where y-axis label would correspond to y-axis labels on the heatmap figure while the x-axis label would correspond to x-axis labels on the heatmap figure.
+  2. Kindly also take note that the top, leftmost cell in your .xlsx/.csv/.txt file should be non-empty (i.e. row1, column1 cell that intersects row and column labels should be non-empty). It does not matter what the value of that cell is as it would not be reflected in the figure, but the x-axis labels would be compromised if this cell is empty. The screenshot below illustrates what it refers to:
+![Alt text](/examples/App_Screenshot.png?raw=true "Non-empty top leftmost cell")
+  3. Please take note that NA values in the dataset is strictly not allowed. I apologise for this, I will try to get this to work in future updates, but in the meantime, the code does not recognise empty, 'NA' or any non-numerical values in the dataset. Please remove any of these values.
+  
+***
+
 ## Instructions:
 
 The following is a step-by-step guide to install this package and get the GUI running from within the Julia REPL.
@@ -77,5 +88,6 @@ Credits to the developers of the Julia language and libraries. Special thanks to
 ***
 
 ## Future work:
-  1. Build fully functional, standalone apps for Mac, Windows and Linux distributions.
-  2. Add other plotting functionalities and types.
+  1. Accept 'NA'/'NaN' values in dataset.
+  2. Build fully functional, standalone apps for Mac, Windows and Linux distributions.
+  3. Add other plotting functionalities and types.
