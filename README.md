@@ -7,7 +7,7 @@ This is an attempt to create a working GUI app that creates selected scientific 
 
 ![Alt text](/examples/sample_heatmap.png?raw=true "Heatmap figure")
 
-Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample.xlsx, sample.csv and sample.txt files are provided in the examples folder. An example of the sample_heatmap.png and a sample screenshot of the GUI app is also provided in the examples folder. The app screenshot is also shown below:
+Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample.xlsx, sample.csv and sample.txt files are provided in the examples folder. The app screenshot is also shown below:
 
 ![Alt text](/examples/App_Screenshot.png?raw=true "GUI screenshot")
 
