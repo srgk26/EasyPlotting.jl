@@ -1,11 +1,13 @@
 # easy_plotting.app
 Statistical plotting GUI app. ***Minimal/no coding required to use.*** 
 
-This is an attempt to create a working GUI app that creates selected scientific plots for user's datasets and user-defined custom options. Simply need to click to select the file that needs to plot, select options such as size and colour, and a plot will be created. The process can be repeated until a satisfactory plot is created, and the PNG image can be saved as desired.
+This is an attempt to create a working GUI app that creates selected scientific plots for user's datasets and user-defined custom options. Simply need to click to select the file that needs to plot, select options such as size and colour, and a plot will be created. The process can be repeated until a satisfactory plot is created, and the PNG image can be saved as desired. An example of the heatmap produced is shown below:
+
+![Alt text](/examples/sample_heatmap.png?raw=true "Heatmap figure")
 
 Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample.xlsx, sample.csv and sample.txt files are provided in the examples folder. An example of the sample_heatmap.png and a sample screenshot of the GUI app is also provided in the examples folder. The app screenshot is also shown below:
 
-![Alt text](/examples/App_Screenshot.png?raw=true "Heatmap Plotting")
+![Alt text](/examples/App_Screenshot.png?raw=true "GUI screenshot")
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
