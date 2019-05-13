@@ -9,7 +9,7 @@ Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample
 
 At the moment, only heatmap plotting is available. Additional plot types will be added in the future.
 
-This GUI is coded in pure Julia. Source scripts are uploaded in the src folder. Currently, the functional Julia code is wrapped as a module that can be used as per the instructions below. In the near future, fully-functional, standalone applications and executables will be supported for Mac/Windows/Linux distributions.
+This GUI is coded in Julia, though the package used to plot the heatmap itself is Python3's Seaborn wrapper for Julia. Source scripts are uploaded in the src folder. Currently, the functional Julia code is wrapped as a module that can be used as per the instructions below. In the near future, fully-functional, standalone applications and executables will be supported for Mac/Windows/Linux distributions.
 
 If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added into the app, please open an issue as well.
 
