@@ -3,6 +3,8 @@ Statistical plotting GUI app. ***Minimal/no coding required to use.***
 
 This is an attempt to create a working GUI app that creates selected scientific plots for user's datasets and user-defined custom options. Simply need to click to select the file that needs to plot, select options such as size and colour, and a plot will be created. The process can be repeated until a satisfactory plot is created, and the PNG image can be saved as desired. An example of the heatmap produced is shown below:
 
+*Note: The clustering may not be very obvious in the heatmap below because of the randomness of the dataset. The clustering will be more obvious when used with a real-life dataset.*
+
 ![Alt text](/examples/sample_heatmap.png?raw=true "Heatmap figure")
 
 Files of .xlsx/.csv/.txt(tab-delimited) extensions are supported. Example sample.xlsx, sample.csv and sample.txt files are provided in the examples folder. An example of the sample_heatmap.png and a sample screenshot of the GUI app is also provided in the examples folder. The app screenshot is also shown below:
