@@ -15,14 +15,14 @@ It is very important that your dataset is in accordance with the appropriate for
 
 *Note: The data used to generate these figures are randomly generated. Therefore they may not appear to be a typical plot resembling that based on a real dataset.*
 
-* Heatmap: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/Heatmap/Heatmap_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/Heatmap/Heatmap_sampleimage.png)
-* Scatterplot: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/Scatterplot/Scatterplot_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/Scatterplot/Scatterplot_sampleimage.png)
-* Line graph: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/Linegraph/Linegraph_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/Linegraph/Linegraph_sampleimage.png)
-* Histogram: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/Histogram/Histogram_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/Histogram/Histogram_sampleimage.png)
-* Bar chart: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/Barchart/Barchart_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/Barchart/Barchart_sampleimage.png)
-* Box and Whisker: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/BoxandWhisker/BoxandWhisker_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/BoxandWhisker/BoxandWhisker_sampleimage.png)
-* Pie chart: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/Piechart/Piechart_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/Piechart/Piechart_sampleimage.png)
-* Violin plot: [format of dataset](https://github.com/srgk26/easyplotting.jl/src/Violinplot/Violinplot_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/src/Violinplot/Violinplot_sampleimage.png)
+* Heatmap: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/Heatmap/Heatmap_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/Heatmap/Heatmap_sampleimage.png)
+* Scatterplot: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/Scatterplot/Scatterplot_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/Scatterplot/Scatterplot_sampleimage.png)
+* Line graph: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/Linegraph/Linegraph_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/Linegraph/Linegraph_sampleimage.png)
+* Histogram: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/Histogram/Histogram_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/Histogram/Histogram_sampleimage.png)
+* Bar chart: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/Barchart/Barchart_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/Barchart/Barchart_sampleimage.png)
+* Box and Whisker: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/BoxandWhisker/BoxandWhisker_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/BoxandWhisker/BoxandWhisker_sampleimage.png)
+* Pie chart: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/Piechart/Piechart_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/Piechart/Piechart_sampleimage.png)
+* Violin plot: [format of dataset](https://github.com/srgk26/easyplotting.jl/tree/master/src/Violinplot/Violinplot_dataformat.png) and [sample figure](https://github.com/srgk26/easyplotting.jl/tree/master/src/Violinplot/Violinplot_sampleimage.png)
 
 Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 

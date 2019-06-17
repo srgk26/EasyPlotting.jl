@@ -46,6 +46,20 @@ function easymain()
         ## Invoke functions corresponding to plot type selected by user
         if mainpage_inputs()["plot_type"][] == "Heatmap"
             easyheatmap() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        elseif mainpage_inputs()["plot_type"][] == "Scatterplot"
+            easyscatterplot() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        elseif mainpage_inputs()["plot_type"][] == "Line graph"
+            easylinegraph() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        elseif mainpage_inputs()["plot_type"][] == "Histogram"
+            easyhistogram() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        elseif mainpage_inputs()["plot_type"][] == "Bar chart"
+            easybarchart() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        elseif mainpage_inputs()["plot_type"][] == "Box and Whisker"
+            easyboxandwhisker() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        elseif mainpage_inputs()["plot_type"][] == "Pie chart"
+            easypiechart() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        elseif mainpage_inputs()["plot_type"][] == "Violin plot"
+            easyviolinplot() ## When mainpage_next_button is pressed, easyheatmap() is executed.
         end
 
         ## Alert if sheet name is not entered for excel .xlsx files
