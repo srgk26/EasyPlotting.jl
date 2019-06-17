@@ -131,13 +131,6 @@ function easyheatmap()
         end
     end
 
-    ## Defining function that keeps the function easyheatmap_plot() running until true boolean value is returned
-    function easyheatmap_events()
-        @async while true ## Syncing all processes above
-            Plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
-        end
-    end
-
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "easyheatmap_dataformat") do args... ## When easyheatmap_dataformat_button is pressed, the following arguments are executed
         ImageView.imshow(FileIO.load(joinpath(pathof(easyplotting)[1:end-15], "Heatmap/Heatmap_dataformat.png"))) ## When easyheatmap_dataformat_button is pressed, picture of user input data format pops out..
@@ -152,6 +145,13 @@ function easyheatmap()
             easyheatmap_events() ## When easyheatmap_plot_button is pressed, easyheatmap_events() is executed.
         catch
             @js_ w alert("Oops! Something had gone wrong. Could it be that your user input dataset is of the wrong format?")
+        end
+    end
+
+    ## Defining function that keeps the function easyheatmap_plot() running until true boolean value is returned
+    function easyheatmap_events()
+        @async while true ## Syncing all processes above
+            Plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
         end
     end
 end #function easyheatmap()
