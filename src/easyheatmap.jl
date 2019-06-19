@@ -7,9 +7,10 @@ function easyheatmap()
         easyheatmap_size1 = Interact.textbox("Default: x-axis = 6") ## Choose x-axis figure size
         easyheatmap_size2 = Interact.textbox("Default: y-axis = 7") ## Choose y-axis figure size
         easyheatmap_colours = Interact.dropdown(["Default", "Blues", "Reds", "Purples", "Greens", "mako", "BuGn_r", "cubehelix", "BrBG", "RdBu_r", "coolwarm"]) ## Choose heatmap colours
+        easyheatmap_scale = Interact.dropdown(["None", "loge", "log2", "log10"]) ## Choose logarithmic scaling options
         easyheatmap_back_button = html"""<button onclick='Blink.msg("easyheatmap_back", "foo")'>Go back</button>""" ## Go-back button
         easyheatmap_plot_button = html"""<button onclick='Blink.msg("easyheatmap_plot", "foo")'>Plot</button>""" ## Plot button
-        Interact.Widget(["easyheatmap_dataformat_button"=>easyheatmap_dataformat_button, "easyheatmap_clustering"=>easyheatmap_clustering, "easyheatmap_size1"=>easyheatmap_size1, "easyheatmap_size2"=>easyheatmap_size2, "easyheatmap_colours"=>easyheatmap_colours, "easyheatmap_back_button"=>easyheatmap_back_button, "easyheatmap_plot_button"=>easyheatmap_plot_button]) ## Consolidating all widgets
+        Interact.Widget(["easyheatmap_dataformat_button"=>easyheatmap_dataformat_button, "easyheatmap_clustering"=>easyheatmap_clustering, "easyheatmap_size1"=>easyheatmap_size1, "easyheatmap_size2"=>easyheatmap_size2, "easyheatmap_colours"=>easyheatmap_colours, "easyheatmap_scale"=>easyheatmap_scale, "easyheatmap_back_button"=>easyheatmap_back_button, "easyheatmap_plot_button"=>easyheatmap_plot_button]) ## Consolidating all widgets
     end
 
     easyheatmap_intro1 = "This section provides additional 'Heatmap' specific configuration options that you could select below to further customise your heatmap. Kindly also take note that the linkage method used for clustering is 'average' and the metric is 'euclidean'. If you would like other custom metrics, kindly open an issue and I will include them in."
@@ -25,6 +26,7 @@ function easyheatmap()
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Choose options for dendrogram clustering:"), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_clustering"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_size1"]), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for heatmap:"), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, easyheatmap_inputs()["easyheatmap_back_button"], style=Dict(:position => "absolute", :left => "650px")),
                             Interact.node(:p, easyheatmap_inputs()["easyheatmap_plot_button"], style=Dict(:position => "absolute", :left => "720px")))
 
@@ -40,103 +42,375 @@ function easyheatmap()
 
     ## Main function code to plot heatmap, using user-defined input options
     function easyheatmap_plot()
-        if easyheatmap_inputs()["easyheatmap_clustering"][] == "both" ## For row+column clustering option
-            if easyheatmap_inputs()["easyheatmap_size1"][]::String == "" ## If no user-input for plot size
-                if easyheatmap_inputs()["easyheatmap_colours"][] == "Default" ## If no user-input for plot colours
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7)) ## Seaborn Clustermap plotting
-                    easyheatmap_fig() ## Call easyheatmap_fig() function defined above
-                    return true ## Returns true value, thereby stopping while loop that keeps the process running
-                else ## If plot colours is defined by user
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+        if easyheatmap_inputs()["easyheatmap_scale"][] == "None" ## For no logarithmic scaling
+            if easyheatmap_inputs()["easyheatmap_clustering"][] == "both" ## For row+column clustering option
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == "" ## If no user-input for plot size
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default" ## If no user-input for plot colours
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7)) ## Seaborn Clustermap plotting
+                        easyheatmap_fig() ## Call easyheatmap_fig() function defined above
+                        return true ## Returns true value, thereby stopping while loop that keeps the process running
+                    else ## If plot colours is defined by user
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else ## If plot size is defined by user
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
-            else ## If plot size is defined by user
-                if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
-                    easyheatmap_fig()
-                    return true
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "row" ## For row clustering option
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 else
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "column" ## For column clustering option
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            else ## For no clustering option
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
             end
-        elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "row" ## For row clustering option
-            if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
-                if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7))
-                    easyheatmap_fig()
-                    return true
+        elseif easyheatmap_inputs()["easyheatmap_scale"][] == "loge" ## For loge logarithmic scaling
+            if easyheatmap_inputs()["easyheatmap_clustering"][] == "both"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 else
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "row"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "column"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
             else
-                if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
-                    easyheatmap_fig()
-                    return true
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 else
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
             end
-        elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "column" ## For column clustering option
-            if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
-                if inputs["easyheatmap_colours"][] == "Default"
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7))
-                    easyheatmap_fig()
-                    return true
+        elseif easyheatmap_inputs()["easyheatmap_scale"][] == "log2" ## For log2 logarithmic scaling
+            if easyheatmap_inputs()["easyheatmap_clustering"][] == "both"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 else
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "row"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "column"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
             else
-                if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
-                    easyheatmap_fig()
-                    return true
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 else
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log2.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
             end
-        else ## For no clustering option
-            if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
-                if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
-                    easyheatmap_fig()
-                    return true
+        elseif easyheatmap_inputs()["easyheatmap_scale"][] == "log10" ## For log10 logarithmic scaling
+            if easyheatmap_inputs()["easyheatmap_clustering"][] == "both"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 else
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "row"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                end
+            elseif easyheatmap_inputs()["easyheatmap_clustering"][] == "column"
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
+                else
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), method="average", metric="euclidean", row_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
             else
-                if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
-                    easyheatmap_fig()
-                    return true
+                if easyheatmap_inputs()["easyheatmap_size1"][]::String == ""
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(6,7), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 else
-                    Seaborn.clustermap(convert(Matrix, df[:,2:end]), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
-                    easyheatmap_fig()
-                    return true
+                    if easyheatmap_inputs()["easyheatmap_colours"][] == "Default"
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])))
+                        easyheatmap_fig()
+                        return true
+                    else
+                        Seaborn.clustermap(log10.(convert(Matrix, df[:,2:end])), xticklabels=names(df)[2:end], yticklabels=collect(df[:,1]), row_cluster=false, col_cluster=false, figsize=(parse(Float64, easyheatmap_inputs()["easyheatmap_size1"][]), parse(Float64, easyheatmap_inputs()["easyheatmap_size2"][])), cmap=(easyheatmap_inputs()["easyheatmap_colours"][]::String))
+                        easyheatmap_fig()
+                        return true
+                    end
                 end
             end
         end
     end
 
     ## This is a method of message passing inference between javascript used in Blink and Julia
-    Blink.handle(w, "easyheatmap_dataformat") do args... ## When easyheatmap_dataformat_button is pressed, the following arguments are executed
-        ImageView.imshow(FileIO.load(joinpath(pathof(easyplotting)[1:end-19], "Figures/Heatmap/heatmap_dataformat.png"))) ## When easyheatmap_dataformat_button is pressed, picture of user input data format pops out..
+    Blink.handle(w, "easyheatmap_dataformat") do args...
+        ImageView.imshow(FileIO.load(joinpath(pathof(easyplotting)[1:end-19], "Figures/Heatmap/heatmap_dataformat.png"))) ## When easyheatmap_dataformat_button is pressed, picture of user input data format pops up.
     end
 
-    Blink.handle(w, "easyheatmap_back") do args... ## When easyheatmap_back_button is pressed, the following arguments are executed
+    Blink.handle(w, "easyheatmap_back") do args...
         easymain() ## When easyheatmap_back_button is pressed, easymain() is executed.
     end
 

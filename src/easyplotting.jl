@@ -1,6 +1,7 @@
 module easyplotting ## Define easyplotting module
 
 using Blink, Interact, XLSX, CSV, DelimitedFiles, DataFrames, StatsPlots, PlotlyJS, Seaborn, Conda, FileIO, ImageView ## Importing required libraries for all downstream functions
+plotlyjs() ## Using PLotlyJS backend for all plots by StatsPlots package
 
 ## Include all source scripts
 include("mainpage.jl"))

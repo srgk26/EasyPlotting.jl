@@ -19,16 +19,16 @@ It is very important that your dataset is in accordance with the appropriate for
 
 *Note: The data used to generate these figures are randomly generated. Therefore they may not appear to be a typical plot resembling that based on a real dataset.*
 
-* Bar chart: [format of dataset](/Figures/Barchart/barchart_dataformat.png) and [sample figure](/Figures/Barchart/barchart_sampleimage.png)
+* Bar Chart: [format of dataset](/Figures/Barchart/barchart_dataformat.png) and [sample figure](/Figures/Barchart/barchart_sampleimage.png)
 * Box and Whisker: [format of dataset](/Figures/BoxandWhisker/boxandwhisker_dataformat.png) and [sample figure](/Figures/BoxandWhisker/boxandwhisker_sampleimage.png)
 * Heatmap: [format of dataset](/Figures/Heatmap/heatmap_dataformat.png) and [sample figure](/Figures/Heatmap/heatmap_sampleimage.png)
 * Histogram: [format of dataset](/Figures/Histogram/histogram_dataformat.png) and [sample figure](/Figures/Histogram/histogram_sampleimage.png)
 * Line graph: [format of dataset](/Figures/Linegraph/linegraph_dataformat.png) and [sample figure](/Figures/Linegraph/linegraph_sampleimage.png)
-* Pie chart: [format of dataset](/Figures/Piechart/piechart_dataformat.png) and [sample figure](/Figures/Piechart/piechart_sampleimage.png)
+* Pie Chart: [format of dataset](/Figures/Piechart/piechart_dataformat.png) and [sample figure](/Figures/Piechart/piechart_sampleimage.png)
 * Scatterplot 2D: [format of dataset](/Figures/Scatterplot2d/scatterplot2d_dataformat.png) and [sample figure](/Figures/Scatterplot2d/scatterplot2d_sampleimage.png)
 * Scatterplot 3D: [format of dataset](/Figures/Scatterplot3d/scatterplot3d_dataformat.png) and [sample figure](/Figures/Scatterplot3d/scatterplot3d_sampleimage.png)
 * Stripplot: [format of dataset](/Figures/Stripplot/stripplot_dataformat.png) and [sample figure](/Figures/Stripplot/stripplot_sampleimage.png)
-* Violin plot: [format of dataset](/Figures/Violinplot/violinplot_dataformat.png) and [sample figure](/Figures/Violinplot/violinplot_sampleimage.png)
+* Violinplot: [format of dataset](/Figures/Violinplot/violinplot_dataformat.png) and [sample figure](/Figures/Violinplot/violinplot_sampleimage.png)
 
 Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 

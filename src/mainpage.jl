@@ -5,7 +5,7 @@ function easymain()
     function mainpage_inputs()
         file = Interact.filepicker(accept=[".xlsx", ".csv", ".txt"]) ## Restricting file input types to .xlsx/.csv/.txt
         sheet = Interact.textbox("Excel sheet name") ## Need sheet name for .xlsx files
-        plot_type = Interact.dropdown(["Bar chart", "Box and Whisker", "Heatmap", "Histogram", "Line graph", "Pie chart", "Scatterplot 2D", "Scatterplot 3D", "Stripplot", "Violin plot"]) ## Creating dropdown menu for user to choose plot type
+        plot_type = Interact.dropdown(["Bar chart", "Box and Whisker", "Heatmap", "Histogram", "Line graph", "Pie chart", "Scatterplot 2D", "Scatterplot 3D", "Stripplot", "Violinplot"]) ## Creating dropdown menu for user to choose plot type
         mainpage_next_button = html"""<button onclick='Blink.msg("mainpage_next", "foo")'>Next</button>""" ## Configuring button on-click event to proceed to the next page
         Interact.Widget(["file"=>file, "sheet"=>sheet, "plot_type"=>plot_type, "mainpage_next_button"=>mainpage_next_button]) ## Consolidating all widgets
     end
