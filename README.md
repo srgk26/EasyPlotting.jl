@@ -52,4 +52,4 @@ Press enter. If this is your first time using this package, it would take about 
 
 ## Credits:
 
-Credits to the developers of the Julia language and libraries. Special thanks to `@Dustin T Irwin`@https://github.com/dustyirwin for his script on Stackoverflow: https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink, which helped greatly for the main structure of my code.
+Credits to the developers of the Julia language and libraries. Special thanks to [Dustin T Irwin](https://github.com/dustyirwin) for his script on [Stackoverflow](https://stackoverflow.com/questions/52845964/how-to-use-handlew-flag-with-julia-webio-blink), which helped greatly for the main structure of my code.
