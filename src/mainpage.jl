@@ -5,7 +5,7 @@ function easymain()
     function mainpage_inputs()
         file = Interact.filepicker(accept=[".xlsx", ".csv", ".txt"]) ## Restricting file input types to .xlsx/.csv/.txt
         sheet = Interact.textbox("Excel sheet name") ## Need sheet name for .xlsx files
-        plot_type = Interact.dropdown(["Heatmap", "Scatterplot", "Line graph", "Histogram", "Bar chart", "Box and Whisker", "Pie chart", "Violin plot"]) ## Creating dropdown menu for user to choose plot type
+        plot_type = Interact.dropdown(["Bar chart", "Box and Whisker", "Heatmap", "Histogram", "Line graph", "Pie chart", "Scatterplot 2D", "Scatterplot 3D", "Stripplot", "Violin plot"]) ## Creating dropdown menu for user to choose plot type
         mainpage_next_button = html"""<button onclick='Blink.msg("mainpage_next", "foo")'>Next</button>""" ## Configuring button on-click event to proceed to the next page
         Interact.Widget(["file"=>file, "sheet"=>sheet, "plot_type"=>plot_type, "mainpage_next_button"=>mainpage_next_button]) ## Consolidating all widgets
     end
@@ -33,9 +33,10 @@ function easymain()
         if (mainpage_inputs()["file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
             df = DataFrames.DataFrame(XLSX.readtable((mainpage_inputs()["file"][]::String), (mainpage_inputs()["sheet"][]::String))...) ## Convert dataset to dataframe
         elseif (mainpage_inputs()["file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-            df = DataFrames.DataFrame(CSV.read(mainpage_inputs()["file"][]::String))
+            df = DataFrames.DataFrame(CSV.read(mainpage_inputs()["file"][]::String)) ## Convert dataset to dataframe
         elseif (mainpage_inputs()["file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-            df = DataFrames.DataFrame(DelimitedFiles.readdlm(mainpage_inputs()["file"][]::String, '\t'))
+            df = DataFrames.DataFrame(DelimitedFiles.readdlm(mainpage_inputs()["file"][]::String, '\t')) ## Convert dataset to dataframe
+
             ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
             for i in 1:size(df, 2)
                 DataFrames.rename!(df, names(df)[i]=>Symbol(df[1,i]))
@@ -43,23 +44,27 @@ function easymain()
             DataFrames.deleterows!(df, 1) ## Deleting row 1 of df
         end
 
-        ## Invoke functions corresponding to plot type selected by user
-        if mainpage_inputs()["plot_type"][] == "Heatmap"
-            easyheatmap() ## When mainpage_next_button is pressed, easyheatmap() is executed.
-        elseif mainpage_inputs()["plot_type"][] == "Scatterplot"
-            easyscatterplot() ## When mainpage_next_button is pressed, easyheatmap() is executed.
-        elseif mainpage_inputs()["plot_type"][] == "Line graph"
-            easylinegraph() ## When mainpage_next_button is pressed, easyheatmap() is executed.
-        elseif mainpage_inputs()["plot_type"][] == "Histogram"
-            easyhistogram() ## When mainpage_next_button is pressed, easyheatmap() is executed.
-        elseif mainpage_inputs()["plot_type"][] == "Bar chart"
-            easybarchart() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+        ## Invoke functions corresponding to plot type selected by user when mainpage_next_button is pressed
+        if mainpage_inputs()["plot_type"][] == "Bar chart"
+            easybarchart()
         elseif mainpage_inputs()["plot_type"][] == "Box and Whisker"
-            easyboxandwhisker() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+            easyboxandwhisker()
+        elseif mainpage_inputs()["plot_type"][] == "Heatmap"
+            easyheatmap()
+        elseif mainpage_inputs()["plot_type"][] == "Histogram"
+            easyhistogram()
+        elseif mainpage_inputs()["plot_type"][] == "Line graph"
+            easylinegraph()
         elseif mainpage_inputs()["plot_type"][] == "Pie chart"
-            easypiechart() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+            easypiechart()
+        elseif mainpage_inputs()["plot_type"][] == "Scatterplot 2D"
+            easyscatterplot2d()
+        elseif mainpage_inputs()["plot_type"][] == "Scatterplot 3D"
+            easyscatterplot3d()
+        elseif mainpage_inputs()["plot_type"][] == "Stripplot"
+            easystripplot()
         elseif mainpage_inputs()["plot_type"][] == "Violin plot"
-            easyviolinplot() ## When mainpage_next_button is pressed, easyheatmap() is executed.
+            easyviolinplot()
         end
 
         ## Alert if sheet name is not entered for excel .xlsx files
