@@ -9,7 +9,7 @@ This is a preview of the main page of the GUI:
 
 Kindly take note that this GUI is designed primarily for quick data exploratory purposes providing only the basic, fundamental user customisation options, though you are very welcome to include these plots in your publications as well should they be deemed satisfactory.
 
-If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types are requested to be added, please open an issue as well.
+If anyone would like to contribute, please feel free to submit a pull request. If any issues, please also feel free to open an issue. If particular plotting types or custom options are requested to be added, please open an issue as well.
 
 ***
 
