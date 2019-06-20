@@ -27,8 +27,7 @@ function easyheatmap()
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_size1"]), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for heatmap:"), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, easyheatmap_inputs()["easyheatmap_back_button"], style=Dict(:position => "absolute", :left => "650px")),
-                            Interact.node(:p, easyheatmap_inputs()["easyheatmap_plot_button"], style=Dict(:position => "absolute", :left => "720px")))
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_back_button"]), Interact.pad(0.25, easyheatmap_inputs()["easyheatmap_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easyheatmap_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Heatmap") ## Adding title to Blink window 'w'

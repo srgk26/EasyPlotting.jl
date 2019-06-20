@@ -1,7 +1,7 @@
 name = "easyplotting"
 uuid = "0fc5cdf6-7036-11e9-0227-9db9f3330fcc"
 authors = ["S R Gokul Krishnan <srgk26ster@gmail.com>"]
-version = "0.1.0"
+version = "0.4.0"
 
 [deps]
 BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"

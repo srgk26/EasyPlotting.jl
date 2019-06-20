@@ -26,8 +26,7 @@ function easystripplot()
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Stripplot:"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select jitter options:"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_jitter"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, easystripplot_inputs()["easystripplot_back_button"], style=Dict(:position => "absolute", :left => "650px")),
-                            Interact.node(:p, easystripplot_inputs()["easystripplot_plot_button"], style=Dict(:position => "absolute", :left => "720px")))
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easystripplot_inputs()["easystripplot_back_button"]), Interact.pad(0.25, easystripplot_inputs()["easystripplot_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easystripplot_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Stripplot") ## Adding title to Blink window 'w'

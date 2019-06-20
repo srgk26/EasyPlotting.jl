@@ -24,8 +24,7 @@ function easyviolinplot()
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Violinplot:"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select Violinplot interior data representation options:"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_inner"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, easyviolinplot_inputs()["easyviolinplot_back_button"], style=Dict(:position => "absolute", :left => "650px")),
-                            Interact.node(:p, easyviolinplot_inputs()["easyviolinplot_plot_button"], style=Dict(:position => "absolute", :left => "720px")))
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_back_button"]), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easyviolinplot_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Violinplot") ## Adding title to Blink window 'w'
