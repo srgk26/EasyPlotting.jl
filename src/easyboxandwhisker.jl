@@ -46,7 +46,7 @@ function easyboxandwhisker()
                 StatsPlots.gui()
                 return true
             elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), df[:,1]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), legend=false)
+                StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), legend=false)
                 StatsPlots.gui()
                 return true
             elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log10" ## For log10 logarithmic scaling
@@ -64,7 +64,7 @@ function easyboxandwhisker()
                 StatsPlots.gui()
                 return true
             elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), df[:,1]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
+                StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
                 StatsPlots.gui()
                 return true
             elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log10" ## For log10 logarithmic scaling
