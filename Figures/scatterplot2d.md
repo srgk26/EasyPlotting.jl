@@ -2,7 +2,6 @@ This is just a quick heads up on the format your input dataset should be, to pro
 
   1. Your dataset must have 3 columns labelled with column names. Column 1 is just a dummy column that does not contribute to the plot in any way. But there still has to be a complete column 1 with a column name because of the standardisation required for the code. Column 2 values are used to plot the x-values while column 3 values are for the y-axis. Their column names are labelled respectively. You may have more than 3 columns in your file, but only the first 3 columns will be used for the Scatterplot 2D.
   
-  All data from column 2 onwards will be used to plot, with the column names for these columns being the tick labels in the x-axis.
   2. Kindly also take note that the top, leftmost cell in your .xlsx/.csv/.txt file should be non-empty (i.e. row1, column1 cell that intersects row and column labels should be non-empty). It does not matter what the value of that cell is as it would not be reflected in the figure, but the code would be compromised if this cell is empty. The screenshot below illustrates what it refers to:
 
 ![Alt text](/Figures/2sample.PNG?raw=true "Non-empty top leftmost cell")
