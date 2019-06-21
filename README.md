@@ -40,8 +40,8 @@ Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 2. Open the Julia app, copy and paste at the prompt:
 
 ```
-using Pkg; if haskey(Pkg.installed(), "easyplotting") == false
-    Pkg.add("https://github.com/srgk26/easyplotting.jl.git")
+if haskey(Pkg.installed(), "easyplotting") == false
+    using Pkg; Pkg.add("https://github.com/srgk26/easyplotting.jl.git")
 end
 using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
