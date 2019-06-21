@@ -48,6 +48,16 @@ using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBac
 
 Press enter. If this is your first time using this package, it would take about 10 min for the installation process.
 
+***Updating easyplotting.jl***
+
+There will be regular updates to this easyplotting.jl package. If you already have easyplotting installed in your system, simply copy and paste:
+
+```
+using Pkg; Pkg.update("easyplotting")
+```
+
+This fetches the latest updates into your local system. 
+
 ***
 
 ## Credits:
