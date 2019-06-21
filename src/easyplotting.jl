@@ -1,8 +1,19 @@
 module easyplotting ## Define easyplotting module
 
-cd(pathof(easyplotting)[1:end-15]) ## Changing to easyplotting src folder for executing other src scripts as necessary
+using Blink, Interact, XLSX, CSV, DelimitedFiles, DataFrames, StatsPlots, PlotlyJS, Seaborn, Conda, FileIO, ImageView ## Importing required libraries for all downstream functions
+plotlyjs() ## Using PLotlyJS backend for all plots by StatsPlots package
 
-include("easyheatmap.jl") ## Include easyheatmap.jl script for function easyheatmap()
-include("extrainstall/extrainstall.jl") ## Include extrainstall.jl for function extrainstall()
+## Include all source scripts
+include("easymain.jl")
+include("easybarchart.jl")
+include("easyboxandwhisker.jl")
+include("easyheatmap.jl")
+include("easyhistogram.jl")
+include("easylinegraph.jl")
+include("easypiechart.jl")
+include("easyscatterplot2d.jl")
+include("easyscatterplot3d.jl")
+include("easystripplot.jl")
+include("easyviolinplot.jl")
 
 end #module
