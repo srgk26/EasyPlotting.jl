@@ -36,7 +36,7 @@ Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 
 ## Usage:
 
-1. Download and install Julia from https://julialang.org/downloads/ (or for Linux, with your respective package managers).
+1. Download and install Julia from https://julialang.org/downloads/ (Linux users, see below!).
 2. Open the Julia app, copy and paste at the prompt:
 
 ```
@@ -57,6 +57,19 @@ using Pkg; Pkg.update("easyplotting"); Pkg.build("easyplotting")
 ```
 
 This fetches the latest updates into your local system. Then simply use the package as per normal.
+
+***Linux usage***
+
+Linux users, please refrain from installing Julia with your respective package managers. Julia compiled from source produces build error (for the 'Arpack' dependency) when building this easyplotting.jl package, which affects other downstream processes. Instead:
+
+1. Install the 'Generic Linux Binaries for x86' official package
+2. Create a symbolic link of the downloaded julia binary inside the `/usr/local/bin` folder. Assuming you have extracted the Tarballs into your downloads folder, copy and paste in the terminal:
+
+```
+sudo ln -s ~/Downloads/julia-1.1.1/bin/julia /usr/local/bin/julia
+```
+
+Replace 'julia-1.1.1' with the respective folder name. [Click here](https://julialang.org/downloads/platform.html) for more information.
 
 ***
 
