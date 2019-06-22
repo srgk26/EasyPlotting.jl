@@ -34,7 +34,7 @@ function easystripplot()
     ## Defining function to save stripplot plot
     function easystripplot_fig()
         tmp_stripplot = joinpath(mktempdir(), "tmp_stripplot.png") ## Assign temporary filename for stripplot produced
-        savefig(tmp_stripplot) ## Saves stripplot figure
+        Seaborn.savefig(tmp_stripplot) ## Saves stripplot figure
         run(`open $tmp_stripplot`) ## Open temporary stripplot figure file
     end
 
