@@ -31,11 +31,11 @@ function easymain()
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "mainpage_next") do args...  ## When mainpage_next_button is pressed, the following arguments are executed
         if (mainpage_inputs()["file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-            df = DataFrames.DataFrame(XLSX.readtable((mainpage_inputs()["file"][]::String), (mainpage_inputs()["sheet"][]::String))...) ## Convert dataset to dataframe
+            global df = DataFrames.DataFrame(XLSX.readtable((mainpage_inputs()["file"][]::String), (mainpage_inputs()["sheet"][]::String))...) ## Convert dataset to dataframe
         elseif (mainpage_inputs()["file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-            df = DataFrames.DataFrame(CSV.read(mainpage_inputs()["file"][]::String)) ## Convert dataset to dataframe
+            global df = DataFrames.DataFrame(CSV.read(mainpage_inputs()["file"][]::String)) ## Convert dataset to dataframe
         elseif (mainpage_inputs()["file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-            df = DataFrames.DataFrame(DelimitedFiles.readdlm(mainpage_inputs()["file"][]::String, '\t')) ## Convert dataset to dataframe
+            global df = DataFrames.DataFrame(DelimitedFiles.readdlm(mainpage_inputs()["file"][]::String, '\t')) ## Convert dataset to dataframe
 
             ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
             for i in 1:size(df, 2)
