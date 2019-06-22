@@ -69,7 +69,7 @@ Linux users, please refrain from installing Julia with your respective package m
 sudo ln -s ~/Downloads/julia-1.1.1/bin/julia /usr/local/bin/julia
 ```
 
-Replace 'julia-1.1.1' with the respective folder name. [Click here](https://julialang.org/downloads/platform.html) for more information.
+Replace 'julia-1.1.1' with the respective folder name. Then run Julia by simply typing `julia` in the terminal. [Click here](https://julialang.org/downloads/platform.html) for more information.
 
 ***
 
