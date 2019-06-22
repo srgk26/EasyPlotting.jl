@@ -1,5 +1,5 @@
 function easymain()
-    const w = Blink.Window() ## Opening Blink Window
+    global w = Blink.Window() ## Opening Blink Window
 
     ## Defining mainpage_input widgets for user inputs
     function mainpage_inputs()
