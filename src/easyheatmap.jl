@@ -35,7 +35,7 @@ function easyheatmap()
     ## Defining function to save heatmap plot
     function easyheatmap_fig()
         tmp_heatmap = joinpath(mktempdir(), "tmp_heatmap.png") ## Assign temporary filename for heatmap produced
-        savefig(tmp_heatmap) ## Saves heatmap figure
+        Seaborn.savefig(tmp_heatmap) ## Saves heatmap figure
         run(`open $tmp_heatmap`) ## Open temporary heatmap figure file
     end
 
