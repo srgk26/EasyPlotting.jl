@@ -32,7 +32,7 @@ function easyviolinplot()
     ## Defining function to save violinplot plot
     function easyviolinplot_fig()
         tmp_violinplot = joinpath(mktempdir(), "tmp_violinplot.png") ## Assign temporary filename for violinplot produced
-        savefig(tmp_violinplot) ## Saves violinplot figure
+        Seaborn.savefig(tmp_violinplot) ## Saves violinplot figure
         run(`open $tmp_violinplot`) ## Open temporary violinplot figure file
     end
 
