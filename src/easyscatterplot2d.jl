@@ -15,6 +15,7 @@ function easyscatterplot2d()
         easyscatterplot2d_plot_button = html"""<button onclick='Blink.msg("easyscatterplot2d_plot", "foo")'>Plot</button>""" ## Plot button
         Interact.Widget(["easyscatterplot2d_dataformat_button"=>easyscatterplot2d_dataformat_button, "easyscatterplot2d_colours"=>easyscatterplot2d_colours, "easyscatterplot2d_scale"=>easyscatterplot2d_scale, "easyscatterplot2d_size1"=>easyscatterplot2d_size1, "easyscatterplot2d_size2"=>easyscatterplot2d_size2, "easyscatterplot2d_back_button"=>easyscatterplot2d_back_button, "easyscatterplot2d_plot_button"=>easyscatterplot2d_plot_button]) ## Consolidating all widgets
     end
+    easyscatterplot2d_inputsfunc = easyscatterplot2d_inputs()
 
     easyscatterplot2d_intro1 = "This section provides additional 'Scatterplot 2D' specific configuration options that you could select below to further customise your Scatterplot 2D."
     easyscatterplot2d_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
@@ -24,51 +25,51 @@ function easyscatterplot2d()
     easyscatterplot2d_page = Interact.node(:html,
                                 style=Dict(:backgroundColor => "#efefef", :boxShadow => "0px 0px 12px rgba(0,0,0,0.15)", :margin => "0 0 2em 0"),
                                 Interact.node(:p, easyscatterplot2d_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyscatterplot2d_intro2), Interact.pad(0.25, easyscatterplot2d_inputs()["easyscatterplot2d_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyscatterplot2d_intro2), Interact.pad(0.25, easyscatterplot2d_inputsfunc["easyscatterplot2d_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, easyscatterplot2d_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Scatterplot 2D:"), Interact.pad(0.25, easyscatterplot2d_inputs()["easyscatterplot2d_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyscatterplot2d_inputs()["easyscatterplot2d_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyscatterplot2d_inputs()["easyscatterplot2d_size1"]), Interact.pad(0.25, easyscatterplot2d_inputs()["easyscatterplot2d_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyscatterplot2d_inputs()["easyscatterplot2d_back_button"]), Interact.pad(0.25, easyscatterplot2d_inputs()["easyscatterplot2d_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Scatterplot 2D:"), Interact.pad(0.25, easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyscatterplot2d_inputsfunc["easyscatterplot2d_size1"]), Interact.pad(0.25, easyscatterplot2d_inputsfunc["easyscatterplot2d_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyscatterplot2d_inputsfunc["easyscatterplot2d_back_button"]), Interact.pad(0.25, easyscatterplot2d_inputsfunc["easyscatterplot2d_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easyscatterplot2d_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Scatterplot 2D") ## Adding title to Blink window 'w'
 
     ## Main function code to plot scatterplot2d, using user-defined input options
     function easyscatterplot2d_plot()
-        if easyscatterplot2d_inputs()["easyscatterplot2d_size1"][]::String == "" ## If no user-input for plot size
-            if easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "None" ## For no logarithmic scaling
-                StatsPlots.scatter(collect(df[:,2]), collect(df[:,3]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), legend=false)
+        if easyscatterplot2d_inputsfunc["easyscatterplot2d_size1"][]::String == "" ## If no user-input for plot size
+            if easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "None" ## For no logarithmic scaling
+                StatsPlots.scatter(collect(df[:,2]), collect(df[:,3]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), legend=false)
                 StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
                 return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "loge" ## For loge logarithmic scaling
-                StatsPlots.scatter(log.(collect(df[:,2])), log.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), legend=false)
+            elseif easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "loge" ## For loge logarithmic scaling
+                StatsPlots.scatter(log.(collect(df[:,2])), log.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), legend=false)
                 StatsPlots.gui()
                 return true
-            elseif easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.scatter(log2.(collect(df[:,2])), log2.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), legend=false)
+            elseif easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "log2" ## For log2 logarithmic scaling
+                StatsPlots.scatter(log2.(collect(df[:,2])), log2.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), legend=false)
                 StatsPlots.gui()
                 return true
-            elseif easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "log10" ## For log10 logarithmic scaling
-                StatsPlots.scatter(log10.(collect(df[:,2])), log10.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), legend=false)
+            elseif easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "log10" ## For log10 logarithmic scaling
+                StatsPlots.scatter(log10.(collect(df[:,2])), log10.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), legend=false)
                 StatsPlots.gui()
                 return true
             end
         else ## If plot size is defined by user
-            if easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "None" ## For no logarithmic scaling
-                StatsPlots.scatter(collect(df[:,2]), collect(df[:,3]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size2"][])), legend=false)
+            if easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "None" ## For no logarithmic scaling
+                StatsPlots.scatter(collect(df[:,2]), collect(df[:,3]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size2"][])), legend=false)
                 StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
                 return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "loge" ## For loge logarithmic scaling
-                StatsPlots.scatter(log.(collect(df[:,2])), log.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size2"][])), legend=false)
+            elseif easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "loge" ## For loge logarithmic scaling
+                StatsPlots.scatter(log.(collect(df[:,2])), log.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size2"][])), legend=false)
                 StatsPlots.gui()
                 return true
-            elseif easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.scatter(log2.(collect(df[:,2])), log2.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size2"][])), legend=false)
+            elseif easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "log2" ## For log2 logarithmic scaling
+                StatsPlots.scatter(log2.(collect(df[:,2])), log2.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size2"][])), legend=false)
                 StatsPlots.gui()
                 return true
-            elseif easyscatterplot2d_inputs()["easyscatterplot2d_scale"][] == "log10" ## For log10 logarithmic scaling
-                StatsPlots.scatter(log10.(collect(df[:,2])), log10.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputs()["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputs()["easyscatterplot2d_size2"][])), legend=false)
+            elseif easyscatterplot2d_inputsfunc["easyscatterplot2d_scale"][] == "log10" ## For log10 logarithmic scaling
+                StatsPlots.scatter(log10.(collect(df[:,2])), log10.(collect(df[:,3])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsfunc["easyscatterplot2d_colours"][]::String), size=(parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size1"][]), parse(Float64, easyscatterplot2d_inputsfunc["easyscatterplot2d_size2"][])), legend=false)
                 StatsPlots.gui()
                 return true
             end

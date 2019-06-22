@@ -10,6 +10,7 @@ function easypiechart()
         easypiechart_plot_button = html"""<button onclick='Blink.msg("easypiechart_plot", "foo")'>Plot</button>""" ## Plot button
         Interact.Widget(["easypiechart_dataformat_button"=>easypiechart_dataformat_button, "easypiechart_scale"=>easypiechart_scale, "easypiechart_size1"=>easypiechart_size1, "easypiechart_size2"=>easypiechart_size2, "easypiechart_back_button"=>easypiechart_back_button, "easypiechart_plot_button"=>easypiechart_plot_button]) ## Consolidating all widgets
     end
+    easypiechart_inputsfunc = easypiechart_inputs()
 
     easypiechart_intro1 = "This section provides additional 'Pie Chart' specific configuration options that you could select below to further customise your Pie Chart."
     easypiechart_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
@@ -19,50 +20,50 @@ function easypiechart()
     easypiechart_page = Interact.node(:html,
                                 style=Dict(:backgroundColor => "#efefef", :boxShadow => "0px 0px 12px rgba(0,0,0,0.15)", :margin => "0 0 2em 0"),
                                 Interact.node(:p, easypiechart_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easypiechart_intro2), Interact.pad(0.25, easypiechart_inputs()["easypiechart_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easypiechart_intro2), Interact.pad(0.25, easypiechart_inputsfunc["easypiechart_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, easypiechart_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easypiechart_inputs()["easypiechart_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easypiechart_inputs()["easypiechart_size1"]), Interact.pad(0.25, easypiechart_inputs()["easypiechart_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easypiechart_inputs()["easypiechart_back_button"]), Interact.pad(0.25, easypiechart_inputs()["easypiechart_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easypiechart_inputsfunc["easypiechart_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easypiechart_inputsfunc["easypiechart_size1"]), Interact.pad(0.25, easypiechart_inputsfunc["easypiechart_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easypiechart_inputsfunc["easypiechart_back_button"]), Interact.pad(0.25, easypiechart_inputsfunc["easypiechart_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easypiechart_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Pie Chart") ## Adding title to Blink window 'w'
 
     ## Main function code to plot piechart, using user-defined input options
     function easypiechart_plot()
-        if easypiechart_inputs()["easypiechart_size1"][]::String == "" ## If no user-input for plot size
-            if easypiechart_inputs()["easypiechart_scale"][] == "None" ## For no logarithmic scaling
+        if easypiechart_inputsfunc["easypiechart_size1"][]::String == "" ## If no user-input for plot size
+            if easypiechart_inputsfunc["easypiechart_scale"][] == "None" ## For no logarithmic scaling
                 StatsPlots.pie(collect(df[:,1]), collect(df[:,2]), xlabel = string(names(df)[2]))
                 StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
                 return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easypiechart_inputs()["easypiechart_scale"][] == "loge" ## For loge logarithmic scaling
+            elseif easypiechart_inputsfunc["easypiechart_scale"][] == "loge" ## For loge logarithmic scaling
                 StatsPlots.pie(log.(collect(df[:,1])), log.(collect(df[:,2])), xlabel = string(names(df)[2]))
                 StatsPlots.gui()
                 return true
-            elseif easypiechart_inputs()["easypiechart_scale"][] == "log2" ## For log2 logarithmic scaling
+            elseif easypiechart_inputsfunc["easypiechart_scale"][] == "log2" ## For log2 logarithmic scaling
                 StatsPlots.pie(log2.(collect(df[:,1])), log2.(collect(df[:,2])), xlabel = string(names(df)[2]))
                 StatsPlots.gui()
                 return true
-            elseif easypiechart_inputs()["easypiechart_scale"][] == "log10" ## For log10 logarithmic scaling
+            elseif easypiechart_inputsfunc["easypiechart_scale"][] == "log10" ## For log10 logarithmic scaling
                 StatsPlots.pie(log10.(collect(df[:,1])), log10.(collect(df[:,2])), xlabel = string(names(df)[2]))
                 StatsPlots.gui()
                 return true
             end
         else ## If plot size is defined by user
-            if easypiechart_inputs()["easypiechart_scale"][] == "None" ## For no logarithmic scaling
-                StatsPlots.pie(collect(df[:,1]), collect(df[:,2]), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputs()["easypiechart_size1"][]), parse(Float64, easypiechart_inputs()["easypiechart_size2"][])))
+            if easypiechart_inputsfunc["easypiechart_scale"][] == "None" ## For no logarithmic scaling
+                StatsPlots.pie(collect(df[:,1]), collect(df[:,2]), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputsfunc["easypiechart_size1"][]), parse(Float64, easypiechart_inputsfunc["easypiechart_size2"][])))
                 StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
                 return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easypiechart_inputs()["easypiechart_scale"][] == "loge" ## For loge logarithmic scaling
-                StatsPlots.pie(log.(collect(df[:,1])), log.(collect(df[:,2])), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputs()["easypiechart_size1"][]), parse(Float64, easypiechart_inputs()["easypiechart_size2"][])))
+            elseif easypiechart_inputsfunc["easypiechart_scale"][] == "loge" ## For loge logarithmic scaling
+                StatsPlots.pie(log.(collect(df[:,1])), log.(collect(df[:,2])), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputsfunc["easypiechart_size1"][]), parse(Float64, easypiechart_inputsfunc["easypiechart_size2"][])))
                 StatsPlots.gui()
                 return true
-            elseif easypiechart_inputs()["easypiechart_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.pie(log2.(collect(df[:,1])), log2.(collect(df[:,2])), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputs()["easypiechart_size1"][]), parse(Float64, easypiechart_inputs()["easypiechart_size2"][])))
+            elseif easypiechart_inputsfunc["easypiechart_scale"][] == "log2" ## For log2 logarithmic scaling
+                StatsPlots.pie(log2.(collect(df[:,1])), log2.(collect(df[:,2])), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputsfunc["easypiechart_size1"][]), parse(Float64, easypiechart_inputsfunc["easypiechart_size2"][])))
                 StatsPlots.gui()
                 return true
-            elseif easypiechart_inputs()["easypiechart_scale"][] == "log10" ## For log10 logarithmic scaling
-                StatsPlots.pie(log10.(collect(df[:,1])), log10.(collect(df[:,2])), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputs()["easypiechart_size1"][]), parse(Float64, easypiechart_inputs()["easypiechart_size2"][])))
+            elseif easypiechart_inputsfunc["easypiechart_scale"][] == "log10" ## For log10 logarithmic scaling
+                StatsPlots.pie(log10.(collect(df[:,1])), log10.(collect(df[:,2])), xlabel = string(names(df)[2]), size=(parse(Float64, easypiechart_inputsfunc["easypiechart_size1"][]), parse(Float64, easypiechart_inputsfunc["easypiechart_size2"][])))
                 StatsPlots.gui()
                 return true
             end

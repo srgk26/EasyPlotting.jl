@@ -15,6 +15,7 @@ function easylinegraph()
         easylinegraph_plot_button = html"""<button onclick='Blink.msg("easylinegraph_plot", "foo")'>Plot</button>""" ## Plot button
         Interact.Widget(["easylinegraph_dataformat_button"=>easylinegraph_dataformat_button, "easylinegraph_colours"=>easylinegraph_colours, "easylinegraph_scale"=>easylinegraph_scale, "easylinegraph_size1"=>easylinegraph_size1, "easylinegraph_size2"=>easylinegraph_size2, "easylinegraph_back_button"=>easylinegraph_back_button, "easylinegraph_plot_button"=>easylinegraph_plot_button]) ## Consolidating all widgets
     end
+    easylinegraph_inputsfunc = easylinegraph_inputs()
 
     easylinegraph_intro1 = "This section provides additional 'Line graph' specific configuration options that you could select below to further customise your Line graph."
     easylinegraph_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
@@ -24,51 +25,51 @@ function easylinegraph()
     easylinegraph_page = Interact.node(:html,
                                 style=Dict(:backgroundColor => "#efefef", :boxShadow => "0px 0px 12px rgba(0,0,0,0.15)", :margin => "0 0 2em 0"),
                                 Interact.node(:p, easylinegraph_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easylinegraph_intro2), Interact.pad(0.25, easylinegraph_inputs()["easylinegraph_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easylinegraph_intro2), Interact.pad(0.25, easylinegraph_inputsfunc["easylinegraph_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, easylinegraph_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Line graph:"), Interact.pad(0.25, easylinegraph_inputs()["easylinegraph_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easylinegraph_inputs()["easylinegraph_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easylinegraph_inputs()["easylinegraph_size1"]), Interact.pad(0.25, easylinegraph_inputs()["easylinegraph_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easylinegraph_inputs()["easylinegraph_back_button"]), Interact.pad(0.25, easylinegraph_inputs()["easylinegraph_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Line graph:"), Interact.pad(0.25, easylinegraph_inputsfunc["easylinegraph_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easylinegraph_inputsfunc["easylinegraph_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easylinegraph_inputsfunc["easylinegraph_size1"]), Interact.pad(0.25, easylinegraph_inputsfunc["easylinegraph_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easylinegraph_inputsfunc["easylinegraph_back_button"]), Interact.pad(0.25, easylinegraph_inputsfunc["easylinegraph_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easylinegraph_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Line graph") ## Adding title to Blink window 'w'
 
     ## Main function code to plot linegraph, using user-defined input options
     function easylinegraph_plot()
-        if easylinegraph_inputs()["easylinegraph_size1"][]::String == "" ## If no user-input for plot size
-            if easylinegraph_inputs()["easylinegraph_scale"][] == "None" ## For no logarithmic scaling
-                StatsPlots.plot(convert(Matrix, df[:,2:end]), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), legend=true)
+        if easylinegraph_inputsfunc["easylinegraph_size1"][]::String == "" ## If no user-input for plot size
+            if easylinegraph_inputsfunc["easylinegraph_scale"][] == "None" ## For no logarithmic scaling
+                StatsPlots.plot(convert(Matrix, df[:,2:end]), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), legend=true)
                 StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
                 return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easylinegraph_inputs()["easylinegraph_scale"][] == "loge" ## For loge logarithmic scaling
-                StatsPlots.plot(log.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), legend=true)
+            elseif easylinegraph_inputsfunc["easylinegraph_scale"][] == "loge" ## For loge logarithmic scaling
+                StatsPlots.plot(log.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), legend=true)
                 StatsPlots.gui()
                 return true
-            elseif easylinegraph_inputs()["easylinegraph_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.plot(log2.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), legend=true)
+            elseif easylinegraph_inputsfunc["easylinegraph_scale"][] == "log2" ## For log2 logarithmic scaling
+                StatsPlots.plot(log2.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), legend=true)
                 StatsPlots.gui()
                 return true
-            elseif easylinegraph_inputs()["easylinegraph_scale"][] == "log10" ## For log10 logarithmic scaling
-                StatsPlots.plot(log10.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), legend=true)
+            elseif easylinegraph_inputsfunc["easylinegraph_scale"][] == "log10" ## For log10 logarithmic scaling
+                StatsPlots.plot(log10.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), legend=true)
                 StatsPlots.gui()
                 return true
             end
         else ## If plot size is defined by user
-            if easylinegraph_inputs()["easylinegraph_scale"][] == "None" ## For no logarithmic scaling
-                StatsPlots.plot(convert(Matrix, df[:,2:end]), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputs()["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputs()["easylinegraph_size2"][])), legend=true)
+            if easylinegraph_inputsfunc["easylinegraph_scale"][] == "None" ## For no logarithmic scaling
+                StatsPlots.plot(convert(Matrix, df[:,2:end]), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputsfunc["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputsfunc["easylinegraph_size2"][])), legend=true)
                 StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
                 return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easylinegraph_inputs()["easylinegraph_scale"][] == "loge" ## For loge logarithmic scaling
-                StatsPlots.plot(log.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputs()["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputs()["easylinegraph_size2"][])), legend=true)
+            elseif easylinegraph_inputsfunc["easylinegraph_scale"][] == "loge" ## For loge logarithmic scaling
+                StatsPlots.plot(log.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputsfunc["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputsfunc["easylinegraph_size2"][])), legend=true)
                 StatsPlots.gui()
                 return true
-            elseif easylinegraph_inputs()["easylinegraph_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.plot(log2.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputs()["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputs()["easylinegraph_size2"][])), legend=true)
+            elseif easylinegraph_inputsfunc["easylinegraph_scale"][] == "log2" ## For log2 logarithmic scaling
+                StatsPlots.plot(log2.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputsfunc["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputsfunc["easylinegraph_size2"][])), legend=true)
                 StatsPlots.gui()
                 return true
-            elseif easylinegraph_inputs()["easylinegraph_scale"][] == "log10" ## For log10 logarithmic scaling
-                StatsPlots.plot(log10.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputs()["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputs()["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputs()["easylinegraph_size2"][])), legend=true)
+            elseif easylinegraph_inputsfunc["easylinegraph_scale"][] == "log10" ## For log10 logarithmic scaling
+                StatsPlots.plot(log10.(convert(Matrix, df[:,2:end])), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsfunc["easylinegraph_colours"][]::String), size=(parse(Float64, easylinegraph_inputsfunc["easylinegraph_size1"][]), parse(Float64, easylinegraph_inputsfunc["easylinegraph_size2"][])), legend=true)
                 StatsPlots.gui()
                 return true
             end
