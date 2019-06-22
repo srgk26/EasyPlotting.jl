@@ -62,7 +62,7 @@ This fetches the latest updates into your local system. Then simply use the pack
 
 Linux users, please refrain from installing Julia with your respective package managers. Julia compiled from source produces build error (for the 'Arpack' dependency) when building this easyplotting.jl package, which affects other downstream processes. Instead:
 
-1. Install the 'Generic Linux Binaries for x86' official package
+1. Install the 'Generic Linux Binaries for x86' official package.
 2. Create a symbolic link of the downloaded julia binary inside the `/usr/local/bin` folder. Assuming you have extracted the Tarballs into your downloads folder, copy and paste in the terminal:
 
 ```
