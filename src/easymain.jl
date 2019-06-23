@@ -1,19 +1,16 @@
 function easymain()
-    global w = Blink.Window() ## Opening Blink Window
+    w = Blink.Window() ## Opening Blink Window
 
     ## Defining mainpage_input widgets for user inputs
     function mainpage_inputs()
-        file = Interact.filepicker(accept=[".xlsx", ".csv", ".txt"]) ## Restricting file input types to .xlsx/.csv/.txt
-        sheet = Interact.textbox("Excel sheet name") ## Need sheet name for .xlsx files
         plot_type = Interact.dropdown(["Bar chart", "Box and Whisker", "Heatmap", "Histogram", "Line graph", "Pie chart", "Scatterplot 2D", "Scatterplot 3D", "Stripplot", "Violinplot"]) ## Creating dropdown menu for user to choose plot type
         mainpage_next_button = html"""<button onclick='Blink.msg("mainpage_next", "foo")'>Next</button>""" ## Configuring button on-click event to proceed to the next page
-        Interact.Widget(["file"=>file, "sheet"=>sheet, "plot_type"=>plot_type, "mainpage_next_button"=>mainpage_next_button]) ## Consolidating all widgets
+        Interact.Widget(["plot_type"=>plot_type, "mainpage_next_button"=>mainpage_next_button]) ## Consolidating all widgets
     end
-    mainpage_inputsfunc = mainpage_inputs()
 
     mainpage_intro1 = "This GUI serves to ease the process of producing high quality plots normally produced by coding. This GUI takes care of the coding involved in the background while you need only input your data, select relevant options, and produce as many plots as you would like, all with just a few clicks."
     mainpage_intro2 = "This GUI is designed primarily for quick data exploratory purposes, though you are very welcome to include these plots in your publications as well."
-    mainpage_intro3 = "To start, simply upload your dataset below and select plot type. Click 'Next' to proceed."
+    mainpage_intro3 = "To start, simply select plot type below and click 'Next' to proceed."
 
     ## Designing main page layout
     mainpage = Interact.node(:html,
@@ -21,56 +18,35 @@ function easymain()
                 Interact.node(:p, mainpage_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                 Interact.node(:p, mainpage_intro2, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                 Interact.node(:p, mainpage_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, mainpage_inputsfunc["file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, mainpage_inputsfunc["sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Please select plot type:"), Interact.pad(0.25, mainpage_inputsfunc["plot_type"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                Interact.node(:p, mainpage_inputsfunc["mainpage_next_button"], style=Dict(:position => "absolute", :left => "720px")))
+                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Please select plot type:"), Interact.pad(0.25, mainpage_inputs()["plot_type"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                Interact.node(:p, mainpage_inputs()["mainpage_next_button"], style=Dict(:position => "absolute", :left => "720px")))
 
     Blink.body!(w, mainpage) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Welcome to easyplotting!") ## Adding title to Blink window 'w'
 
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "mainpage_next") do args...  ## When mainpage_next_button is pressed, the following arguments are executed
-        if (mainpage_inputsfunc["file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-            global df = DataFrames.DataFrame(XLSX.readtable((mainpage_inputsfunc["file"][]::String), (mainpage_inputsfunc["sheet"][]::String))...) ## Convert dataset to dataframe
-        elseif (mainpage_inputsfunc["file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-            global df = DataFrames.DataFrame(CSV.read(mainpage_inputsfunc["file"][]::String)) ## Convert dataset to dataframe
-        elseif (mainpage_inputsfunc["file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-            global df = DataFrames.DataFrame(DelimitedFiles.readdlm(mainpage_inputsfunc["file"][]::String, '\t')) ## Convert dataset to dataframe
-
-            ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
-            for i in 1:size(df, 2)
-                DataFrames.rename!(df, names(df)[i]=>Symbol(df[1,i]))
-            end
-            DataFrames.deleterows!(df, 1) ## Deleting row 1 of df
-        end
-
         ## Invoke functions corresponding to plot type selected by user when mainpage_next_button is pressed
-        if mainpage_inputsfunc["plot_type"][] == "Bar chart"
+        if mainpage_inputs()["plot_type"][] == "Bar chart"
             easybarchart()
-        elseif mainpage_inputsfunc["plot_type"][] == "Box and Whisker"
+        elseif mainpage_inputs()["plot_type"][] == "Box and Whisker"
             easyboxandwhisker()
-        elseif mainpage_inputsfunc["plot_type"][] == "Heatmap"
+        elseif mainpage_inputs()["plot_type"][] == "Heatmap"
             easyheatmap()
-        elseif mainpage_inputsfunc["plot_type"][] == "Histogram"
+        elseif mainpage_inputs()["plot_type"][] == "Histogram"
             easyhistogram()
-        elseif mainpage_inputsfunc["plot_type"][] == "Line graph"
+        elseif mainpage_inputs()["plot_type"][] == "Line graph"
             easylinegraph()
-        elseif mainpage_inputsfunc["plot_type"][] == "Pie chart"
+        elseif mainpage_inputs()["plot_type"][] == "Pie chart"
             easypiechart()
-        elseif mainpage_inputsfunc["plot_type"][] == "Scatterplot 2D"
+        elseif mainpage_inputs()["plot_type"][] == "Scatterplot 2D"
             easyscatterplot2d()
-        elseif mainpage_inputsfunc["plot_type"][] == "Scatterplot 3D"
+        elseif mainpage_inputs()["plot_type"][] == "Scatterplot 3D"
             easyscatterplot3d()
-        elseif mainpage_inputsfunc["plot_type"][] == "Stripplot"
+        elseif mainpage_inputs()["plot_type"][] == "Stripplot"
             easystripplot()
-        elseif mainpage_inputsfunc["plot_type"][] == "Violin plot"
+        elseif mainpage_inputs()["plot_type"][] == "Violin plot"
             easyviolinplot()
-        end
-
-        ## Alert if sheet name is not entered for excel .xlsx files
-        if (mainpage_inputsfunc["file"][]::String)[end-3:end] == "xlsx" && mainpage_inputsfunc["sheet"][]::String == ""
-            @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
         end
     end
 end #function easymain()
