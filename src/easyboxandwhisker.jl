@@ -1,7 +1,11 @@
 #### Main code for boxandwhisker plot
 function easyboxandwhisker()
+    w = Blink.Window() ## Opening new Blink Window
+
     ## Defining easyboxandwhisker_input widgets for user inputs
     function easyboxandwhisker_inputs()
+        easyboxandwhisker_file = Interact.filepicker(accept=[".xlsx", ".csv", ".txt"]) ## Restricting file input types to .xlsx/.csv/.txt
+        easyboxandwhisker_sheet = Interact.textbox("Excel sheet name") ## Need sheet name for .xlsx files
         easyboxandwhisker_dataformat_button = html"""<button onclick='Blink.msg("easyboxandwhisker_dataformat", "foo")'>Dataset format</button>""" ## Click to view dataset format
         easyboxandwhisker_colours = Interact.dropdown(["algae", "amp", "balance", "bgy", "bgyw", "bjy", "bkr", "bky", "blues", "bluesreds", "bmw", "colorwheel", "coolwarm", "dimgray", "fire", "curl", "dark_grad", "darkrainbow", "darktest",
                                                     "deep", "delta", "dense", "gray", "grays", "greens", "gwv", "haline", "heat", "ice", "inferno", "isolum", "juno_grad", "kb", "kdc", "kg", "kgy", "kr", "lightrainbow", "lighttest",
@@ -13,12 +17,12 @@ function easyboxandwhisker()
         easyboxandwhisker_size2 = Interact.textbox("Default: y-axis = 400") ## Choose y-axis figure size
         easyboxandwhisker_back_button = html"""<button onclick='Blink.msg("easyboxandwhisker_back", "foo")'>Go back</button>""" ## Go-back button
         easyboxandwhisker_plot_button = html"""<button onclick='Blink.msg("easyboxandwhisker_plot", "foo")'>Plot</button>""" ## Plot button
-        Interact.Widget(["easyboxandwhisker_dataformat_button"=>easyboxandwhisker_dataformat_button, "easyboxandwhisker_colours"=>easyboxandwhisker_colours, "easyboxandwhisker_scale"=>easyboxandwhisker_scale, "easyboxandwhisker_size1"=>easyboxandwhisker_size1, "easyboxandwhisker_size2"=>easyboxandwhisker_size2, "easyboxandwhisker_back_button"=>easyboxandwhisker_back_button, "easyboxandwhisker_plot_button"=>easyboxandwhisker_plot_button]) ## Consolidating all widgets
+        Interact.Widget(["easyboxandwhisker_file"=>easyboxandwhisker_file, "easyboxandwhisker_sheet"=>easyboxandwhisker_sheet, "easyboxandwhisker_dataformat_button"=>easyboxandwhisker_dataformat_button, "easyboxandwhisker_colours"=>easyboxandwhisker_colours, "easyboxandwhisker_scale"=>easyboxandwhisker_scale, "easyboxandwhisker_size1"=>easyboxandwhisker_size1, "easyboxandwhisker_size2"=>easyboxandwhisker_size2, "easyboxandwhisker_back_button"=>easyboxandwhisker_back_button, "easyboxandwhisker_plot_button"=>easyboxandwhisker_plot_button]) ## Consolidating all widgets
     end
 
     easyboxandwhisker_intro1 = "This section provides additional 'Box and Whisker' specific configuration options that you could select below to further customise your Box and Whisker plot."
     easyboxandwhisker_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
-    easyboxandwhisker_intro3 = "Now please select options for Box and Whisker:"
+    easyboxandwhisker_intro3 = "Now please upload your dataset below and select options for Box and Whisker:"
 
     ## Designing easyboxandwhisker_page layout
     easyboxandwhisker_page = Interact.node(:html,
@@ -26,6 +30,8 @@ function easyboxandwhisker()
                                 Interact.node(:p, easyboxandwhisker_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyboxandwhisker_intro2), Interact.pad(0.25, easyboxandwhisker_inputs()["easyboxandwhisker_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, easyboxandwhisker_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easyboxandwhisker_inputs()["easyboxandwhisker_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easyboxandwhisker_inputs()["easyboxandwhisker_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Box and Whisker plot:"), Interact.pad(0.25, easyboxandwhisker_inputs()["easyboxandwhisker_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyboxandwhisker_inputs()["easyboxandwhisker_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyboxandwhisker_inputs()["easyboxandwhisker_size1"]), Interact.pad(0.25, easyboxandwhisker_inputs()["easyboxandwhisker_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
@@ -33,47 +39,6 @@ function easyboxandwhisker()
 
     Blink.body!(w, easyboxandwhisker_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Box and Whisker") ## Adding title to Blink window 'w'
-
-    ## Main function code to plot boxandwhisker, using user-defined input options
-    function easyboxandwhisker_plot()
-        if easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]::String == "" ## If no user-input for plot size
-            if easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "None" ## For no logarithmic scaling
-                StatsPlots.boxplot(convert(Matrix, df[:,2:end]), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), legend=false)
-                StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
-                return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "loge" ## For loge logarithmic scaling
-                StatsPlots.boxplot(log.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), legend=false)
-                StatsPlots.gui()
-                return true
-            elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), legend=false)
-                StatsPlots.gui()
-                return true
-            elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log10" ## For log10 logarithmic scaling
-                StatsPlots.boxplot(log10.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), legend=false)
-                StatsPlots.gui()
-                return true
-            end
-        else ## If plot size is defined by user
-            if easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "None" ## For no logarithmic scaling
-                StatsPlots.boxplot(convert(Matrix, df[:,2:end]), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
-                StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
-                return true ## Returns true value, thereby stopping while loop that keeps the process running
-            elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "loge" ## For loge logarithmic scaling
-                StatsPlots.boxplot(log.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
-                StatsPlots.gui()
-                return true
-            elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log2" ## For log2 logarithmic scaling
-                StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
-                StatsPlots.gui()
-                return true
-            elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log10" ## For log10 logarithmic scaling
-                StatsPlots.boxplot(log10.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]::String), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
-                StatsPlots.gui()
-                return true
-            end
-        end
-    end
 
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "easyboxandwhisker_dataformat") do args...
@@ -86,16 +51,57 @@ function easyboxandwhisker()
 
     Blink.handle(w, "easyboxandwhisker_plot") do args... ## When easyboxandwhisker_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
-            easyboxandwhisker_events() ## When easyboxandwhisker_plot_button is pressed, easyboxandwhisker_events() is executed.
+            if (easyboxandwhisker_inputs()["easyboxandwhisker_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
+                global df = DataFrames.DataFrame(XLSX.readtable((easyboxandwhisker_inputs()["easyboxandwhisker_file"][]::String), (easyboxandwhisker_inputs()["easyboxandwhisker_sheet"][]::String))...) ## Convert dataset to dataframe
+            elseif (easyboxandwhisker_inputs()["easyboxandwhisker_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
+                global df = DataFrames.DataFrame(CSV.read(easyboxandwhisker_inputs()["easyboxandwhisker_file"][]::String)) ## Convert dataset to dataframe
+            elseif (easyboxandwhisker_inputs()["easyboxandwhisker_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyboxandwhisker_inputs()["easyboxandwhisker_file"][]::String, '\t')) ## Convert dataset to dataframe
+
+                ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
+                for i in 1:size(df, 2)
+                    DataFrames.rename!(df, names(df)[i]=>Symbol(df[1,i]))
+                end
+                DataFrames.deleterows!(df, 1) ## Deleting row 1 of df
+            end
+
+            ## Alert if sheet name is not entered for excel .xlsx files
+            if (easyboxandwhisker_inputs()["easyboxandwhisker_file"][]::String)[end-3:end] == "xlsx" && easyboxandwhisker_inputs()["easyboxandwhisker_sheet"][]::String == ""
+                @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
+            end
+
+            ## Plot boxandwhisker
+            if easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]::String == "" ## If no user-input for plot size
+                if easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "None" ## For no logarithmic scaling
+                    StatsPlots.boxplot(convert(Matrix, df[:,2:end]), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), legend=false)
+                    StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
+                elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "loge" ## For loge logarithmic scaling
+                    StatsPlots.boxplot(log.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), legend=false)
+                    StatsPlots.gui()
+                elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log2" ## For log2 logarithmic scaling
+                    StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), legend=false)
+                    StatsPlots.gui()
+                elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log10" ## For log10 logarithmic scaling
+                    StatsPlots.boxplot(log10.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), legend=false)
+                    StatsPlots.gui()
+                end
+            else ## If plot size is defined by user
+                if easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "None" ## For no logarithmic scaling
+                    StatsPlots.boxplot(convert(Matrix, df[:,2:end]), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
+                    StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
+                elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "loge" ## For loge logarithmic scaling
+                    StatsPlots.boxplot(log.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
+                    StatsPlots.gui()
+                elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log2" ## For log2 logarithmic scaling
+                    StatsPlots.boxplot(log2.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
+                    StatsPlots.gui()
+                elseif easyboxandwhisker_inputs()["easyboxandwhisker_scale"][] == "log10" ## For log10 logarithmic scaling
+                    StatsPlots.boxplot(log10.(convert(Matrix, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputs()["easyboxandwhisker_colours"][]), size=(parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size1"][]), parse(Float64, easyboxandwhisker_inputs()["easyboxandwhisker_size2"][])), legend=false)
+                    StatsPlots.gui()
+                end
+            end
         catch
             @js_ w alert("Oops! Something had gone wrong. Could it be that your user input dataset is of the wrong format?")
-        end
-    end
-
-    ## Defining function that keeps the function easyboxandwhisker_plot() running until true boolean value is returned
-    function easyboxandwhisker_events()
-        @async while true ## Syncing all processes above
-            Plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
         end
     end
 end #function easyboxandwhisker()
