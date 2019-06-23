@@ -27,25 +27,25 @@ function easymain()
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "mainpage_next") do args...  ## When mainpage_next_button is pressed, the following arguments are executed
         ## Invoke functions corresponding to plot type selected by user when mainpage_next_button is pressed
-        if mainpage_inputs()["plot_type"][]::String == "Bar chart"
+        if mainpage_inputs()["plot_type"][] == "Bar chart"
             easybarchart()
-        elseif mainpage_inputs()["plot_type"][]::String == "Box and Whisker"
+        elseif mainpage_inputs()["plot_type"][] == "Box and Whisker"
             easyboxandwhisker()
-        elseif mainpage_inputs()["plot_type"][]::String == "Heatmap"
+        elseif mainpage_inputs()["plot_type"][] == "Heatmap"
             easyheatmap()
-        elseif mainpage_inputs()["plot_type"][]::String == "Histogram"
+        elseif mainpage_inputs()["plot_type"][] == "Histogram"
             easyhistogram()
-        elseif mainpage_inputs()["plot_type"][]::String == "Line graph"
+        elseif mainpage_inputs()["plot_type"][] == "Line graph"
             easylinegraph()
-        elseif mainpage_inputs()["plot_type"][]::String == "Pie chart"
+        elseif mainpage_inputs()["plot_type"][] == "Pie chart"
             easypiechart()
-        elseif mainpage_inputs()["plot_type"][]::String == "Scatterplot 2D"
+        elseif mainpage_inputs()["plot_type"][] == "Scatterplot 2D"
             easyscatterplot2d()
-        elseif mainpage_inputs()["plot_type"][]::String == "Scatterplot 3D"
+        elseif mainpage_inputs()["plot_type"][] == "Scatterplot 3D"
             easyscatterplot3d()
-        elseif mainpage_inputs()["plot_type"][]::String == "Stripplot"
+        elseif mainpage_inputs()["plot_type"][] == "Stripplot"
             easystripplot()
-        elseif mainpage_inputs()["plot_type"][]::String == "Violin plot"
+        elseif mainpage_inputs()["plot_type"][] == "Violin plot"
             easyviolinplot()
         end
     end
