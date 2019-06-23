@@ -321,7 +321,7 @@ aframe
     ## Defining function that keeps the function easyviolinplot_plot() running until true boolean value is returned
     function easyviolinplot_events()
         @async while true ## Syncing all processes above
-            Plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
+            easyviolinplot_plot() == true ? (sleep(5) && break) : sleep(0.001) ## If true is returned, process sleeps and breaks. Until then, it keeps running.
         end
     end
 end #function easyviolinplot()
