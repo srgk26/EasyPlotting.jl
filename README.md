@@ -42,12 +42,12 @@ Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 ```
 if haskey(Pkg.installed(), "easyplotting") == false
     using Pkg; Pkg.add("https://github.com/srgk26/easyplotting.jl.git") ## Install easyplotting.jl package
-    Pkg.add("https://github.com/sglyon/PlotlyJS.jl.git"); Pkg.add("https://github.com/sglyon/ORCA.jl.git"); Pkg.add("https://github.com/JuliaIO/ImageMagick.jl.git") ## Re-installing dependencies manually due to non-detection of these pkgs in path
+    Pkg.add("https://github.com/JuliaGraphics/Gtk.jl.git"); Pkg.add("https://github.com/sglyon/PlotlyJS.jl.git"); Pkg.add("https://github.com/sglyon/ORCA.jl.git"); Pkg.add("https://github.com/JuliaIO/ImageMagick.jl.git") ## Re-installing dependencies manually due to non-detection of these pkgs in path
 end
 using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
-Press enter. If this is your first time using this package, it could take up to 15 min for the full installation process.
+Press enter. If this is your first time using this package, it could take up to 20 min for the full installation process.
 
 If you have already installed this easyplotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
