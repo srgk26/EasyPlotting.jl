@@ -15,6 +15,7 @@ function easystripplot()
         easystripplot_plot_button = html"""<button onclick='Blink.msg("easystripplot_plot", "foo")'>Plot</button>""" ## Plot button
         Interact.Widget(["easystripplot_file"=>easystripplot_file, "easystripplot_sheet"=>easystripplot_sheet, "easystripplot_dataformat_button"=>easystripplot_dataformat_button, "easystripplot_dotsize"=>easystripplot_dotsize, "easystripplot_colours"=>easystripplot_colours, "easystripplot_scale"=>easystripplot_scale, "easystripplot_jitter"=>easystripplot_jitter, "easystripplot_back_button"=>easystripplot_back_button, "easystripplot_plot_button"=>easystripplot_plot_button]) ## Consolidating all widgets
     end
+    easystripplot_inputsFn = easystripplot_inputs()
 
     easystripplot_intro1 = "This section provides additional 'Stripplot' specific configuration options that you could select below to further customise your Stripplot."
     easystripplot_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
@@ -24,15 +25,15 @@ function easystripplot()
     easystripplot_page = Interact.node(:html,
                             style=Dict(:backgroundColor => "#efefef", :boxShadow => "0px 0px 12px rgba(0,0,0,0.15)", :margin => "0 0 2em 0"),
                             Interact.node(:p, easystripplot_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, easystripplot_intro2), Interact.pad(0.25, easystripplot_inputs()["easystripplot_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, easystripplot_intro2), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, easystripplot_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_dotsize"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Stripplot:"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select jitter options:"), Interact.pad(0.25, easystripplot_inputs()["easystripplot_jitter"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easystripplot_inputs()["easystripplot_back_button"]), Interact.pad(0.25, easystripplot_inputs()["easystripplot_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_dotsize"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Stripplot:"), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select jitter options:"), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_jitter"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easystripplot_inputsFn["easystripplot_back_button"]), Interact.pad(0.25, easystripplot_inputsFn["easystripplot_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easystripplot_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Stripplot") ## Adding title to Blink window 'w'
@@ -46,216 +47,216 @@ function easystripplot()
 
     ## Main function code to plot stripplot, using user-defined input options
     function easystripplot_plot()
-        if easystripplot_inputs()["easystripplot_scale"][] == "None" ## For no logarithmic scaling
-            if easystripplot_inputs()["easystripplot_jitter"][] == "false" ## For no jitter option
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == "" ## If no user-input for plot size
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default" ## If no user-input for plot colours
+        if easystripplot_inputsFn["easystripplot_scale"][] == "None" ## For no logarithmic scaling
+            if easystripplot_inputsFn["easystripplot_jitter"][] == "false" ## For no jitter option
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == "" ## If no user-input for plot size
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default" ## If no user-input for plot colours
                         Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=4, jitter=false) ## Seaborn stripplot plotting
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig() ## Call easystripplot_fig() function defined above
                         return true ## Returns true value, thereby stopping while loop that keeps the process running
                     else ## If plot colours is defined by user
-                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else ## If plot size is defined by user
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=false)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 end
-            elseif easystripplot_inputs()["easystripplot_jitter"][] == "true" ## With jitter option
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == ""
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
+            elseif easystripplot_inputsFn["easystripplot_jitter"][] == "true" ## With jitter option
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == ""
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
                         Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=4, jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=true)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=convert(Matrix, df[:,2:end]), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 end
             end
-        elseif easystripplot_inputs()["easystripplot_scale"][] == "loge" ## For loge logarithmic scaling
-            if easystripplot_inputs()["easystripplot_jitter"][] == "false"
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == ""
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
+        elseif easystripplot_inputsFn["easystripplot_scale"][] == "loge" ## For loge logarithmic scaling
+            if easystripplot_inputsFn["easystripplot_jitter"][] == "false"
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == ""
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
                         Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=4, jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=false)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 end
-            elseif easystripplot_inputs()["easystripplot_jitter"][] == "true"
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == ""
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
+            elseif easystripplot_inputsFn["easystripplot_jitter"][] == "true"
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == ""
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
                         Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=4, jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=true)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=log.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 end
             end
-        elseif easystripplot_inputs()["easystripplot_scale"][] == "log2" ## For log2 logarithmic scaling
-            if easystripplot_inputs()["easystripplot_jitter"][] == "false"
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == ""
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
+        elseif easystripplot_inputsFn["easystripplot_scale"][] == "log2" ## For log2 logarithmic scaling
+            if easystripplot_inputsFn["easystripplot_jitter"][] == "false"
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == ""
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
                         Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=4, jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=false)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 end
-            elseif easystripplot_inputs()["easystripplot_jitter"][] == "true"
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == ""
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
+            elseif easystripplot_inputsFn["easystripplot_jitter"][] == "true"
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == ""
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
                         Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=4, jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=true)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=log2.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 end
             end
-        elseif easystripplot_inputs()["easystripplot_scale"][] == "log10" ## For log10 logarithmic scaling
-            if easystripplot_inputs()["easystripplot_jitter"][] == "false"
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == ""
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
+        elseif easystripplot_inputsFn["easystripplot_scale"][] == "log10" ## For log10 logarithmic scaling
+            if easystripplot_inputsFn["easystripplot_jitter"][] == "false"
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == ""
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
                         Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=4, jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=false)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=false)
+                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=false)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 end
-            elseif easystripplot_inputs()["easystripplot_jitter"][] == "true"
-                if easystripplot_inputs()["easystripplot_dotsize"][]::String == ""
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
+            elseif easystripplot_inputsFn["easystripplot_jitter"][] == "true"
+                if easystripplot_inputsFn["easystripplot_dotsize"][]::String == ""
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
                         Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=4, jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=4, palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     end
                 else
-                    if easystripplot_inputs()["easystripplot_colours"][] == "Default"
-                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), jitter=true)
+                    if easystripplot_inputsFn["easystripplot_colours"][] == "Default"
+                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
                     else
-                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputs()["easystripplot_dotsize"][])), palette=(easystripplot_inputs()["easystripplot_colours"][]), jitter=true)
+                        Seaborn.stripplot(data=log10.(convert(Matrix, df[:,2:end])), size=(parse(Float64, easystripplot_inputsFn["easystripplot_dotsize"][])), palette=(easystripplot_inputsFn["easystripplot_colours"][]), jitter=true)
                         Seaborn.xticks(0:size(df[:,2:end-1],2), [string(names(df)[i]) for i in 2:size(df,2)])
                         easystripplot_fig()
                         return true
@@ -276,13 +277,13 @@ function easystripplot()
 
     Blink.handle(w, "easystripplot_plot") do args... ## When easystripplot_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
-            if (easystripplot_inputs()["easystripplot_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easystripplot_inputs()["easystripplot_file"][]::String), (easystripplot_inputs()["easystripplot_s
+            if (easystripplot_inputsFn["easystripplot_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
+                global df = DataFrames.DataFrame(XLSX.readtable((easystripplot_inputsFn["easystripplot_file"][]::String), (easystripplot_inputsFn["easystripplot_s
 heet"][]::String))...) ## Convert dataset to dataframe
-            elseif (easystripplot_inputs()["easystripplot_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-                global df = DataFrames.DataFrame(CSV.read(easystripplot_inputs()["easystripplot_file"][]::String)) ## Convert dataset to dataframe
-            elseif (easystripplot_inputs()["easystripplot_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easystripplot_inputs()["easystripplot_file"][]::String, '\t')) ## Convert dataset to dat
+            elseif (easystripplot_inputsFn["easystripplot_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
+                global df = DataFrames.DataFrame(CSV.read(easystripplot_inputsFn["easystripplot_file"][]::String)) ## Convert dataset to dataframe
+            elseif (easystripplot_inputsFn["easystripplot_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easystripplot_inputsFn["easystripplot_file"][]::String, '\t')) ## Convert dataset to dat
 aframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
@@ -293,7 +294,7 @@ aframe
             end
 
             ## Alert if sheet name is not entered for excel .xlsx files
-            if (easystripplot_inputs()["easystripplot_file"][]::String)[end-3:end] == "xlsx" && easystripplot_inputs()["easystripplot_sheet"][]::String == ""
+            if (easystripplot_inputsFn["easystripplot_file"][]::String)[end-3:end] == "xlsx" && easystripplot_inputsFn["easystripplot_sheet"][]::String == ""
                 @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
             end
 

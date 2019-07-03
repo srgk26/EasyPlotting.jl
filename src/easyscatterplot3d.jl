@@ -19,6 +19,7 @@ function easyscatterplot3d()
         easyscatterplot3d_plot_button = html"""<button onclick='Blink.msg("easyscatterplot3d_plot", "foo")'>Plot</button>""" ## Plot button
         Interact.Widget(["easyscatterplot3d_file"=>easyscatterplot3d_file, "easyscatterplot3d_sheet"=>easyscatterplot3d_sheet, "easyscatterplot3d_dataformat_button"=>easyscatterplot3d_dataformat_button, "easyscatterplot3d_colours"=>easyscatterplot3d_colours, "easyscatterplot3d_scale"=>easyscatterplot3d_scale, "easyscatterplot3d_size1"=>easyscatterplot3d_size1, "easyscatterplot3d_size2"=>easyscatterplot3d_size2, "easyscatterplot3d_back_button"=>easyscatterplot3d_back_button, "easyscatterplot3d_plot_button"=>easyscatterplot3d_plot_button]) ## Consolidating all widgets
     end
+    easyscatterplot3d_inputsFn = easyscatterplot3d_inputs()
 
     easyscatterplot3d_intro1 = "This section provides additional 'Scatterplot 3D' specific configuration options that you could select below to further customise your Scatterplot 3D."
     easyscatterplot3d_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
@@ -28,14 +29,14 @@ function easyscatterplot3d()
     easyscatterplot3d_page = Interact.node(:html,
                                 style=Dict(:backgroundColor => "#efefef", :boxShadow => "0px 0px 12px rgba(0,0,0,0.15)", :margin => "0 0 2em 0"),
                                 Interact.node(:p, easyscatterplot3d_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyscatterplot3d_intro2), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyscatterplot3d_intro2), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                                 Interact.node(:p, easyscatterplot3d_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Scatterplot 3D:"), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_size1"]), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_back_button"]), Interact.pad(0.25, easyscatterplot3d_inputs()["easyscatterplot3d_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Scatterplot 3D:"), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_size1"]), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                                Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_back_button"]), Interact.pad(0.25, easyscatterplot3d_inputsFn["easyscatterplot3d_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easyscatterplot3d_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Scatterplot 3D") ## Adding title to Blink window 'w'
@@ -51,12 +52,12 @@ function easyscatterplot3d()
 
     Blink.handle(w, "easyscatterplot3d_plot") do args... ## When easyscatterplot3d_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
-            if (easyscatterplot3d_inputs()["easyscatterplot3d_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easyscatterplot3d_inputs()["easyscatterplot3d_file"][]::String), (easyscatterplot3d_inputs()["easyscatterplot3d_sheet"][]::String))...) ## Convert dataset to dataframe
-            elseif (easyscatterplot3d_inputs()["easyscatterplot3d_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-                global df = DataFrames.DataFrame(CSV.read(easyscatterplot3d_inputs()["easyscatterplot3d_file"][]::String)) ## Convert dataset to dataframe
-            elseif (easyscatterplot3d_inputs()["easyscatterplot3d_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyscatterplot3d_inputs()["easyscatterplot3d_file"][]::String, '\t')) ## Convert dataset to dataframe
+            if (easyscatterplot3d_inputsFn["easyscatterplot3d_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
+                global df = DataFrames.DataFrame(XLSX.readtable((easyscatterplot3d_inputsFn["easyscatterplot3d_file"][]::String), (easyscatterplot3d_inputsFn["easyscatterplot3d_sheet"][]::String))...) ## Convert dataset to dataframe
+            elseif (easyscatterplot3d_inputsFn["easyscatterplot3d_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
+                global df = DataFrames.DataFrame(CSV.read(easyscatterplot3d_inputsFn["easyscatterplot3d_file"][]::String)) ## Convert dataset to dataframe
+            elseif (easyscatterplot3d_inputsFn["easyscatterplot3d_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyscatterplot3d_inputsFn["easyscatterplot3d_file"][]::String, '\t')) ## Convert dataset to dataframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
                 for i in 1:size(df, 2)
@@ -66,45 +67,45 @@ function easyscatterplot3d()
             end
 
             ## Alert if sheet name is not entered for excel .xlsx files
-            if (easyscatterplot3d_inputs()["easyscatterplot3d_file"][]::String)[end-3:end] == "xlsx" && easyscatterplot3d_inputs()["easyscatterplot3d_sheet"][]::String == ""
+            if (easyscatterplot3d_inputsFn["easyscatterplot3d_file"][]::String)[end-3:end] == "xlsx" && easyscatterplot3d_inputsFn["easyscatterplot3d_sheet"][]::String == ""
                 @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
             end
 
             ## Plot scatterplot3d
-            if easyscatterplot3d_inputs()["easyscatterplot3d_size1"][]::String == "" ## If no user-input for plot size
-                if easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "None" ## For no logarithmic scaling
+            if easyscatterplot3d_inputsFn["easyscatterplot3d_size1"][]::String == "" ## If no user-input for plot size
+                if easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.scatter3d(collect(df[:,2]), collect(df[:,3]), collect(df[:,4]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), legend=false)
                     StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
-                elseif easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "loge" ## For loge logarithmic scaling
+                elseif easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "loge" ## For loge logarithmic scaling
                     StatsPlots.scatter3d(log.(collect(df[:,2])), log.(collect(df[:,3])), log.(collect(df[:,4])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), legend=false)
                     StatsPlots.gui()
-                elseif easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "log2" ## For log2 logarithmic scaling
+                elseif easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "log2" ## For log2 logarithmic scaling
                     StatsPlots.scatter3d(log2.(collect(df[:,2])), log2.(collect(df[:,3])), log2.(collect(df[:,4])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), legend=false)
                     StatsPlots.gui()
-                elseif easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "log10" ## For log10 logarithmic scaling
+                elseif easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "log10" ## For log10 logarithmic scaling
                     StatsPlots.scatter3d(log10.(collect(df[:,2])), log10.(collect(df[:,3])), log10.(collect(df[:,4])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), legend=false)
                     StatsPlots.gui()
                 end
             else ## If plot size is defined by user
-                if easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "None" ## For no logarithmic scaling
+                if easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.scatter3d(collect(df[:,2]), collect(df[:,3]), collect(df[:,4]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size2"][])), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size2"][])), legend=false)
                     StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
-                elseif easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "loge" ## For loge logarithmic scaling
+                elseif easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "loge" ## For loge logarithmic scaling
                     StatsPlots.scatter3d(log.(collect(df[:,2])), log.(collect(df[:,3])), log.(collect(df[:,4])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size2"][])), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size2"][])), legend=false)
                     StatsPlots.gui()
-                elseif easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "log2" ## For log2 logarithmic scaling
+                elseif easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "log2" ## For log2 logarithmic scaling
                     StatsPlots.scatter3d(log2.(collect(df[:,2])), log2.(collect(df[:,3])), log2.(collect(df[:,4])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size2"][])), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size2"][])), legend=false)
                     StatsPlots.gui()
-                elseif easyscatterplot3d_inputs()["easyscatterplot3d_scale"][] == "log10" ## For log10 logarithmic scaling
+                elseif easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "log10" ## For log10 logarithmic scaling
                     StatsPlots.scatter3d(log10.(collect(df[:,2])), log10.(collect(df[:,3])), log10.(collect(df[:,4])), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
-                                            color=Symbol(easyscatterplot3d_inputs()["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputs()["easyscatterplot3d_size2"][])), legend=false)
+                                            color=Symbol(easyscatterplot3d_inputsFn["easyscatterplot3d_colours"][]), size=(parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size1"][]), parse(Float64, easyscatterplot3d_inputsFn["easyscatterplot3d_size2"][])), legend=false)
                     StatsPlots.gui()
                 end
             end

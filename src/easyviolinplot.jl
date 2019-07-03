@@ -14,6 +14,7 @@ function easyviolinplot()
         easyviolinplot_plot_button = html"""<button onclick='Blink.msg("easyviolinplot_plot", "foo")'>Plot</button>""" ## Plot button
         Interact.Widget(["easyviolinplot_file"=>easyviolinplot_file, "easyviolinplot_sheet"=>easyviolinplot_sheet, "easyviolinplot_dataformat_button"=>easyviolinplot_dataformat_button, "easyviolinplot_colours"=>easyviolinplot_colours, "easyviolinplot_scale"=>easyviolinplot_scale, "easyviolinplot_inner"=>easyviolinplot_inner, "easyviolinplot_back_button"=>easyviolinplot_back_button, "easyviolinplot_plot_button"=>easyviolinplot_plot_button]) ## Consolidating all widgets
     end
+    easyviolinplot_inputsFn = easyviolinplot_inputs()
 
     easyviolinplot_intro1 = "This section provides additional 'Violinplot' specific configuration options that you could select below to further customise your Violinplot."
     easyviolinplot_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
@@ -23,14 +24,14 @@ function easyviolinplot()
     easyviolinplot_page = Interact.node(:html,
                             style=Dict(:backgroundColor => "#efefef", :boxShadow => "0px 0px 12px rgba(0,0,0,0.15)", :margin => "0 0 2em 0"),
                             Interact.node(:p, easyviolinplot_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyviolinplot_intro2), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyviolinplot_intro2), Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, easyviolinplot_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Violinplot:"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select Violinplot interior data representation options:"), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_inner"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_back_button"]), Interact.pad(0.25, easyviolinplot_inputs()["easyviolinplot_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Violinplot:"), Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select Violinplot interior data representation options:"), Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_inner"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_back_button"]), Interact.pad(0.25, easyviolinplot_inputsFn["easyviolinplot_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easyviolinplot_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Violinplot") ## Adding title to Blink window 'w'
@@ -44,232 +45,232 @@ function easyviolinplot()
 
     ## Main function code to plot violinplot, using user-defined input options
     function easyviolinplot_plot()
-        if easyviolinplot_inputs()["easyviolinplot_scale"][] == "None" ## For no logarithmic scaling
-            if easyviolinplot_inputs()["easyviolinplot_inner"][] == "None" ## For no violinplot interior representation options
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default" ## If no user-input for plot colours
+        if easyviolinplot_inputsFn["easyviolinplot_scale"][] == "None" ## For no logarithmic scaling
+            if easyviolinplot_inputsFn["easyviolinplot_inner"][] == "None" ## For no violinplot interior representation options
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default" ## If no user-input for plot colours
                     Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3])) ## Seaborn violinplot plotting
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig() ## Call easyviolinplot_fig() function defined above
                     return true ## Returns true value, thereby stopping while loop that keeps the process running
                 else ## If plot colours is defined by user
-                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]))
+                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]))
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "box" ## For "box" violinplot interior representation options
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "box" ## For "box" violinplot interior representation options
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="box")
+                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "quartile" ## For "quartile" violinplot interior representation options
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "quartile" ## For "quartile" violinplot interior representation options
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="quartile")
+                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "stick" ## For "stick" violinplot interior representation options
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "stick" ## For "stick" violinplot interior representation options
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="stick")
+                    Seaborn.violinplot(x=collect(df[:,2]), y=collect(df[:,3]), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
             end
-        elseif easyviolinplot_inputs()["easyviolinplot_scale"][] == "loge" ## For loge logarithmic scaling
-            if easyviolinplot_inputs()["easyviolinplot_inner"][] == "None"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+        elseif easyviolinplot_inputsFn["easyviolinplot_scale"][] == "loge" ## For loge logarithmic scaling
+            if easyviolinplot_inputsFn["easyviolinplot_inner"][] == "None"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])))
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]))
+                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]))
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "box"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "box"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="box")
+                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "quartile"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "quartile"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="quartile")
+                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "stick"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "stick"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="stick")
+                    Seaborn.violinplot(x=log.(collect(df[:,2])), y=log.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
             end
-        elseif easyviolinplot_inputs()["easyviolinplot_scale"][] == "log2" ## For log2 logarithmic scaling
-            if easyviolinplot_inputs()["easyviolinplot_inner"][] == "None"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+        elseif easyviolinplot_inputsFn["easyviolinplot_scale"][] == "log2" ## For log2 logarithmic scaling
+            if easyviolinplot_inputsFn["easyviolinplot_inner"][] == "None"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])))
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]))
+                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]))
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "box"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "box"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="box")
+                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "quartile"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "quartile"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="quartile")
+                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "stick"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "stick"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="stick")
+                    Seaborn.violinplot(x=log2.(collect(df[:,2])), y=log2.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
             end
-        elseif easyviolinplot_inputs()["easyviolinplot_scale"][] == "log10" ## For log10 logarithmic scaling
-            if easyviolinplot_inputs()["easyviolinplot_inner"][] == "None"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+        elseif easyviolinplot_inputsFn["easyviolinplot_scale"][] == "log10" ## For log10 logarithmic scaling
+            if easyviolinplot_inputsFn["easyviolinplot_inner"][] == "None"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])))
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]))
+                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]))
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "box" ## For row clustering option
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "box" ## For row clustering option
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="box")
+                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="box")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "quartile"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "quartile"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="quartile")
+                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="quartile")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 end
-            elseif easyviolinplot_inputs()["easyviolinplot_inner"][] == "stick"
-                if easyviolinplot_inputs()["easyviolinplot_colours"][] == "Default"
+            elseif easyviolinplot_inputsFn["easyviolinplot_inner"][] == "stick"
+                if easyviolinplot_inputsFn["easyviolinplot_colours"][] == "Default"
                     Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
                     return true
                 else
-                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputs()["easyviolinplot_colours"][]), inner="stick")
+                    Seaborn.violinplot(x=log10.(collect(df[:,2])), y=log10.(collect(df[:,3])), palette=(easyviolinplot_inputsFn["easyviolinplot_colours"][]), inner="stick")
                     Seaborn.xlabel(string(names(df)[2]))
                     Seaborn.ylabel(string(names(df)[3]))
                     easyviolinplot_fig()
@@ -290,13 +291,13 @@ function easyviolinplot()
 
     Blink.handle(w, "easyviolinplot_plot") do args... ## When easyviolinplot_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
-            if (easyviolinplot_inputs()["easyviolinplot_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easyviolinplot_inputs()["easyviolinplot_file"][]::String), (easyviolinplot_inputs()["easyviolinplot_s
+            if (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
+                global df = DataFrames.DataFrame(XLSX.readtable((easyviolinplot_inputsFn["easyviolinplot_file"][]::String), (easyviolinplot_inputsFn["easyviolinplot_s
 heet"][]::String))...) ## Convert dataset to dataframe
-            elseif (easyviolinplot_inputs()["easyviolinplot_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-                global df = DataFrames.DataFrame(CSV.read(easyviolinplot_inputs()["easyviolinplot_file"][]::String)) ## Convert dataset to dataframe
-            elseif (easyviolinplot_inputs()["easyviolinplot_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyviolinplot_inputs()["easyviolinplot_file"][]::String, '\t')) ## Convert dataset to dat
+            elseif (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
+                global df = DataFrames.DataFrame(CSV.read(easyviolinplot_inputsFn["easyviolinplot_file"][]::String)) ## Convert dataset to dataframe
+            elseif (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyviolinplot_inputsFn["easyviolinplot_file"][]::String, '\t')) ## Convert dataset to dat
 aframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
@@ -307,7 +308,7 @@ aframe
             end
 
             ## Alert if sheet name is not entered for excel .xlsx files
-            if (easyviolinplot_inputs()["easyviolinplot_file"][]::String)[end-3:end] == "xlsx" && easyviolinplot_inputs()["easyviolinplot_sheet"][]::String == ""
+            if (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-3:end] == "xlsx" && easyviolinplot_inputsFn["easyviolinplot_sheet"][]::String == ""
                 @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
             end
 
