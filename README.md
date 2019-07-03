@@ -48,7 +48,9 @@ end
 using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
-Press enter. If this is your first time using this package, it could take up to 20 min for the full installation process.
+Press enter. If this is your first time using this package, it could 15-20 min for the full installation process.
+
+Also, kindly note that it may take a while for the plot to load after clicking the 'Plot' button, sometimes up to 2 min.
 
 If you have already installed this easyplotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
@@ -79,6 +81,7 @@ sudo ln -s ~/julia-1.1.1/bin/julia /usr/local/bin/julia
 
 Replace 'julia-1.1.1' with the respective folder name. Then run Julia by simply typing `julia` in the terminal. [Click here](https://julialang.org/downloads/platform.html) for more information.
 
+Also, if you are using wayland as your display server protocol, after the easyplotting installation process, you would also need to type this on your bash shell to switch the qt5 plotting platform to wayland: `QT_QPA_PLATFORM=wayland`.
 ***
 
 ## Credits:
