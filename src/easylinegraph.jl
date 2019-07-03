@@ -72,6 +72,7 @@ function easylinegraph()
             end
 
             ## Plot linegraph
+            StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easylinegraph_inputsFn["easylinegraph_size1"][]::String == "" ## If no user-input for plot size
                 if easylinegraph_inputsFn["easylinegraph_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.plot(convert(Matrix, df[:,2:end]), marker = true, markersize = 4, label = [string(names(df)[i]) for i in 2:size(df,2)], color=Symbol(easylinegraph_inputsFn["easylinegraph_colours"][]), legend=true)

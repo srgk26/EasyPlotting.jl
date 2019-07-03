@@ -72,6 +72,7 @@ function easyscatterplot2d()
             end
 
             ## Plot scatterplot2d
+            StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easyscatterplot2d_inputsFn["easyscatterplot2d_size1"][]::String == "" ## If no user-input for plot size
                 if easyscatterplot2d_inputsFn["easyscatterplot2d_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.scatter(collect(df[:,2]), collect(df[:,3]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), color=Symbol(easyscatterplot2d_inputsFn["easyscatterplot2d_colours"][]), legend=false)

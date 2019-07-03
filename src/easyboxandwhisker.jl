@@ -72,6 +72,7 @@ function easyboxandwhisker()
             end
 
             ## Plot boxandwhisker
+            StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easyboxandwhisker_inputsFn["easyboxandwhisker_size1"][]::String == "" ## If no user-input for plot size
                 if easyboxandwhisker_inputsFn["easyboxandwhisker_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.boxplot(convert(Matrix, df[:,2:end]), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputsFn["easyboxandwhisker_colours"][]), legend=false)
