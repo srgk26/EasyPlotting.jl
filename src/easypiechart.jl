@@ -68,6 +68,7 @@ aframe
             end
 
             ## Plot piechart
+            StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easypiechart_inputsFn["easypiechart_size1"][]::String == "" ## If no user-input for plot size
                 if easypiechart_inputsFn["easypiechart_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.pie(collect(df[:,1]), collect(df[:,2]), xlabel = string(names(df)[2]))

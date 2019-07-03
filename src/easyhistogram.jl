@@ -74,6 +74,7 @@ aframe
             end
 
             ## Plot histogram
+            StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easyhistogram_inputsFn["easyhistogram_size1"][]::String == "" ## If no user-input for plot size
                 if easyhistogram_inputsFn["easyhistogram_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.histogram(collect(df[:,2]), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), legend=false)

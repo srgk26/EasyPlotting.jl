@@ -72,6 +72,7 @@ function easybarchart()
             end
 
             ## Plot barchart
+            StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easybarchart_inputsFn["easybarchart_size1"][]::String == "" ## If no user-input for plot size
                 if easybarchart_inputsFn["easybarchart_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.bar(collect(df[:,2]), xlabel = string(names(df)[2]), xticks = (1:length(df[:,1]), df[:,1]), color=Symbol(easybarchart_inputsFn["easybarchart_colours"][]), legend=false)

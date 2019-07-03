@@ -72,6 +72,7 @@ function easyscatterplot3d()
             end
 
             ## Plot scatterplot3d
+            StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easyscatterplot3d_inputsFn["easyscatterplot3d_size1"][]::String == "" ## If no user-input for plot size
                 if easyscatterplot3d_inputsFn["easyscatterplot3d_scale"][] == "None" ## For no logarithmic scaling
                     StatsPlots.scatter3d(collect(df[:,2]), collect(df[:,3]), collect(df[:,4]), xlabel = string(names(df)[2]), ylabel = string(names(df)[3]), zlabel = string(names(df)[4]),
