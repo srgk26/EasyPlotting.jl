@@ -19,6 +19,7 @@ function easyhistogram()
         easyhistogram_plot_button = html"""<button onclick='Blink.msg("easyhistogram_plot", "foo")'>Plot</button>""" ## Plot button
         Interact.Widget(["easyhistogram_file"=>easyhistogram_file, "easyhistogram_sheet"=>easyhistogram_sheet, "easyhistogram_dataformat_button"=>easyhistogram_dataformat_button, "easyhistogram_colours"=>easyhistogram_colours, "easyhistogram_scale"=>easyhistogram_scale, "easyhistogram_size1"=>easyhistogram_size1, "easyhistogram_size2"=>easyhistogram_size2, "easyhistogram_back_button"=>easyhistogram_back_button, "easyhistogram_plot_button"=>easyhistogram_plot_button]) ## Consolidating all widgets
     end
+    easyhistogram_inputsFn = easyhistogram_inputs()
 
     easyhistogram_intro1 = "This section provides additional 'Histogram' specific configuration options that you could select below to further customise your Histogram."
     easyhistogram_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
@@ -28,14 +29,14 @@ function easyhistogram()
     easyhistogram_page = Interact.node(:html,
                             style=Dict(:backgroundColor => "#efefef", :boxShadow => "0px 0px 12px rgba(0,0,0,0.15)", :margin => "0 0 2em 0"),
                             Interact.node(:p, easyhistogram_intro1, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyhistogram_intro2), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, easyhistogram_intro2), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_dataformat_button"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
                             Interact.node(:p, easyhistogram_intro3, style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Histogram:"), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_size1"]), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
-                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_back_button"]), Interact.pad(0.25, easyhistogram_inputs()["easyhistogram_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "Upload data file - only .txt/.csv/.xlsx file extensions accepted:"), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_file"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "If excel .xlsx file, pls also enter sheet name (case & space sensitive):"), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_sheet"])), style=Dict(:color=>"#F4A460", :size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select fill colour palette for Histogram:"), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_colours"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Select logarithmic scaling options:"), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_scale"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.5, "(Optional) Enter plot size (numbers only):"), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_size1"]), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_size2"])), style=Dict(:size=>"30", :padding=>"2px", :margin => "0 0 1em 0")),
+                            Interact.node(:p, Interact.hbox(Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_back_button"]), Interact.pad(0.25, easyhistogram_inputsFn["easyhistogram_plot_button"])), style=Dict(:position => "absolute", :left => "650px")))
 
     Blink.body!(w, easyhistogram_page) ## Adding page layout options to Blink window 'w'
     Blink.title(w, "Histogram") ## Adding title to Blink window 'w'
@@ -51,13 +52,13 @@ function easyhistogram()
 
     Blink.handle(w, "easyhistogram_plot") do args... ## When easyhistogram_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
-            if (easyhistogram_inputs()["easyhistogram_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easyhistogram_inputs()["easyhistogram_file"][]::String), (easyhistogram_inputs()["easyhistogram_s
+            if (easyhistogram_inputsFn["easyhistogram_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
+                global df = DataFrames.DataFrame(XLSX.readtable((easyhistogram_inputsFn["easyhistogram_file"][]::String), (easyhistogram_inputsFn["easyhistogram_s
 heet"][]::String))...) ## Convert dataset to dataframe
-            elseif (easyhistogram_inputs()["easyhistogram_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
-                global df = DataFrames.DataFrame(CSV.read(easyhistogram_inputs()["easyhistogram_file"][]::String)) ## Convert dataset to dataframe
-            elseif (easyhistogram_inputs()["easyhistogram_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyhistogram_inputs()["easyhistogram_file"][]::String, '\t')) ## Convert dataset to dat
+            elseif (easyhistogram_inputsFn["easyhistogram_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
+                global df = DataFrames.DataFrame(CSV.read(easyhistogram_inputsFn["easyhistogram_file"][]::String)) ## Convert dataset to dataframe
+            elseif (easyhistogram_inputsFn["easyhistogram_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyhistogram_inputsFn["easyhistogram_file"][]::String, '\t')) ## Convert dataset to dat
 aframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
@@ -68,37 +69,37 @@ aframe
             end
 
             ## Alert if sheet name is not entered for excel .xlsx files
-            if (easyhistogram_inputs()["easyhistogram_file"][]::String)[end-3:end] == "xlsx" && easyhistogram_inputs()["easyhistogram_sheet"][]::String == ""
+            if (easyhistogram_inputsFn["easyhistogram_file"][]::String)[end-3:end] == "xlsx" && easyhistogram_inputsFn["easyhistogram_sheet"][]::String == ""
                 @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
             end
 
             ## Plot histogram
-            if easyhistogram_inputs()["easyhistogram_size1"][]::String == "" ## If no user-input for plot size
-                if easyhistogram_inputs()["easyhistogram_scale"][] == "None" ## For no logarithmic scaling
-                    StatsPlots.histogram(collect(df[:,2]), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), legend=false)
+            if easyhistogram_inputsFn["easyhistogram_size1"][]::String == "" ## If no user-input for plot size
+                if easyhistogram_inputsFn["easyhistogram_scale"][] == "None" ## For no logarithmic scaling
+                    StatsPlots.histogram(collect(df[:,2]), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), legend=false)
                     StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
-                elseif easyhistogram_inputs()["easyhistogram_scale"][] == "loge" ## For loge logarithmic scaling
-                    StatsPlots.histogram(log.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), legend=false)
+                elseif easyhistogram_inputsFn["easyhistogram_scale"][] == "loge" ## For loge logarithmic scaling
+                    StatsPlots.histogram(log.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), legend=false)
                     StatsPlots.gui()
-                elseif easyhistogram_inputs()["easyhistogram_scale"][] == "log2" ## For log2 logarithmic scaling
-                    StatsPlots.histogram(log2.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), legend=false)
+                elseif easyhistogram_inputsFn["easyhistogram_scale"][] == "log2" ## For log2 logarithmic scaling
+                    StatsPlots.histogram(log2.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), legend=false)
                     StatsPlots.gui()
-                elseif easyhistogram_inputs()["easyhistogram_scale"][] == "log10" ## For log10 logarithmic scaling
-                    StatsPlots.histogram(log10.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), legend=false)
+                elseif easyhistogram_inputsFn["easyhistogram_scale"][] == "log10" ## For log10 logarithmic scaling
+                    StatsPlots.histogram(log10.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), legend=false)
                     StatsPlots.gui()
                 end
             else ## If plot size is defined by user
-                if easyhistogram_inputs()["easyhistogram_scale"][] == "None" ## For no logarithmic scaling
-                    StatsPlots.histogram(collect(df[:,2]), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputs()["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputs()["easyhistogram_size2"][])), legend=false)
+                if easyhistogram_inputsFn["easyhistogram_scale"][] == "None" ## For no logarithmic scaling
+                    StatsPlots.histogram(collect(df[:,2]), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputsFn["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputsFn["easyhistogram_size2"][])), legend=false)
                     StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
-                elseif easyhistogram_inputs()["easyhistogram_scale"][] == "loge" ## For loge logarithmic scaling
-                    StatsPlots.histogram(log.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputs()["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputs()["easyhistogram_size2"][])), legend=false)
+                elseif easyhistogram_inputsFn["easyhistogram_scale"][] == "loge" ## For loge logarithmic scaling
+                    StatsPlots.histogram(log.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputsFn["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputsFn["easyhistogram_size2"][])), legend=false)
                     StatsPlots.gui()
-                elseif easyhistogram_inputs()["easyhistogram_scale"][] == "log2" ## For log2 logarithmic scaling
-                    StatsPlots.histogram(log2.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputs()["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputs()["easyhistogram_size2"][])), legend=false)
+                elseif easyhistogram_inputsFn["easyhistogram_scale"][] == "log2" ## For log2 logarithmic scaling
+                    StatsPlots.histogram(log2.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputsFn["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputsFn["easyhistogram_size2"][])), legend=false)
                     StatsPlots.gui()
-                elseif easyhistogram_inputs()["easyhistogram_scale"][] == "log10" ## For log10 logarithmic scaling
-                    StatsPlots.histogram(log10.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputs()["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputs()["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputs()["easyhistogram_size2"][])), legend=false)
+                elseif easyhistogram_inputsFn["easyhistogram_scale"][] == "log10" ## For log10 logarithmic scaling
+                    StatsPlots.histogram(log10.(collect(df[:,2])), xlabel = string(names(df)[2]), color=Symbol(easyhistogram_inputsFn["easyhistogram_colours"][]), size=(parse(Float64, easyhistogram_inputsFn["easyhistogram_size1"][]), parse(Float64, easyhistogram_inputsFn["easyhistogram_size2"][])), legend=false)
                     StatsPlots.gui()
                 end
             end
