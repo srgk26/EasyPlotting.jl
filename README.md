@@ -42,8 +42,8 @@ Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 ```
 using Pkg
 if haskey(Pkg.installed(), "easyplotting") == false
-    Pkg.add("https://github.com/JuliaGraphics/Gtk.jl.git"); Pkg.add("https://github.com/sglyon/PlotlyJS.jl.git"); Pkg.add("https://github.com/sglyon/ORCA.jl.git"); Pkg.add("https://github.com/JuliaIO/ImageMagick.jl.git") ## Pre-installing dependencies manually due to non-detection of these pkgs in path
-    Pkg.add("https://github.com/srgk26/easyplotting.jl.git") ## Install easyplotting.jl package
+    Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
+    Pkg.add(PackageSpec(url="https://github.com/srgk26/easyplotting.jl.git")) ## Install easyplotting.jl package
 end
 using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
