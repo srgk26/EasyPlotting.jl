@@ -89,7 +89,7 @@ As an example, for Julia-1.1.1:
 [srgk26@ArchLinux ~]$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.1-linux-x86_64.tar.gz
 [srgk26@ArchLinux ~]$ tar -xvzf julia-1.1.1-linux-x86_64.tar.gz && rm julia-1.1.1-linux-x86_64.tar.gz
 [srgk26@ArchLinux ~]$ sudo ln -s ~/julia-1.1.1/bin/julia /usr/local/bin/julia
-[srgk26@ArchLinux ~]$ QT_QPA_PLATFORM=wayland
+[srgk26@ArchLinux ~]$ QT_QPA_PLATFORM=wayland ## Only if you're using Wayland
 ```
 ***
 
