@@ -91,6 +91,13 @@ As an example, for Julia-1.1.1:
 [srgk26@ArchLinux ~]$ sudo ln -s ~/julia-1.1.1/bin/julia /usr/local/bin/julia
 [srgk26@ArchLinux ~]$ QT_QPA_PLATFORM=wayland ## Only if you're using Wayland
 ```
+
+You would also need to have a gtk package installed on your system with your respective package manager.
+
+For Arch Linux based distributions, do `sudo pacman -S gtk3`.
+For Debian based distributions, do `sudo apt install libgtk-3-dev`.
+For Fedora/RHEL/CentOS distributions, kindly refer to: https://pkgs.org/download/devel%28libgtk-3%29.
+
 ***
 
 ## Credits:
