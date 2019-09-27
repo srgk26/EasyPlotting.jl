@@ -53,13 +53,11 @@ function easyhistogram()
     Blink.handle(w, "easyhistogram_plot") do args... ## When easyhistogram_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
             if (easyhistogram_inputsFn["easyhistogram_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easyhistogram_inputsFn["easyhistogram_file"][]::String), (easyhistogram_inputsFn["easyhistogram_s
-heet"][]::String))...) ## Convert dataset to dataframe
+                global df = DataFrames.DataFrame(XLSX.readtable((easyhistogram_inputsFn["easyhistogram_file"][]::String), (easyhistogram_inputsFn["easyhistogram_sheet"][]::String))...) ## Convert dataset to dataframe
             elseif (easyhistogram_inputsFn["easyhistogram_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
                 global df = DataFrames.DataFrame(CSV.read(easyhistogram_inputsFn["easyhistogram_file"][]::String)) ## Convert dataset to dataframe
             elseif (easyhistogram_inputsFn["easyhistogram_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyhistogram_inputsFn["easyhistogram_file"][]::String, '\t')) ## Convert dataset to dat
-aframe
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyhistogram_inputsFn["easyhistogram_file"][]::String, '\t')) ## Convert dataset to dataframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
                 for i in 1:size(df, 2)
