@@ -60,11 +60,6 @@ function easypiechart()
                 DataFrames.deleterows!(df, 1) ## Deleting row 1 of df
             end
 
-            ## Alert if sheet name is not entered for excel .xlsx files
-            if (easypiechart_inputsFn["easypiechart_file"][]::String)[end-3:end] == "xlsx" && easypiechart_inputsFn["easypiechart_sheet"][]::String == ""
-                @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
-            end
-
             ## Plot piechart
             StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easypiechart_inputsFn["easypiechart_size1"][]::String == "" ## If no user-input for plot size
@@ -97,7 +92,12 @@ function easypiechart()
                 end
             end
         catch
-            @js_ w alert("Oops! Something had gone wrong. Could it be that your user input dataset is of the wrong format?")
+            ## Alert if sheet name is not entered for excel .xlsx files
+            if (easypiechart_inputsFn["easypiechart_file"][]::String)[end-3:end] == "xlsx" && easypiechart_inputsFn["easypiechart_sheet"][]::String == ""
+                @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
+            else
+                @js_ w alert("Oops! Something had gone wrong. Could it be that your user input dataset is of the wrong format?")
+            end
         end
     end
 end #function easypiechart()
