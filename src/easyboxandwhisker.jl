@@ -70,7 +70,7 @@ function easyboxandwhisker()
             StatsPlots.plotlyjs() ## Using PLotlyJS backend
             if easyboxandwhisker_inputsFn["easyboxandwhisker_size1"][]::String == "" ## If no user-input for plot size
                 if easyboxandwhisker_inputsFn["easyboxandwhisker_scale"][] == "None" ## For no logarithmic scaling
-                    StatsPlots.boxplot(convert(Array{Float64,2}, df[:,2:end]), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputsFn["easyboxandwhisker_colours"][]), legend=false) ## Converting to Array{Float64,2} instead of the type unspecified Matrix as Matrix gives errors for boxplot
+                    StatsPlots.boxplot(convert(Array{Float64,2}, df[:,2:end]), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputsFn["easyboxandwhisker_colours"][]), legend=false) ## Converting to 'Array{Float64,2}' instead of the type unspecified 'Matrix' as 'Matrix' gives errors for boxplot
                     StatsPlots.gui() ## Launches PlotlyJS interactive window to interact with plot and save figure
                 elseif easyboxandwhisker_inputsFn["easyboxandwhisker_scale"][] == "loge" ## For loge logarithmic scaling
                     StatsPlots.boxplot(log.(convert(Array{Float64,2}, df[:,2:end])), xticks = (1:size(df[:,2:end],2), [string(names(df)[i]) for i in 2:size(df,2)]), color=Symbol(easyboxandwhisker_inputsFn["easyboxandwhisker_colours"][]), legend=false)
