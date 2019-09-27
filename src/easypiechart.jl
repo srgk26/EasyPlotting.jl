@@ -47,13 +47,11 @@ function easypiechart()
     Blink.handle(w, "easypiechart_plot") do args... ## When easypiechart_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
             if (easypiechart_inputsFn["easypiechart_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easypiechart_inputsFn["easypiechart_file"][]::String), (easypiechart_inputsFn["easypiechart_s
-heet"][]::String))...) ## Convert dataset to dataframe
+                global df = DataFrames.DataFrame(XLSX.readtable((easypiechart_inputsFn["easypiechart_file"][]::String), (easypiechart_inputsFn["easypiechart_sheet"][]::String))...) ## Convert dataset to dataframe
             elseif (easypiechart_inputsFn["easypiechart_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
                 global df = DataFrames.DataFrame(CSV.read(easypiechart_inputsFn["easypiechart_file"][]::String)) ## Convert dataset to dataframe
             elseif (easypiechart_inputsFn["easypiechart_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easypiechart_inputsFn["easypiechart_file"][]::String, '\t')) ## Convert dataset to dat
-aframe
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easypiechart_inputsFn["easypiechart_file"][]::String, '\t')) ## Convert dataset to dataframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
                 for i in 1:size(df, 2)
