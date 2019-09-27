@@ -278,13 +278,11 @@ function easystripplot()
     Blink.handle(w, "easystripplot_plot") do args... ## When easystripplot_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
             if (easystripplot_inputsFn["easystripplot_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easystripplot_inputsFn["easystripplot_file"][]::String), (easystripplot_inputsFn["easystripplot_s
-heet"][]::String))...) ## Convert dataset to dataframe
+                global df = DataFrames.DataFrame(XLSX.readtable((easystripplot_inputsFn["easystripplot_file"][]::String), (easystripplot_inputsFn["easystripplot_sheet"][]::String))...) ## Convert dataset to dataframe
             elseif (easystripplot_inputsFn["easystripplot_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
                 global df = DataFrames.DataFrame(CSV.read(easystripplot_inputsFn["easystripplot_file"][]::String)) ## Convert dataset to dataframe
             elseif (easystripplot_inputsFn["easystripplot_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easystripplot_inputsFn["easystripplot_file"][]::String, '\t')) ## Convert dataset to dat
-aframe
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easystripplot_inputsFn["easystripplot_file"][]::String, '\t')) ## Convert dataset to dataframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
                 for i in 1:size(df, 2)
