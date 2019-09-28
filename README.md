@@ -85,7 +85,7 @@ You would also need to have a gtk package installed on your system with your res
 
 * For Arch Linux based distributions, do `sudo pacman -S gtk3`.<br>
 * For Debian based distributions, do `sudo apt install libgtk-3-dev`.<br>
-* For Fedora/RHEL/CentOS distributions, kindly refer to: https://pkgs.org/download/devel%28libgtk-3%29.
+* For Fedora/RHEL/CentOS or other RPM-based distributions, kindly refer to: https://pkgs.org/download/devel%28libgtk-3%29.
 
 As an example, for Julia-1.2.0 running Arch Linux using wayland as the display server protocol:
 
