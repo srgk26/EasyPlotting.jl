@@ -89,7 +89,7 @@ You would also need to have a gtk package installed on your system with your res
 * For Debian based distributions, do `sudo apt install libgtk-3-dev`.<br>
 * For Fedora/RHEL/CentOS distributions, kindly refer to: https://pkgs.org/download/devel%28libgtk-3%29.
 
-As an example, for Julia-1.1.1 running Arch Linux using wayland as display server:
+As an example, for Julia-1.1.1 running Arch Linux using wayland as the display server protocol:
 
 ```
 [srgk26@ArchLinux ~]$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.1-linux-x86_64.tar.gz
