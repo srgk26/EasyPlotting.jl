@@ -16,9 +16,9 @@ function easyviolinplot()
     end
     easyviolinplot_inputsFn = easyviolinplot_inputs()
 
-    easyviolinplot_intro1 = "This section provides additional 'Violinplot' specific configuration options that you could select below to further customise your Violinplot."
+    easyviolinplot_intro1 = "This section provides additional 'Violin Plot' specific configuration options that you could select below to further customise your Violinplot."
     easyviolinplot_intro2 = "Please also ensure your input dataset is of the correct format. Click here for more:"
-    easyviolinplot_intro3 = "Now please upload your dataset below and select options for Violinplot:"
+    easyviolinplot_intro3 = "Now please upload your dataset below and select options for Violin Plot:"
 
     ## Designing easyviolinplot_page layout
     easyviolinplot_page = Interact.node(:html,
@@ -292,13 +292,11 @@ function easyviolinplot()
     Blink.handle(w, "easyviolinplot_plot") do args... ## When easyviolinplot_plot_button is pressed, the following arguments are executed
         try ## Implementing try/catch block
             if (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-3:end] == "xlsx" ## If input file is .xlsx
-                global df = DataFrames.DataFrame(XLSX.readtable((easyviolinplot_inputsFn["easyviolinplot_file"][]::String), (easyviolinplot_inputsFn["easyviolinplot_s
-heet"][]::String))...) ## Convert dataset to dataframe
+                global df = DataFrames.DataFrame(XLSX.readtable((easyviolinplot_inputsFn["easyviolinplot_file"][]::String), (easyviolinplot_inputsFn["easyviolinplot_sheet"][]::String))...) ## Convert dataset to dataframe
             elseif (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-2:end] == "csv" ## If input file is .csv
                 global df = DataFrames.DataFrame(CSV.read(easyviolinplot_inputsFn["easyviolinplot_file"][]::String)) ## Convert dataset to dataframe
             elseif (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-2:end] == "txt" ## If input file is .txt
-                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyviolinplot_inputsFn["easyviolinplot_file"][]::String, '\t')) ## Convert dataset to dat
-aframe
+                global df = DataFrames.DataFrame(DelimitedFiles.readdlm(easyviolinplot_inputsFn["easyviolinplot_file"][]::String, '\t')) ## Convert dataset to dataframe
 
                 ## Renaming row 1 of df as column names since .txt files return the top row as row 1 instead of column names
                 for i in 1:size(df, 2)
@@ -307,15 +305,15 @@ aframe
                 DataFrames.deleterows!(df, 1) ## Deleting row 1 of df
             end
 
-            ## Alert if sheet name is not entered for excel .xlsx files
-            if (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-3:end] == "xlsx" && easyviolinplot_inputsFn["easyviolinplot_sheet"][]::String == ""
-                @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
-            end
-
             ## Plot violinplot
             easyviolinplot_events() ## When easyviolinplot_plot_button is pressed, easyviolinplot_events() is executed.
         catch
-            @js_ w alert("Oops! Something had gone wrong. Could it be that your user input dataset is of the wrong format?")
+            ## Alert if sheet name is not entered for excel .xlsx files
+            if (easyviolinplot_inputsFn["easyviolinplot_file"][]::String)[end-3:end] == "xlsx" && easyviolinplot_inputsFn["easyviolinplot_sheet"][]::String == ""
+                @js_ w alert("Excel .xlsx sheet name not entered. Kindly enter the sheet name and try again.")
+            else
+                @js_ w alert("Oops! Something had gone wrong. Could it be that your user input dataset is of the wrong format?")
+            end
         end
     end
 
