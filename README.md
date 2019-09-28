@@ -81,22 +81,23 @@ sudo ln -s ~/julia-1.1.1/bin/julia /usr/local/bin/julia
 
 Replace 'julia-1.1.1' with the respective folder name. Then run Julia by simply typing `julia` in the terminal. [Click here](https://julialang.org/downloads/platform.html) for more information.
 
-Also, if you are using wayland as your display server protocol, after the easyplotting installation process, you would also need to type this on your bash shell to switch the qt5 plotting platform to wayland: `QT_QPA_PLATFORM=wayland`.
-
-As an example, for Julia-1.1.1:
-
-```
-[srgk26@ArchLinux ~]$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.1-linux-x86_64.tar.gz
-[srgk26@ArchLinux ~]$ tar -xvzf julia-1.1.1-linux-x86_64.tar.gz && rm julia-1.1.1-linux-x86_64.tar.gz
-[srgk26@ArchLinux ~]$ sudo ln -s ~/julia-1.1.1/bin/julia /usr/local/bin/julia
-[srgk26@ArchLinux ~]$ QT_QPA_PLATFORM=wayland ## Only if you're using Wayland
-```
+If you are using wayland as your display server protocol, after the easyplotting installation process, you would also need to type this on your bash shell to switch the qt5 plotting platform to wayland: `QT_QPA_PLATFORM=wayland`.
 
 You would also need to have a gtk package installed on your system with your respective package manager:
 
 * For Arch Linux based distributions, do `sudo pacman -S gtk3`.<br>
 * For Debian based distributions, do `sudo apt install libgtk-3-dev`.<br>
 * For Fedora/RHEL/CentOS distributions, kindly refer to: https://pkgs.org/download/devel%28libgtk-3%29.
+
+As an example, for Julia-1.1.1 running Arch Linux using wayland as display server:
+
+```
+[srgk26@ArchLinux ~]$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.1-linux-x86_64.tar.gz
+[srgk26@ArchLinux ~]$ tar -xvzf julia-1.1.1-linux-x86_64.tar.gz && rm julia-1.1.1-linux-x86_64.tar.gz
+[srgk26@ArchLinux ~]$ sudo ln -s ~/julia-1.1.1/bin/julia /usr/local/bin/julia
+[srgk26@ArchLinux ~]$ QT_QPA_PLATFORM=wayland ## Only if you're using Wayland
+[srgk26@ArchLinux ~]$ sudo pacman -S gtk3 ## Modify this to install gtk3 with your respective package manager
+```
 
 ***
 
