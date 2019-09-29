@@ -1,4 +1,4 @@
-# easyplotting.jl
+# Easyplotting.jl
 Graphical/statistical plotting GUI package for quick data visualisation and exploration. ***NO CODING REQUIRED***
 
 This is an attempt to create a working GUI that serves to ease the process of producing high quality plots normally produced by coding. This GUI takes care of the coding involved in the background while you need only input your data, select relevant options, and produce as many plots as you would like, all with just a few clicks.
@@ -41,34 +41,34 @@ Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 
 ```
 using Pkg
-if haskey(Pkg.installed(), "easyplotting") == false
+if haskey(Pkg.installed(), "Easyplotting") == false
     Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
-    Pkg.add(PackageSpec(url="https://github.com/srgk26/easyplotting.jl.git")) ## Install easyplotting.jl package
+    Pkg.add(PackageSpec(url="https://github.com/srgk26/Easyplotting.jl.git")) ## Install Easyplotting.jl package
 end
-using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
+using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
 Press enter. If this is your first time using this package, it could 20-25 min for the full installation process.
 
-If you have already installed this easyplotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
+If you have already installed this Easyplotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
 ```
-using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() 
+using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() 
 ```
 
-***Updating easyplotting.jl***
+***Updating Easyplotting.jl***
 
-There will be regular updates to this easyplotting.jl package. If you already have easyplotting installed in your system, simply copy and paste:
+There will be regular updates to this Easyplotting.jl package. If you already have Easyplotting installed in your system, simply copy and paste:
 
 ```
-using Pkg; Pkg.update("easyplotting"); Pkg.build("easyplotting")
+using Pkg; Pkg.update("Easyplotting"); Pkg.build("Easyplotting")
 ```
 
 This fetches the latest updates into your local system. Then simply use the package as per normal.
 
 ## Linux Usage
 
-Linux users, please refrain from installing Julia with your respective package managers. Julia compiled from source using your package manager produces build error (for the 'Arpack' dependency) when building this easyplotting.jl package, which affects other downstream processes. Instead:
+Linux users, please refrain from installing Julia with your respective package managers. Julia compiled from source using your package manager produces build error (for the 'Arpack' dependency) when building this Easyplotting.jl package, which affects other downstream processes. Instead:
 
 1. Install the 'Generic Linux Binaries for x86' official package from https://julialang.org/downloads/.
 2. Create a symbolic link of the downloaded julia binary inside the `/usr/local/bin` folder. Assuming you have extracted the Tarballs into your home folder (i.e. `$HOME`), copy and paste in the terminal:
@@ -79,7 +79,7 @@ sudo ln -s $HOME/julia-1.2.0/bin/julia /usr/local/bin/julia
 
 Replace 'julia-1.2.0' with the respective folder name. Then run Julia by simply typing `julia` in the terminal. [Click here](https://julialang.org/downloads/platform.html) for more information.
 
-If you are using wayland as your display server protocol, after the easyplotting installation process, you would also need to type this on your bash shell to switch the qt5 plotting platform to wayland: `QT_QPA_PLATFORM=wayland`.
+If you are using wayland as your display server protocol, after the Easyplotting installation process, you would also need to type this on your bash shell to switch the qt5 plotting platform to wayland: `QT_QPA_PLATFORM=wayland`.
 
 You would also need to have a gtk package installed on your system with your respective package manager:
 
@@ -97,26 +97,26 @@ As an example, for Julia-1.2.0 running Arch Linux using wayland as the display s
 [srgk26@ArchLinux ~]$ sudo pacman -S gtk3 ## Modify this to install gtk3 with your respective package manager
 [srgk26@ArchLinux ~]$ julia ## Enter interactive julia REPL session
 julia> using Pkg ## Use the julia package manager
-julia> if haskey(Pkg.installed(), "easyplotting") == false
+julia> if haskey(Pkg.installed(), "Easyplotting") == false
            Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
-           Pkg.add(PackageSpec(url="https://github.com/srgk26/easyplotting.jl.git")) ## Install easyplotting.jl package
+           Pkg.add(PackageSpec(url="https://github.com/srgk26/Easyplotting.jl.git")) ## Install Easyplotting.jl package
            ENV["PYTHON"]=""; Pkg.build("PyCall") ## Configure PyCall to use a Julia-specific Python3 distribution via the Conda.jl package
        end
-julia> using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
+julia> using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
-If you have already installed this easyplotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
+If you have already installed this Easyplotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
 ```
-using easyplotting; retry(easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() 
+using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() 
 ```
 
-***Updating easyplotting.jl***
+***Updating Easyplotting.jl***
 
-There will be regular updates to this easyplotting.jl package. If you already have easyplotting installed in your system, simply copy and paste:
+There will be regular updates to this Easyplotting.jl package. If you already have Easyplotting installed in your system, simply copy and paste:
 
 ```
-using Pkg; Pkg.update("easyplotting"); Pkg.build("easyplotting")
+using Pkg; Pkg.update("Easyplotting"); Pkg.build("Easyplotting")
 ```
 
 This fetches the latest updates into your local system. Then simply use the package as per normal.
