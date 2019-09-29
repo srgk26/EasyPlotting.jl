@@ -48,7 +48,9 @@ end
 using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
-Press enter. If this is your first time using this package, it could 20-25 min for the full installation process.
+Press enter. If this is your first time using this package, it could 20-30 min for the full installation process.
+
+***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
 
 If you have already installed this Easyplotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
