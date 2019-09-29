@@ -282,7 +282,7 @@ function easyviolinplot()
 
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "easyviolinplot_dataformat") do args...
-        ImageView.imshow(FileIO.load(joinpath(pathof(easyplotting)[1:end-19], "Figures/Violinplot/violinplot_dataformat.png"))) ## When easyviolinplot_dataformat_button is pressed, picture of user input data format pops up.
+        ImageView.imshow(FileIO.load(joinpath(pathof(Easyplotting)[1:end-19], "Figures/Violinplot/violinplot_dataformat.png"))) ## When easyviolinplot_dataformat_button is pressed, picture of user input data format pops up.
     end
 
     Blink.handle(w, "easyviolinplot_back") do args...
