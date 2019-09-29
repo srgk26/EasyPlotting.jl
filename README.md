@@ -99,7 +99,7 @@ Replace 'julia-1.2.0' with the respective folder name. [Click here](https://juli
 
 To install seaborn, do either `sudo pip3 install seaborn` to install system-wide or `python3 -m pip install --user seaborn` to install at user level.
 
-6. Then run Julia by simply typing `julia` in the terminal. Copy and paste the code below to install Easyplotting from within the Julia REPL prompt in the terminal:
+6. Then run Julia by simply typing `julia` in the terminal. Copy and paste the code below to install and launch Easyplotting from within the Julia REPL prompt in the terminal:
 
 ```
 using Pkg
