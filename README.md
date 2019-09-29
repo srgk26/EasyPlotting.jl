@@ -116,7 +116,7 @@ As an example, for Julia-1.2.0 running Arch Linux using wayland as the display s
 [srgk26@ArchLinux ~]$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.2/julia-1.2.0-linux-x86_64.tar.gz ## Download Julia-1.2.0 into $HOME folder
 [srgk26@ArchLinux ~]$ tar -xvzf julia-1.2.0-linux-x86_64.tar.gz && rm julia-1.2.0-linux-x86_64.tar.gz ## Extract Julia-1.2.0 and remove tarball
 [srgk26@ArchLinux ~]$ sudo ln -s $HOME/julia-1.2.0/bin/julia /usr/local/bin/julia ## Create symbolic link of the julia binary into a folder in the system PATH
-[srgk26@ArchLinux ~]$ sudo -- sh -c 'echo "export QT_QPA_PLATFORM=wayland" >> /etc/environment && source /etc/environment; pacman -S gtk3 python-pip; pip3 install seaborn' ## Combining the commands requiring root privileges together
+[srgk26@ArchLinux ~]$ sudo -- sh -c 'echo "export QT_QPA_PLATFORM=wayland" >> /etc/environment && source /etc/environment; pacman -S gtk3 python-pip; pip3 install seaborn' ## Combining the commands that require root privileges together
 [srgk26@ArchLinux ~]$ julia ## Enter interactive julia REPL session
 julia> using Pkg ## Use the julia package manager
        if haskey(Pkg.installed(), "Easyplotting") == false
@@ -126,7 +126,7 @@ julia> using Pkg ## Use the julia package manager
        using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
-***If the Easyplotting package precompile stage fails in the terminal, try launching Easyplotting from within Juno instead ([check this out](http://docs.junolab.org/v0.6/index.html))***
+***If the Easyplotting package precompile stage fails in the terminal, try launching Easyplotting from within Juno instead ([check this out](http://docs.junolab.org/v0.6/index.html)).***
 
 ***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
 
