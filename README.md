@@ -126,7 +126,7 @@ julia> using Pkg ## Use the julia package manager
        using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
-***If the Easyplotting package precompile stage fails in the terminal, try launching Easyplotting from within Juno instead ([check this out](http://docs.junolab.org/v0.6/index.html))
+***If the Easyplotting package precompile stage fails in the terminal, try launching Easyplotting from within Juno instead ([check this out](http://docs.junolab.org/v0.6/index.html))***
 
 ***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
 
