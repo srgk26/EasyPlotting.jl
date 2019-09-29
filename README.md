@@ -79,15 +79,36 @@ Linux users, please refrain from installing Julia with your respective package m
 sudo ln -s $HOME/julia-1.2.0/bin/julia /usr/local/bin/julia
 ```
 
-Replace 'julia-1.2.0' with the respective folder name. Then run Julia by simply typing `julia` in the terminal. [Click here](https://julialang.org/downloads/platform.html) for more information.
+Replace 'julia-1.2.0' with the respective folder name. [Click here](https://julialang.org/downloads/platform.html) for more information.
 
-If you are using wayland as your display server protocol, after the Easyplotting installation process, you would also need to type this on your bash shell to switch the qt5 plotting platform to wayland: `QT_QPA_PLATFORM=wayland`.
+3. If you are using wayland as your display server protocol (the output of `echo $XDG_SESSION_TYPE` at the bash shell will tell you if it is wayland or x11), you would also need to set the qt5 plotting backend environment to wayland. Type this on your bash shell to switch the qt5 plotting platform to wayland system-wide: `sudo -- sh -c 'echo "export QT_QPA_PLATFORM=wayland" >> /etc/environment && source /etc/environment'`, or this to configure at user level: `echo "export QT_QPA_PLATFORM=wayland" >> ~/.bash_profile && source ~/.bash_profile`.
 
-You would also need to have a gtk package installed on your system with your respective package manager:
+4. If not already installed, you would also need to have a gtk3 package installed on your system with your respective package manager:
 
 * For Arch Linux based distributions, do `sudo pacman -S gtk3`.<br>
 * For Debian based distributions, do `sudo apt install libgtk-3-dev`.<br>
-* For Fedora/RHEL/CentOS or other RPM-based distributions, kindly refer to: https://pkgs.org/download/devel%28libgtk-3%29.
+* For Fedora and other yum based package managers, do `sudo dnf install gtk3`.<br>
+* For RHEL/CentOS and other yum-based package managers, do `sudo yum install gtk3`.
+
+5. You would also need the python3 seaborn package installed. Firstly, if not already installed, install 'pip3' (the python3 package manager) using your respective package manager:
+
+* For Arch Linux based distributions, do `sudo pacman -S python-pip`.<br>
+* For Debian based distributions, do `sudo apt install python3-pip`.<br>
+* For Fedora and other yum based package managers, do `sudo dnf install python3-pip`.<br>
+* For RHEL/CentOS and other yum-based package managers, do `sudo yum install python3-pip`.
+
+To install seaborn, do either `sudo pip3 install seaborn` to install system-wide or `python3 -m pip install --user seaborn` to install at user level.
+
+6. Then run Julia by simply typing `julia` in the terminal. Copy and paste the code below to install Easyplotting from within the Julia REPL prompt in the terminal:
+
+```
+using Pkg
+if haskey(Pkg.installed(), "Easyplotting") == false
+    Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
+    Pkg.add(PackageSpec(url="https://github.com/srgk26/Easyplotting.jl.git")) ## Install Easyplotting.jl package
+end
+using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
+```
 
 As an example, for Julia-1.2.0 running Arch Linux using wayland as the display server protocol:
 
@@ -95,17 +116,17 @@ As an example, for Julia-1.2.0 running Arch Linux using wayland as the display s
 [srgk26@ArchLinux ~]$ wget https://julialang-s3.julialang.org/bin/linux/x64/1.2/julia-1.2.0-linux-x86_64.tar.gz ## Download Julia-1.2.0 into $HOME folder
 [srgk26@ArchLinux ~]$ tar -xvzf julia-1.2.0-linux-x86_64.tar.gz && rm julia-1.2.0-linux-x86_64.tar.gz ## Extract Julia-1.2.0 and remove tarball
 [srgk26@ArchLinux ~]$ sudo ln -s $HOME/julia-1.2.0/bin/julia /usr/local/bin/julia ## Create symbolic link of the julia binary into a folder in the system PATH
-[srgk26@ArchLinux ~]$ QT_QPA_PLATFORM=wayland ## Only if you're using Wayland
-[srgk26@ArchLinux ~]$ sudo pacman -S gtk3 ## Modify this to install gtk3 with your respective package manager
+[srgk26@ArchLinux ~]$ sudo -- sh -c 'echo "export QT_QPA_PLATFORM=wayland" >> /etc/environment && source /etc/environment; pacman -S gtk3 python-pip; pip3 install seaborn' ## Combining the commands requiring root privileges together
 [srgk26@ArchLinux ~]$ julia ## Enter interactive julia REPL session
 julia> using Pkg ## Use the julia package manager
-julia> if haskey(Pkg.installed(), "Easyplotting") == false
+       if haskey(Pkg.installed(), "Easyplotting") == false
            Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
            Pkg.add(PackageSpec(url="https://github.com/srgk26/Easyplotting.jl.git")) ## Install Easyplotting.jl package
-           ENV["PYTHON"]=""; Pkg.build("PyCall") ## Configure PyCall to use a Julia-specific Python3 distribution via the Conda.jl package
        end
-julia> using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
+       using Easyplotting; retry(Easyplotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
+
+***If the Easyplotting package precompile stage fails in the terminal, try launching Easyplotting from within Juno instead ([check this out](http://docs.junolab.org/v0.6/index.html))
 
 ***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
 
