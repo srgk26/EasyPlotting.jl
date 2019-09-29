@@ -413,7 +413,7 @@ function easyheatmap()
 
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "easyheatmap_dataformat") do args...
-        ImageView.imshow(FileIO.load(joinpath(pathof(easyplotting)[1:end-19], "Figures/Heatmap/heatmap_dataformat.png"))) ## When easyheatmap_dataformat_button is pressed, picture of user input data format pops up.
+        ImageView.imshow(FileIO.load(joinpath(pathof(Easyplotting)[1:end-19], "Figures/Heatmap/heatmap_dataformat.png"))) ## When easyheatmap_dataformat_button is pressed, picture of user input data format pops up.
     end
 
     Blink.handle(w, "easyheatmap_back") do args...
