@@ -1,4 +1,4 @@
-module Easyplotting ## Define Easyplotting module
+module EasyPlotting ## Define EasyPlotting module
 
 using Blink, Interact, XLSX, CSV, DelimitedFiles, DataFrames, StatsPlots, PlotlyJS, Seaborn, Conda, FileIO, ImageView ## Importing required libraries for all downstream functions
 
