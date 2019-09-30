@@ -43,7 +43,7 @@ function easyboxandwhisker()
 
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "easyboxandwhisker_dataformat") do args...
-        ImageView.imshow(FileIO.load(joinpath(pathof(Easyplotting)[1:end-19], "Figures/BoxandWhisker/boxandwhisker_dataformat.png"))) ## When easyboxandwhisker_dataformat_button is pressed, picture of user input data format pops up.
+        ImageView.imshow(FileIO.load(joinpath(pathof(EasyPlotting)[1:end-19], "Figures/BoxandWhisker/boxandwhisker_dataformat.png"))) ## When easyboxandwhisker_dataformat_button is pressed, picture of user input data format pops up.
     end
 
     Blink.handle(w, "easyboxandwhisker_back") do args...
