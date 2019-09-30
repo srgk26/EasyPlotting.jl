@@ -37,7 +37,7 @@ function easypiechart()
 
     ## This is a method of message passing inference between javascript used in Blink and Julia
     Blink.handle(w, "easypiechart_dataformat") do args...
-        ImageView.imshow(FileIO.load(joinpath(pathof(Easyplotting)[1:end-19], "Figures/Piechart/piechart_dataformat.png"))) ## When easypiechart_dataformat_button is pressed, picture of user input data format pops up.
+        ImageView.imshow(FileIO.load(joinpath(pathof(EasyPlotting)[1:end-19], "Figures/Piechart/piechart_dataformat.png"))) ## When easypiechart_dataformat_button is pressed, picture of user input data format pops up.
     end
 
     Blink.handle(w, "easypiechart_back") do args...
