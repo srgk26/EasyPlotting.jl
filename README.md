@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/srgk26/EasyPlotting.jl.svg?branch=master)](https://travis-ci.org/srgk26/EasyPlotting.jl)
+
 # EasyPlotting.jl
 Graphical/statistical plotting GUI package for quick data visualisation and exploration. ***NO CODING REQUIRED***
 
