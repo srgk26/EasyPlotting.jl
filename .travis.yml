@@ -24,11 +24,9 @@ addons:
       - libgconf-2-4
       - libgtk-3-0
       - python3-pip
-env:
-  - PYTHON: ""
 install:
   - pip3 install seaborn
-script
+script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - xvfb-run julia -e 'using Pkg; Pkg.build(); Pkg.test(coverage=true)'
 notifications:
