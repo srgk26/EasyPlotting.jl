@@ -44,7 +44,7 @@ using Pkg; if haskey(Pkg.installed(), "EasyPlotting") == false; Pkg.add(["Plotly
 using EasyPlotting; retry(EasyPlotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
-Press enter. If this is your first time using this package, it could 20-30 min for the full installation process.
+Press enter. If this is your first time using this package, it could take 20-30 min for the full installation process.
 
 If you have already installed this EasyPlotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
