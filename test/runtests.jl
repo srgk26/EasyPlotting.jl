@@ -1,0 +1,2 @@
+using EasyPlotting
+EasyPlotting.easymain()
