@@ -24,6 +24,8 @@ addons:
       - libgconf-2-4
       - libgtk-3-0
       - python3-pip
+env:
+  - PYTHON: ""
 install:
   - pip3 install seaborn
 script
