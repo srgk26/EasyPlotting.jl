@@ -40,17 +40,11 @@ Files of type .xlsx/.csv/.txt(tab-delimited) extensions are supported.
 2. Open the Julia app, copy and paste at the prompt:
 
 ```
-using Pkg
-if haskey(Pkg.installed(), "EasyPlotting") == false
-    Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
-    Pkg.add(PackageSpec(url="https://github.com/srgk26/EasyPlotting.jl.git")) ## Install EasyPlotting.jl package
-end
+using Pkg; if haskey(Pkg.installed(), "EasyPlotting") == false; Pkg.add(["PlotlyJS", "ORCA", "ImageMagick", "EasyPlotting"]); end ## Re-installing dependencies manually due to non-detection of these pkgs installed from Manifest.toml in path
 using EasyPlotting; retry(EasyPlotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
 Press enter. If this is your first time using this package, it could 20-30 min for the full installation process.
-
-***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
 
 If you have already installed this EasyPlotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
@@ -102,11 +96,7 @@ To install seaborn, do either `sudo pip3 install seaborn` to install system-wide
 6. Then run Julia by simply typing `julia` in the terminal. Copy and paste the code below to install and launch EasyPlotting from within the Julia REPL prompt in the terminal:
 
 ```
-using Pkg
-if haskey(Pkg.installed(), "EasyPlotting") == false
-    Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
-    Pkg.add(PackageSpec(url="https://github.com/srgk26/EasyPlotting.jl.git")) ## Install EasyPlotting.jl package
-end
+using Pkg; if haskey(Pkg.installed(), "EasyPlotting") == false; Pkg.add(["PlotlyJS", "ORCA", "ImageMagick", "EasyPlotting"]); end ## Re-installing dependencies manually due to non-detection of these pkgs installed from Manifest.toml in path
 using EasyPlotting; retry(EasyPlotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
@@ -118,17 +108,11 @@ As an example, for Julia-1.2.0 running Arch Linux using wayland as the display s
 [srgk26@ArchLinux ~]$ sudo ln -s $HOME/julia-1.2.0/bin/julia /usr/local/bin/julia ## Create symbolic link of the julia binary into a folder in the system PATH
 [srgk26@ArchLinux ~]$ sudo -- sh -c 'echo "export QT_QPA_PLATFORM=wayland" >> /etc/environment && source /etc/environment; pacman -S gtk3 python-pip; pip3 install seaborn' ## Combining the commands that require root privileges together
 [srgk26@ArchLinux ~]$ julia ## Enter interactive julia REPL session
-julia> using Pkg ## Use the julia package manager
-       if haskey(Pkg.installed(), "EasyPlotting") == false
-           Pkg.add(PackageSpec(url="https://github.com/JuliaGraphics/Gtk.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/PlotlyJS.jl.git")); Pkg.add(PackageSpec(url="https://github.com/sglyon/ORCA.jl.git")); Pkg.add(PackageSpec(url="https://github.com/JuliaIO/ImageMagick.jl.git")) ## Pre-installing dependencies manually due to non-detection of these pkgs in path
-           Pkg.add(PackageSpec(url="https://github.com/srgk26/EasyPlotting.jl.git")) ## Install EasyPlotting.jl package
-       end
+julia> using Pkg; if haskey(Pkg.installed(), "EasyPlotting") == false; Pkg.add(["PlotlyJS", "ORCA", "ImageMagick", "EasyPlotting"]); end ## Re-installing dependencies manually due to non-detection of these pkgs installed from Manifest.toml in path
        using EasyPlotting; retry(EasyPlotting.easymain::Function, delays=ExponentialBackOff(n=5, first_delay=5, max_delay=10))() ## Retry function in case of an IOError when launching Blink
 ```
 
 ***If the EasyPlotting package precompile stage fails in the terminal, it is likely a problem with your linux setup or hardware. If you have access to a SSH server, you could try to use X11 port forwarding and run the GUI from the server instead. You could also try launching EasyPlotting from within the Juno environment ([check this out](http://docs.junolab.org/v0.6/index.html)).***
-
-***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
 
 If you have already installed this EasyPlotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
