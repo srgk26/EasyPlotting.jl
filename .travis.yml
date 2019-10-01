@@ -1,6 +1,5 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
-sudo: required
 os:
   - linux
 julia:
@@ -13,13 +12,8 @@ matrix:
     - julia: nightly
 codecov: true
 coveralls: true
-addons:
-    apt:
-        packages:
-            - xvfb
-            - xauth
-            - libgtk-3-0
-env:
-  PYTHON: ""
+branches:
+  only:
+    - master
 notifications:
   email: true
