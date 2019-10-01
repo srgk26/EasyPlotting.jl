@@ -1,5 +1,6 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
+sudo: required
 os:
   - linux
 julia:
@@ -15,5 +16,18 @@ coveralls: true
 branches:
   only:
     - master
+addons:
+  apt:
+    packages:
+      - xvfb
+      - xauth
+      - libgconf-2-4
+      - libgtk-3-0
+      - python3-pip
+install:
+  - pip3 install seaborn
+script
+  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+  - xvfb-run julia -e 'using Pkg; Pkg.build(); Pkg.test(coverage=true)'
 notifications:
   email: true
