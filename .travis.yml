@@ -24,7 +24,7 @@ addons:
       - libgtk-3-dev
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - travis_wait 20 xvfb-run julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build(); Pkg.test("EasyPlotting", coverage=true)' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
+  - travis_wait 20 xvfb-run julia --project -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build(); Pkg.test("EasyPlotting", coverage=true)' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
 notifications:
   email: true
 after_success:
