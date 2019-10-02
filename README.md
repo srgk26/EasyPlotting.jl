@@ -1,6 +1,13 @@
 [![Build Status](https://travis-ci.org/srgk26/EasyPlotting.jl.svg?branch=master)](https://travis-ci.org/srgk26/EasyPlotting.jl)
 [![codecov](https://codecov.io/gh/srgk26/EasyPlotting.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/srgk26/EasyPlotting.jl)
 [![Coverage Status](https://coveralls.io/repos/github/srgk26/EasyPlotting.jl/badge.svg?branch=master)](https://coveralls.io/github/srgk26/EasyPlotting.jl?branch=master)
+[![GitHub latest release](https://img.shields.io/badge/latest-v0.1.0-blue)](https://github.com/srgk26/EasyPlotting.jl)
+[![GitHub latest release](https://img.shields.io/badge/stable-v0.1.0-green)](https://github.com/srgk26/EasyPlotting.jl/releases)
+[![Julia versions](https://img.shields.io/badge/julia-1.1%20%7C%201.2-blue)](https://julialang.org/)
+[![Code size](https://img.shields.io/github/languages/code-size/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
+[![Repo size](https://img.shields.io/github/repo-size/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
+[![Docker automatic build](https://img.shields.io/docker/automated/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
+[![Docker build](https://img.shields.io/docker/build/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
 
 # EasyPlotting.jl
 Graphical/statistical plotting GUI package for quick data visualisation and exploration. ***NO CODING REQUIRED***
