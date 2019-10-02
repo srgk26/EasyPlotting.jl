@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/srgk26/EasyPlotting.jl.svg?branch=master)](https://travis-ci.org/srgk26/EasyPlotting.jl)
+[![codecov](https://codecov.io/gh/srgk26/EasyPlotting.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/srgk26/EasyPlotting.jl)
 [![Coverage Status](https://coveralls.io/repos/github/srgk26/EasyPlotting.jl/badge.svg?branch=master)](https://coveralls.io/github/srgk26/EasyPlotting.jl?branch=master)
 
 # EasyPlotting.jl
