@@ -17,6 +17,6 @@ addons:
       - libgtk-3-dev
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - xvfb-run julia -e 'using Pkg; Pkg.build(); Pkg.test(coverage=true)'
+  - xvfb-run julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build(); Pkg.test(coverage=true)'
 notifications:
   email: false
