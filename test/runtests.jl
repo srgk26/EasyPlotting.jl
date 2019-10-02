@@ -1,1 +1,1 @@
-using EasyPlotting; EasyPlotting.easymain() ## Run EasyPlotting.jl
+using EasyPlotting ## Test EasyPlotting.jl precompilation
