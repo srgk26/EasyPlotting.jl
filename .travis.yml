@@ -11,21 +11,18 @@ julia:
   - nightly
 matrix:
   allow_failures:
-    - julia: nightly
+    - julia:
+      - 1.1
+      - nightly
 codecov: true
 coveralls: true
 branches:
-  only:
-    - master
+  only: master
 addons:
   apt:
-    packages:
-      - xvfb
-      - xauth
-      - libgconf-2-4
-      - libgtk-3-dev
+    packages: libgtk-3-dev
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - xvfb-run julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build(); Pkg.test(coverage=true)' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
+  - julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build(); Pkg.test(coverage=true)' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
 notifications:
   email: true
