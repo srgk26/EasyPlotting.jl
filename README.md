@@ -6,8 +6,8 @@
 [![Julia versions](https://img.shields.io/badge/julia-1.1%20%7C%201.2-blue)](https://julialang.org/)
 [![Code size](https://img.shields.io/github/languages/code-size/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
 [![Repo size](https://img.shields.io/github/repo-size/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
-[![Docker automatic build](https://img.shields.io/docker/automated/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
-[![Docker build](https://img.shields.io/docker/build/srgk26/EasyPlotting.jl)](https://github.com/srgk26/EasyPlotting.jl)
+[![Docker automatic build](https://img.shields.io/docker/automated/srgk26/easyplotting)](https://hub.docker.com/r/srgk26/easyplotting/tags)
+[![Docker cloud build](https://img.shields.io/docker/cloud/build/srgk26/easyplotting)](https://hub.docker.com/r/srgk26/easyplotting/tags)
 
 # EasyPlotting.jl
 Graphical/statistical plotting GUI package for quick data visualisation and exploration. ***NO CODING REQUIRED***
@@ -73,7 +73,7 @@ using Pkg; Pkg.update("EasyPlotting"); Pkg.build("EasyPlotting")
 
 This fetches the latest updates into your local system. Then simply use the package as per normal.
 
-## Linux Usage
+## Linux Usage:
 
 Linux users, please refrain from installing Julia with your respective package managers. Julia compiled from source using your package manager produces build error (for the 'Arpack' dependency) when building this EasyPlotting.jl package, which affects other downstream processes. Instead:
 
@@ -140,6 +140,12 @@ using Pkg; Pkg.update("EasyPlotting"); Pkg.build("EasyPlotting")
 ```
 
 This fetches the latest updates into your local system. Then simply use the package as per normal.
+
+***
+
+## For advanced users - Docker:
+
+A docker image for every EasyPlotting.jl release is also provided [here](https://hub.docker.com/r/srgk26/easyplotting/tags).
 
 ***
 
