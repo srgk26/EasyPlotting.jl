@@ -57,6 +57,8 @@ using EasyPlotting; retry(EasyPlotting.easymain::Function, delays=ExponentialBac
 
 Press enter. If this is your first time using this package, it could take 20-30 min for the full installation process.
 
+***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
+
 If you have already installed this EasyPlotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
 ```
@@ -124,6 +126,8 @@ julia> using Pkg; if haskey(Pkg.installed(), "EasyPlotting") == false; Pkg.add([
 ```
 
 ***If the EasyPlotting package precompile stage fails in the terminal, it is likely a problem with your linux setup or hardware. If you have access to a SSH server, you could try to use X11 port forwarding and run the GUI from the server instead. You could also try launching EasyPlotting from within the Juno environment ([check this out](http://docs.junolab.org/v0.6/index.html)).***
+
+***Kindly take note that pressing the 'Plot' button the first time may give an error. Kindly ignore the error message and try again, it will work from the second time.***
 
 If you have already installed this EasyPlotting.jl package, you may prefer to launch the GUI by copying and pasting this instead at the Julia prompt:
 
