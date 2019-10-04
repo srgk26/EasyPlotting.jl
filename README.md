@@ -145,7 +145,7 @@ This fetches the latest updates into your local system. Then simply use the pack
 
 ## For advanced users - Docker:
 
-A docker image for every EasyPlotting.jl release is also provided [here](https://hub.docker.com/r/srgk26/easyplotting/tags).
+A docker image (repo name: srgk26/easyplotting) for every EasyPlotting.jl release is also provided [here](https://hub.docker.com/r/srgk26/easyplotting/tags).
 
 ***
 
