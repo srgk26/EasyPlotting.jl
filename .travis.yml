@@ -4,11 +4,12 @@ sudo: required
 os:
   - linux
 julia:
+  - 1.1
   - 1.2
   - nightly
 matrix:
   allow_failures:
-    - julia: 1.2
+    - julia: nightly
   fast_finish: true
 codecov: true
 coveralls: true
@@ -24,9 +25,10 @@ addons:
       - libgtk-3-dev
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - xvfb-run julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build(); Pkg.test("EasyPlotting", coverage=true)' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
+  - xvfb-run julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build()' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
+  - travis_wait 30 xvfb-run julia -e 'Pkg.test("EasyPlotting", coverage=true)'
 notifications:
-  email: true
+  email: false
 after_success:
 - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
 - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())'
