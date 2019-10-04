@@ -26,7 +26,7 @@ addons:
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
   - xvfb-run julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build()' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
-  - travis_wait 30 xvfb-run julia -e 'Pkg.test("EasyPlotting", coverage=true)'
+  - travis_wait 30 xvfb-run julia -e 'using Pkg; Pkg.test("EasyPlotting", coverage=true)'
 notifications:
   email: false
 after_success:
