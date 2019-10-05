@@ -23,11 +23,7 @@ addons:
       - libgconf-2-4
       - libgtk-3-dev
 before_script:
-  # Every 30 seconds, look for the build log file. If it exists, then
-  # start watching its contents and printing them to stdout as they
-  # change. This has two effects:
-  #   1. it avoids Travis timing out because the build outputs nothing
-  #   2. it makes it more obvious what part of the build, if any, gets stuck
+# Loads the build log file (if any) every 60s to keep Travis CI from timing out
   - while sleep 60; do tail ~/build/srgk26/EasyPlotting.jl/deps/build.log -f ; done &
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
