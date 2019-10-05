@@ -12,7 +12,7 @@
 # EasyPlotting.jl
 Graphical/statistical plotting GUI package for quick data visualisation and exploration. ***NO CODING REQUIRED***
 
-This is an attempt to create a working GUI that serves to ease the process of producing high quality plots normally produced by coding. This GUI takes care of the coding involved in the background while you need only input your data, select relevant options, and produce as many plots as you would like, all with just a few clicks.
+This is a GUI that serves to ease the process of producing high quality plots normally produced by coding. This GUI takes care of the coding involved in the background while you need only input your data, select relevant options, and produce as many plots as you would like, all with just a few clicks.
 
 This is a preview of the main page of the GUI:
 
