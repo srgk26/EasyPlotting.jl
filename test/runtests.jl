@@ -17,7 +17,8 @@ ENV["PYTHON"]="" ## Reset python3 PATH to set Julia-specific python3 version mai
 using Pkg; Pkg.build("PyCall") ## Re-build PyCall
 
 ## Use packages specific for additional testing
-using Blink, Interact, Seaborn, Conda ## 'Using Seaborn' should automatically add python3's seaborn via Conda.jl
+using Blink, Interact, Seaborn, Conda
+Conda.add("seaborn") ## Test adding python3's seaborn package via Conda.jl
 
 ## Include src scripts for testing
 include("../src/easymain.jl")
