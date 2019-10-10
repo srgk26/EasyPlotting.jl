@@ -1,8 +1,7 @@
 # Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 sudo: required
-os:
-  - linux
+os: linux
 julia:
   - 1.2
   - nightly
@@ -10,26 +9,21 @@ matrix:
   allow_failures:
     - julia: nightly
   fast_finish: true
-codecov: true
-coveralls: true
 branches:
   only: master
 addons:
   apt:
     packages:
-      - xvfb
-      - xauth
       - at-spi2-core
-      - libgconf-2-4
       - libgtk-3-dev
-before_script:
-# Loads the build log file (if any) every 60s to keep Travis CI from timing out
-  - while sleep 60; do tail ~/build/srgk26/EasyPlotting.jl/deps/build.log -f ; done &
+      - python3-pip
+install:
+  - sudo pip3 install --upgrade pip
+  - sudo pip3 install seaborn
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - xvfb-run julia -e 'using Pkg; ENV["PYTHON"]=""; Pkg.build(); Pkg.test("EasyPlotting", coverage=true)' ## Re-configure Python environment for PyCall to use Julia-specific Python version via Conda.jl package
+  - xvfb-run julia -e 'using Pkg; Pkg.build(); Pkg.test("EasyPlotting", coverage=true)'
 notifications:
   email: false
-after_success:
-- julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
-- julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())'
+codecov: true
+coveralls: true
