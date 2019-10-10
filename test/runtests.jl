@@ -45,5 +45,5 @@ include("../src/easyviolinplot.jl")
 @test_nowarn easystripplot()
 @test_nowarn easyviolinplot()
 
-## Test successful plotting with Julia's Seaborn built using python3' seaborn installed via Conda.jl
+## Test successful plotting with Julia's Seaborn built using python3's seaborn installed via Conda.jl
 @test_nowarn Seaborn.plot(rand(5,5))
