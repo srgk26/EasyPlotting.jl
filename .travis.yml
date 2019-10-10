@@ -2,6 +2,8 @@
 language: julia
 sudo: required
 os: linux
+codecov: true
+coveralls: true
 julia:
   - 1.2
   - nightly
@@ -25,8 +27,6 @@ script:
   - xvfb-run julia -e 'using Pkg; Pkg.build(); Pkg.test("EasyPlotting", coverage=true)'
 notifications:
   email: false
-codecov: true
-coveralls: true
 after_success:
 - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
 - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder())'
