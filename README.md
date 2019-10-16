@@ -116,11 +116,11 @@ Replace 'julia-1.2.0' with the respective folder name. [Click here](https://juli
 * For Fedora and other yum based package managers, do `sudo dnf install gtk3`.<br>
 * For RHEL/CentOS and other yum-based package managers, do `sudo yum install gtk3`.
 
-5. You would also need python3, the python3 seaborn package, and the 'TkAgg' matplotlib backend installed. Firstly, if not already installed, install 'pip3' (the python3 package manager) and the 'TkAgg' backend using your package manager:
+5. You would also need the python3 seaborn package, and the 'TkAgg' matplotlib backend installed. Firstly, if not already installed, install 'pip3' (the python3 package manager) and the 'TkAgg' backend using your package manager:
 
-* For Arch Linux based distributions, do `sudo pacman -S python python-pip`.<br>
-* For Debian based distributions, do `sudo apt install python3 python3-tk python3-pip`.<br>
-* For Fedora/RHEL/CentOS based distributions, do `sudo dnf install python3 python3-tkinter python3-pip`.
+* For Arch Linux based distributions, do `sudo pacman -S python-pip`.<br>
+* For Debian based distributions, do `sudo apt install python3-tk python3-pip`.<br>
+* For Fedora/RHEL/CentOS based distributions, do `sudo dnf install python3-tkinter python3-pip`.
 
 To install seaborn, do either `sudo pip3 install seaborn` to install system-wide or `python3 -m pip install --user seaborn` to install at user level.
 
